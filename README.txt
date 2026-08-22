@@ -92,13 +92,17 @@ Programme        the timetable, lines sliding in one by one
 Extra slides     anything in media/slides/extra
 Sponsors         logos jumping on the beat (skipped if the folder is empty)
 Notice           one big announcement — off until you switch it on
-Raffle draw      media/slides/raffle.jpg, the last scene of the evening.
-                 The poster is taller than it is wide, so on a wide
-                 screen it is shown whole down the middle with a soft
-                 blurred copy of itself filling the sides.
+Raffle draw      media/slides/raffle.jpg. The poster is taller than it
+                 is wide, so on a wide screen it is shown whole down the
+                 middle with the pattern filling the sides.
+Ticket winner    media/slides/winner.jpg, the last scene of the evening —
+                 the screen to have up behind you while you announce who
+                 has won the flight ticket. It follows the raffle draw.
+                 Press Space to hold it there for as long as the
+                 announcement takes, and Space again to let the show
+                 carry on. It is never cropped on any screen (see below).
 
-There is no thank-you screen any more — the evening ends on the raffle
-draw.
+The evening ends on the raffle draw and the winner announcement.
 
 There are also "Porto only" and "Bangladesh only" scenes, switched
 off. Turn them on if you ever want the two shown apart instead.
@@ -305,6 +309,35 @@ To move them, give them more time, or switch one off, use "Running
 order" on the setup page like any other scene.
 
 -------------------------------------------------------------------
+THE TICKET WINNER SCREEN
+-------------------------------------------------------------------
+media/slides/winner.jpg is the screen to have up behind you when you
+announce who has won the flight ticket. It sits last in the running
+order, straight after the raffle draw.
+
+On the night:
+
+  1. The raffle draw poster comes up.
+  2. The winner card follows it.
+  3. Press Space the moment it appears. The show stops there and the
+     card stays on the wall for as long as you need.
+  4. Press Space again when you are done and the show carries on.
+
+If the show has moved past it, press the right arrow until "Ticket
+winner" shows in the corner panel, then Space.
+
+It is set to 40 seconds if you leave it alone, which is enough to read
+out a name without touching anything.
+
+This card is never cropped. It carries the sponsor's logo in one corner
+and two names along the bottom, so instead of filling the screen and
+losing the edges it is always shown whole, with the festival pattern
+above and below it. That holds on any screen shape.
+
+To change it, overwrite media/slides/winner.jpg and press "Rescan
+folder". Around 2400 pixels wide is the right size for the wall.
+
+-------------------------------------------------------------------
 ADDING OR CHANGING PICTURES
 -------------------------------------------------------------------
 Just drop files into the right folder and name them in order.
@@ -324,7 +357,8 @@ Single fixed files:
   media/slides/flags.png      the two-flags artwork
   media/slides/ad-1.jpg       the sponsor's first screen, after the film
   media/slides/ad-2.jpg       the sponsor's second screen
-  media/slides/raffle.jpg     the raffle draw banner, shown last
+  media/slides/raffle.jpg     the raffle draw banner
+  media/slides/winner.jpg     the flight ticket winner, shown last
   media/brand/flag-bd.jpg     the Bangladesh flag artwork
   media/brand/flag-pt.jpg     the Portuguese flag artwork
   media/brand/logo.png        small logo in the top-right corner

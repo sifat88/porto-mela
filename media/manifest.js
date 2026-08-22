@@ -20,5 +20,6 @@ window.MELA_MEDIA = {
   sponsors:   [],
   extras:     [],   // extra full-screen designed slides
   ad1:        null, // the sponsor's first screen, if not media/slides/ad-1.jpg
-  ad2:        null  // the sponsor's second screen
+  ad2:        null, // the sponsor's second screen
+  winner:     null  // the flight ticket winner card
 };
