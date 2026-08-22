@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Festival de Bangladesh 2026 — Display v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;800&family=Archivo:wght@400;600;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --saffron:#F79B1E; --amber:#FFC533; --sindoor:#C1272D;
+  --bottle:#006A4E; --bdred:#F42A41; --azulejo:#1B4F8C;
+  --cream:#FFF4DC; --ink:#2A1405;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0b0500}
+body{font-family:'Archivo',system-ui,sans-serif;color:var(--cream)}
+.hidden{display:none!important}
+
+/* ================= SETUP ================= */
+#setup{position:fixed;inset:0;z-index:100;overflow-y:auto;padding:4vh 4vw;
+  background:radial-gradient(circle at 28% 15%,rgba(255,197,51,.3),transparent 55%),
+             linear-gradient(160deg,#F79B1E,#DA5F18 65%,#7d2a0a);}
+.panel{width:min(760px,100%);margin:0 auto;background:rgba(18,7,0,.86);
+  border:1px solid rgba(255,197,51,.35);border-radius:20px;padding:34px 30px;backdrop-filter:blur(12px)}
+.panel h1{font-family:'Baloo Da 2',sans-serif;font-size:29px;color:var(--amber);line-height:1.25}
+.panel .sub{font-size:13.5px;opacity:.7;margin:6px 0 26px}
+.field{margin-bottom:24px}
+.field>label,.legend{display:block;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  opacity:.6;margin-bottom:9px;font-weight:900}
+input[type=file]{display:none}
+.filebtn{display:block;padding:15px 18px;border:1px dashed rgba(255,197,51,.4);border-radius:11px;
+  cursor:pointer;font-size:13.5px;transition:.18s;background:rgba(255,197,51,.04);margin-bottom:9px}
+.filebtn:hover{background:rgba(255,197,51,.12);border-color:var(--amber)}
+.filebtn b{color:var(--amber)}
+.filebtn i{font-style:normal;float:right;opacity:.6;font-size:12px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:120px;padding:12px;border-radius:10px;cursor:pointer;font:inherit;font-size:13.5px;
+  font-weight:600;color:var(--cream);text-align:left;border:1px solid rgba(255,244,220,.2);
+  background:rgba(255,244,220,.05);transition:.18s}
+.choice:hover{border-color:rgba(255,197,51,.6)}
+.choice[aria-pressed=true]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.choice small{display:block;font-weight:400;font-size:11px;opacity:.72;margin-top:2px}
+
+/* running order */
+#order{list-style:none}
+#order li{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:7px;
+  background:rgba(255,244,220,.05);border:1px solid rgba(255,244,220,.14);border-radius:10px;font-size:13.5px}
+#order li .nm{flex:1;font-weight:600}
+#order li .nm em{display:block;font-style:normal;font-size:11px;opacity:.55;font-weight:400;margin-top:1px}
+#order li input[type=number]{width:56px;padding:5px 7px;border-radius:7px;font:inherit;font-size:12.5px;
+  background:rgba(0,0,0,.45);border:1px solid rgba(255,244,220,.22);color:var(--cream);text-align:center}
+#order li .u{font-size:11px;opacity:.5;margin-left:-5px}
+#order button{background:rgba(255,244,220,.1);border:0;color:var(--cream);width:26px;height:26px;
+  border-radius:6px;cursor:pointer;font-size:13px;line-height:1}
+#order button:hover{background:var(--amber);color:var(--ink)}
+#order li.off{opacity:.38}
+.go{width:100%;padding:17px;border:0;border-radius:12px;cursor:pointer;background:var(--sindoor);
+  color:#fff;font:inherit;font-weight:900;font-size:17px;letter-spacing:.03em;transition:.18s}
+.go:hover{background:#e2323a}
+.hint{font-size:12px;opacity:.5;margin-top:14px;line-height:1.65}
+kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size:11px;font-family:inherit}
+
+/* ================= STAGE ================= */
+#stage{position:fixed;inset:0;background:#0b0500}
+#bars{position:absolute;inset:0;width:100%;height:100%;z-index:3}
+#layers{position:absolute;inset:0;z-index:1}
+.layer{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform,opacity,filter}
+#shade{position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(11,5,0,.85) 0%,rgba(11,5,0,.1) 24%,
+             rgba(11,5,0,.18) 58%,rgba(11,5,0,.9) 100%)}
+
+/* scene overlays */
+.scene{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;opacity:0;transition:opacity .9s;pointer-events:none;padding:8vmin}
+.scene.on{opacity:1}
+
+/* title scene */
+#scTitle .bn{font-family:'Baloo Da 2','Noto Sans Bengali',sans-serif;font-weight:800;font-size:9vmin;
+  line-height:1.14;color:var(--amber);-webkit-text-stroke:.4vmin var(--sindoor);paint-order:stroke fill}
+#scTitle .pt{font-weight:900;font-size:4.6vmin;margin-top:1.4vmin;color:#fff}
+#scTitle .yr{font-weight:400;font-size:2vmin;letter-spacing:.5em;margin-top:2.6vmin;opacity:.75}
+
+/* flags scene */
+#scFlags .pair{display:flex;align-items:center;gap:7vmin}
+.flag{width:26vmin;height:15.6vmin;border-radius:1vmin;box-shadow:0 1.4vmin 5vmin rgba(0,0,0,.6);
+  overflow:hidden;position:relative;background-size:cover;background-position:center}
+.flag.bd{background:var(--bottle)}
+.flag.bd::after{content:'';position:absolute;top:50%;left:45%;transform:translate(-50%,-50%);
+  width:9.4vmin;height:9.4vmin;border-radius:50%;background:var(--bdred)}
+.flag.pt{background:linear-gradient(to right,var(--bottle) 0 40%,#DA291C 40% 100%)}
+.flag.pt::after{content:'';position:absolute;top:50%;left:40%;transform:translate(-50%,-50%);
+  width:6.6vmin;height:6.6vmin;border-radius:50%;border:.7vmin solid var(--amber);background:rgba(255,255,255,.12)}
+#scFlags .join{font-size:7vmin;color:var(--amber);font-weight:900;opacity:.85}
+#scFlags .cap{margin-top:5vmin;font-family:'Baloo Da 2','Noto Sans Bengali',sans-serif;
+  font-size:4.2vmin;color:var(--amber)}
+#scFlags .cap span{display:block;font-family:'Archivo';font-weight:600;font-size:2.3vmin;
+  color:var(--cream);opacity:.85;margin-top:1vmin;letter-spacing:.03em}
+
+/* sponsors scene */
+#scSpon .lead{font-size:2vmin;letter-spacing:.35em;text-transform:uppercase;opacity:.6;margin-bottom:5vmin}
+#sponGrid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4.5vmin;max-width:88vw}
+#sponGrid img{max-height:13vmin;max-width:26vmin;object-fit:contain;
+  background:#fff;padding:1.6vmin 2.2vmin;border-radius:1.4vmin;will-change:transform;
+  box-shadow:0 1vmin 4vmin rgba(0,0,0,.5)}
+
+/* persistent chrome */
+#mark{position:absolute;bottom:3vmin;left:0;right:0;z-index:5;text-align:center;pointer-events:none;
+  font-size:1.85vmin;font-weight:600;letter-spacing:.05em;opacity:.85;text-shadow:0 2px 14px rgba(0,0,0,.9)}
+#mark b{color:var(--amber);font-weight:900}
+#logo{position:absolute;top:2.6vmin;right:3vmin;z-index:5;height:11vmin;
+  filter:drop-shadow(0 .6vmin 2vmin rgba(0,0,0,.7));will-change:transform}
+#msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9;
+  background:rgba(193,39,45,.94);padding:16px 26px;border-radius:11px;font-size:15px;
+  font-weight:700;text-align:center;line-height:1.55;display:none}
+#tune{position:absolute;top:14px;left:14px;z-index:9;width:246px;font-size:12.5px;display:none;
+  background:rgba(15,6,0,.93);border:1px solid rgba(255,197,51,.35);border-radius:12px;padding:16px}
+#tune h3{font-size:10px;letter-spacing:.17em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
+#tune label{display:block;margin-bottom:13px}
+#tune label span{float:right;opacity:.6;font-variant-numeric:tabular-nums}
+#tune input[type=range]{width:100%;margin-top:6px;accent-color:var(--amber)}
+#tune .now{opacity:.6;font-size:11.5px;border-top:1px solid rgba(255,244,220,.14);padding-top:10px}
+@media(prefers-reduced-motion:reduce){.layer,.scene{transition-duration:.3s!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<div id="setup"><div class="panel">
+  <h1>বাংলাদেশ ফেস্টিভ্যাল ২০২৬</h1>
+  <div class="sub">Show setup — Comunidade de Bangladesh do Porto</div>
+
+  <div class="field">
+    <label>Images</label>
+    <label class="filebtn" for="fPorto"><b>Porto photos</b> <i id="cPorto">none</i></label>
+    <input type="file" id="fPorto" accept="image/*" multiple>
+    <label class="filebtn" for="fBd"><b>Bangladesh photos</b> <i id="cBd">none</i></label>
+    <input type="file" id="fBd" accept="image/*" multiple>
+    <label class="filebtn" for="fSpon"><b>Sponsor logos</b> <i id="cSpon">none</i> </label>
+    <input type="file" id="fSpon" accept="image/*" multiple>
+    <label class="filebtn" for="fLogo"><b>Community logo</b> <i id="cLogo">none</i></label>
+    <input type="file" id="fLogo" accept="image/*">
+  </div>
+
+  <div class="field">
+    <label>Running order — drag durations, arrows reorder, × turns a scene off</label>
+    <ul id="order"></ul>
+  </div>
+
+  <div class="field">
+    <label>Music source</label>
+    <div class="choices">
+      <button class="choice" id="srcMic" aria-pressed="true">Room microphone<small>DJ, PA, phone, live band</small></button>
+      <button class="choice" id="srcFile" aria-pressed="false">Audio file<small>Plays from this laptop</small></button>
+    </div>
+    <label class="filebtn hidden" for="fTrack" id="trackBtn" style="margin-top:9px"><b>Choose an audio file</b> <i>MP3 · WAV · M4A</i></label>
+    <input type="file" id="fTrack" accept="audio/*">
+  </div>
+
+  <button class="go" id="go">Start show</button>
+  <div class="hint"><kbd>S</kbd> settings · <kbd>F</kbd> fullscreen · <kbd>→</kbd> skip scene · <kbd>Esc</kbd> back here. Cursor hides after 3s.</div>
+</div></div>
+
+<div id="stage" class="hidden">
+  <div id="layers"></div>
+  <div id="shade"></div>
+  <canvas id="bars"></canvas>
+
+  <div class="scene" id="scTitle">
+    <div class="bn">মেলা<br>বাংলাদেশ ফেস্টিভ্যাল</div>
+    <div class="pt">Festival de Bangladesh</div>
+    <div class="yr">২০২৬ · PORTO · 2026</div>
+  </div>
+
+  <div class="scene" id="scFlags">
+    <div class="pair">
+      <div class="flag bd" id="flagBd"></div>
+      <div class="join">◆</div>
+      <div class="flag pt" id="flagPt"></div>
+    </div>
+    <div class="cap">বাংলাদেশ ও পর্তুগাল — এক হৃদয়
+      <span>Bangladesh e Portugal — uma comunidade, dois lares</span></div>
+  </div>
+
+  <div class="scene" id="scSpon">
+    <div class="lead">Com o apoio de · আমাদের সহযোগীরা</div>
+    <div id="sponGrid"></div>
+  </div>
+
+  <img id="logo" class="hidden" alt="">
+  <div id="mark">COMUNIDADE DE BANGLADESH DO PORTO <b>·</b> ESTD 2008</div>
+  <div id="msg"></div>
+  <div id="tune">
+    <h3>Settings</h3>
+    <label>Sensitivity <span id="vSens">1.0</span><input type="range" id="sens" min=".3" max="3" step=".1" value="1"></label>
+    <label>Bar count <span id="vBars">96</span><input type="range" id="nbars" min="24" max="160" step="8" value="96"></label>
+    <label>Bar opacity <span id="vOp">45%</span><input type="range" id="op" min="10" max="100" step="5" value="45"></label>
+    <div class="now" id="now">—</div>
+  </div>
+</div>
+
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const U=f=>[...f].map(x=>URL.createObjectURL(x));
+let porto=[],bd=[],spon=[],logoURL=null,track=null,src='mic';
+
+/* ---------- pickers ---------- */
+function hook(inp,cnt,set,multi=true){
+  $(inp).onchange=e=>{
+    const f=e.target.files; if(!f.length)return;
+    set(multi?U(f):URL.createObjectURL(f[0]));
+    $(cnt).textContent = multi ? f.length+' file'+(f.length>1?'s':'') : f[0].name.slice(0,22);
+    build();
+  };
+}
+hook('fPorto','cPorto',v=>porto=v);
+hook('fBd','cBd',v=>bd=v);
+hook('fSpon','cSpon',v=>spon=v);
+hook('fLogo','cLogo',v=>logoURL=v,false);
+$('fTrack').onchange=e=>{ track=e.target.files[0]; if(track) $('trackBtn').innerHTML='<b>'+track.name+'</b>'; };
+$('srcMic').onclick=()=>pick('mic'); $('srcFile').onclick=()=>pick('file');
+function pick(s){src=s;$('srcMic').setAttribute('aria-pressed',s==='mic');
+  $('srcFile').setAttribute('aria-pressed',s==='file');$('trackBtn').classList.toggle('hidden',s!=='file');}
+
+/* ---------- running order ---------- */
+let seq=[
+  {id:'title', label:'Opening title',   note:'Festival name, Bengali + Portuguese', dur:10, on:true},
+  {id:'porto', label:'Porto',           note:'Photo sequence',                      dur:36, on:true},
+  {id:'flags', label:'Two flags',       note:'Bangladesh · Portugal',               dur:14, on:true},
+  {id:'bd',    label:'Bangladesh',      note:'Photo sequence',                      dur:36, on:true},
+  {id:'spon',  label:'Sponsors',        note:'Logos, jumping on the beat',          dur:20, on:true},
+];
+function build(){
+  const ul=$('order'); ul.innerHTML='';
+  seq.forEach((s,i)=>{
+    const missing = (s.id==='porto'&&!porto.length)||(s.id==='bd'&&!bd.length)||(s.id==='spon'&&!spon.length);
+    const li=document.createElement('li');
+    if(!s.on||missing) li.className='off';
+    li.innerHTML=`<button data-u="${i}">↑</button><button data-d="${i}">↓</button>
+      <span class="nm">${s.label}<em>${missing?'no files yet — will be skipped':s.note}</em></span>
+      <input type="number" min="4" max="180" value="${s.dur}" data-t="${i}"><span class="u">sec</span>
+      <button data-x="${i}">${s.on?'×':'+'}</button>`;
+    ul.appendChild(li);
+  });
+  ul.onclick=e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    const u=b.dataset.u,d=b.dataset.d,x=b.dataset.x;
+    if(u!==undefined&&u>0)[seq[u-1],seq[u]]=[seq[u],seq[u-1]];
+    if(d!==undefined&&d<seq.length-1)[seq[+d+1],seq[d]]=[seq[d],seq[+d+1]];
+    if(x!==undefined)seq[x].on=!seq[x].on;
+    build();
+  };
+  ul.oninput=e=>{ if(e.target.dataset.t!==undefined) seq[e.target.dataset.t].dur=Math.max(4,+e.target.value||4); };
+}
+build();
+
+/* ---------- audio ---------- */
+let an=null,freq=null,ceil=40,sens=1,bass=0,mid=0,hi=0;
+async function initAudio(){
+  const ac=new (window.AudioContext||window.webkitAudioContext)(); await ac.resume();
+  an=ac.createAnalyser(); an.fftSize=4096; an.smoothingTimeConstant=.7;
+  freq=new Uint8Array(an.frequencyBinCount);
+  if(src==='file'&&track){
+    const a=new Audio(URL.createObjectURL(track)); a.loop=true;
+    ac.createMediaElementSource(a).connect(an); an.connect(ac.destination); await a.play();
+  }else{
+    const st=await navigator.mediaDevices.getUserMedia({audio:{
+      echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    ac.createMediaStreamSource(st).connect(an);
+  }
+}
+
+/* ---------- transitions ---------- */
+const TR=['fade','zoomIn','zoomOut','pushL','pushR','pushU','irisIn','wipeL','blurIn','tilt'];
+let trI=Math.floor(Math.random()*TR.length);
+function nextTr(){ trI=(trI+1+Math.floor(Math.random()*3))%TR.length; return TR[trI]; }
+
+function styleFor(t,phase){ // phase: 'pre' | 'in'
+  const p = phase==='pre';
+  switch(t){
+    case 'zoomIn':  return {opacity:p?0:1, transform:p?'scale(1.28)':'scale(1)',   filter:'none'};
+    case 'zoomOut': return {opacity:p?0:1, transform:p?'scale(.78)':'scale(1)',    filter:'none'};
+    case 'pushL':   return {opacity:1,     transform:p?'translateX(101%)':'translateX(0)', filter:'none'};
+    case 'pushR':   return {opacity:1,     transform:p?'translateX(-101%)':'translateX(0)',filter:'none'};
+    case 'pushU':   return {opacity:1,     transform:p?'translateY(101%)':'translateY(0)', filter:'none'};
+    case 'tilt':    return {opacity:p?0:1, transform:p?'scale(1.2) rotate(3.5deg)':'scale(1) rotate(0)',filter:'none'};
+    case 'blurIn':  return {opacity:p?0:1, transform:p?'scale(1.12)':'scale(1)',   filter:p?'blur(26px)':'blur(0)'};
+    default:        return {opacity:p?0:1, transform:'scale(1)', filter:'none'};
+  }
+}
+function clipFor(t,phase){
+  const p=phase==='pre';
+  if(t==='irisIn') return p?'circle(0% at 50% 50%)':'circle(85% at 50% 50%)';
+  if(t==='wipeL')  return p?'inset(0 100% 0 0)':'inset(0 0 0 0)';
+  return 'none';
+}
+
+let live=null;
+function showImage(url){
+  const t=nextTr(), el=document.createElement('div');
+  el.className='layer'; el.style.backgroundImage=`url("${url}")`;
+  const pre=styleFor(t,'pre');
+  Object.assign(el.style,pre); el.style.clipPath=clipFor(t,'pre');
+  $('layers').appendChild(el);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    el.style.transition='opacity 1.3s ease, transform 1.5s cubic-bezier(.22,.7,.2,1), filter 1.3s ease, clip-path 1.4s ease';
+    const on=styleFor(t,'in');
+    Object.assign(el.style,on); el.style.clipPath=clipFor(t,'in');
+    // slow drift while it holds
+    setTimeout(()=>{
+      el.style.transition='transform 9s linear';
+      el.style.transform = on.transform.replace('scale(1)','scale(1.1)')
+        + ` translate(${(Math.random()*3-1.5).toFixed(1)}%,${(Math.random()*3-1.5).toFixed(1)}%)`;
+    },1600);
+  }));
+  const old=live; live=el;
+  if(old) setTimeout(()=>{ old.style.transition='opacity 1.3s ease'; old.style.opacity=0;
+    setTimeout(()=>old.remove(),1400); }, 200);
+}
+function clearImages(){ [...$('layers').children].forEach(el=>{
+  el.style.transition='opacity 1s'; el.style.opacity=0; setTimeout(()=>el.remove(),1100); }); live=null; }
+
+/* ---------- scene engine ---------- */
+let idx=-1, timers=[];
+function clearT(){ timers.forEach(clearTimeout); timers=[]; }
+function scene(id,on){ $(id).classList.toggle('on',on); }
+function allOff(){ ['scTitle','scFlags','scSpon'].forEach(s=>scene(s,false)); }
+
+function playable(){
+  return seq.filter(s=>s.on && !((s.id==='porto'&&!porto.length)||(s.id==='bd'&&!bd.length)||(s.id==='spon'&&!spon.length)));
+}
+function run(){
+  clearT(); allOff();
+  const list=playable();
+  if(!list.length){ $('msg').style.display='block'; $('msg').textContent='No scenes to play — press Esc and add some files.'; return; }
+  idx=(idx+1)%list.length;
+  const s=list[idx];
+  $('now').textContent='Now: '+s.label+'  ·  next in '+s.dur+'s';
+
+  if(s.id==='title'){ clearImages(); setTimeout(()=>scene('scTitle',true),300); }
+  if(s.id==='flags'){ clearImages(); setTimeout(()=>scene('scFlags',true),300); }
+  if(s.id==='spon'){
+    clearImages();
+    const g=$('sponGrid'); g.innerHTML='';
+    spon.forEach(u=>{ const i=document.createElement('img'); i.src=u; g.appendChild(i); });
+    setTimeout(()=>scene('scSpon',true),300);
+  }
+  if(s.id==='porto'||s.id==='bd'){
+    const pool = s.id==='porto'?porto:bd;
+    const per = Math.max(4500, (s.dur*1000)/pool.length);
+    let k=0; showImage(pool[0]);
+    for(let t=per; t<s.dur*1000-500; t+=per){
+      timers.push(setTimeout(()=>{ k=(k+1)%pool.length; showImage(pool[k]); }, t));
+    }
+  }
+  timers.push(setTimeout(run, s.dur*1000));
+}
+
+/* ---------- bars ---------- */
+const cv=$('bars'), ctx=cv.getContext('2d');
+let NB=96, OP=.45;
+function fit(){ const r=devicePixelRatio||1; cv.width=innerWidth*r; cv.height=innerHeight*r; ctx.setTransform(r,0,0,r,0,0); }
+addEventListener('resize',fit);
+
+const smooth=new Float32Array(200);
+function draw(){
+  requestAnimationFrame(draw);
+  const W=innerWidth,H=innerHeight;
+  ctx.clearRect(0,0,W,H);
+  if(!an) return;
+  an.getByteFrequencyData(freq);
+
+  const band=(a,b)=>{let s=0;for(let i=a;i<b;i++)s+=freq[i];return s/(b-a);};
+  const rB=band(2,22), rM=band(22,340), rH=band(340,860);
+  ceil=Math.max(rB,rM,ceil*.996,12);
+  const n=v=>Math.min(1,(v/ceil)*sens);
+  bass+=(n(rB)-bass)*.32; mid+=(n(rM)-mid)*.2; hi+=(n(rH)-hi)*.36;
+
+  // full-screen bar chart, log-spaced so it looks musical not lopsided
+  const bw=W/NB;
+  for(let i=0;i<NB;i++){
+    const lo=Math.floor(Math.pow(i/NB,2.05)*900)+2;
+    const up=Math.max(lo+1,Math.floor(Math.pow((i+1)/NB,2.05)*900)+2);
+    let v=0; for(let j=lo;j<up;j++) v=Math.max(v,freq[j]);
+    v=Math.min(1,(v/255)*sens*1.25);
+    smooth[i]+= (v-smooth[i]) * (v>smooth[i] ? .55 : .12);   // fast attack, slow release
+    const h=smooth[i]*H*.92;
+    const g=ctx.createLinearGradient(0,H,0,H-h);
+    g.addColorStop(0,  `rgba(193,39,45,${OP})`);
+    g.addColorStop(.45,`rgba(247,155,30,${OP*.92})`);
+    g.addColorStop(1,  `rgba(255,225,140,${OP*.75})`);
+    ctx.fillStyle=g;
+    ctx.fillRect(i*bw+bw*.13, H-h, bw*.74, h);
+    // cap
+    ctx.fillStyle=`rgba(255,244,220,${OP*.9})`;
+    ctx.fillRect(i*bw+bw*.13, H-h-2, bw*.74, 2.5);
+  }
+
+  // logos and marks jump on the bass
+  const j=1+bass*.17, y=-bass*2.4;
+  const lg=$('logo'); if(lg&&!lg.classList.contains('hidden'))
+    lg.style.transform=`translateY(${y}vmin) scale(${j})`;
+  [...$('sponGrid').children].forEach((el,i)=>{
+    const ph=1+bass*(.13+ (i%3)*.045);
+    el.style.transform=`translateY(${y*.7}vmin) scale(${ph})`;
+  });
+  $('flagBd').style.transform=`scale(${1+bass*.09}) rotate(${bass*1.4}deg)`;
+  $('flagPt').style.transform=`scale(${1+bass*.09}) rotate(${-bass*1.4}deg)`;
+  $('scTitle').style.transform=`scale(${1+bass*.035})`;
+}
+
+/* ---------- go ---------- */
+$('go').onclick=async()=>{
+  $('go').disabled=true; $('go').textContent='Starting…';
+  $('setup').classList.add('hidden'); $('stage').classList.remove('hidden');
+  if(logoURL){ $('logo').src=logoURL; $('logo').classList.remove('hidden'); }
+  fit(); draw(); run();
+  try{ await initAudio(); }
+  catch(err){ $('msg').style.display='block';
+    $('msg').innerHTML = src==='mic'
+      ? 'Microphone blocked.<br>Allow it in the address bar, then press Esc and start again.'
+      : 'That audio file would not play.<br>Press Esc and try another.';
+    setTimeout(()=>$('msg').style.display='none',7000); }
+  try{ await document.documentElement.requestFullscreen(); }catch(e){}
+  try{ await navigator.wakeLock.request('screen'); }catch(e){}
+};
+
+addEventListener('keydown',e=>{
+  const k=e.key.toLowerCase();
+  if(k==='s') $('tune').style.display=$('tune').style.display==='block'?'none':'block';
+  if(k==='f') document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  if(e.key==='ArrowRight') run();
+  if(e.key==='Escape') location.reload();
+});
+$('sens').oninput=e=>{sens=+e.target.value;$('vSens').textContent=sens.toFixed(1);};
+$('nbars').oninput=e=>{NB=+e.target.value;$('vBars').textContent=NB;};
+$('op').oninput=e=>{OP=e.target.value/100;$('vOp').textContent=e.target.value+'%';};
+
+let idle;addEventListener('mousemove',()=>{document.body.style.cursor='default';clearTimeout(idle);
+  idle=setTimeout(()=>{if($('setup').classList.contains('hidden'))document.body.style.cursor='none';},3000);});
+})();
+</script>
+</body>
+</html>

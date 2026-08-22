@@ -1,0 +1,3 @@
+Put the full-size camera or design files here.
+The show does not read this folder, so file size does not matter.
+The copies in media/ are resized for smooth playback on the night.

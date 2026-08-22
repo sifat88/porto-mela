@@ -1,0 +1,2029 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>মেলা — Festival de Bangladesh 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;700;800&family=Noto+Sans+Bengali:wght@500;700;900&family=Archivo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --saffron:#F79B1E; --amber:#FFC533; --sindoor:#C1272D;
+  --bottle:#006A4E; --bdred:#F42A41; --azulejo:#1B4F8C;
+  --cream:#FFF4DC; --ink:#2A1405;
+  --safe:0vmin;
+  --bn:'Baloo Da 2','Noto Sans Bengali',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0b0500}
+body{font-family:'Archivo',system-ui,sans-serif;color:var(--cream)}
+.hidden{display:none!important}
+
+/* ================= SETUP ================= */
+#setup{position:fixed;inset:0;z-index:100;overflow-y:auto;padding:4vh 4vw;
+  background:radial-gradient(circle at 28% 15%,rgba(255,197,51,.3),transparent 55%),
+             linear-gradient(160deg,#F79B1E,#DA5F18 65%,#7d2a0a);}
+.panel{width:min(820px,100%);margin:0 auto;background:rgba(18,7,0,.88);
+  border:1px solid rgba(255,197,51,.35);border-radius:20px;padding:34px 30px;backdrop-filter:blur(12px)}
+.panel h1{font-family:var(--bn);font-size:29px;color:var(--amber);line-height:1.35}
+.panel .sub{font-size:13.5px;opacity:.7;margin:6px 0 22px}
+.field{margin-bottom:24px}
+.field>label,.legend{display:block;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  opacity:.6;margin-bottom:9px;font-weight:900}
+input[type=file]{display:none}
+
+#scan{border:1px solid rgba(255,197,51,.3);border-radius:13px;padding:16px 18px;margin-bottom:24px;
+  background:rgba(255,197,51,.06);font-size:13px;line-height:1.75}
+#scan .t{font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;font-weight:900;opacity:.6;
+  margin-bottom:10px;display:block}
+#scanList{list-style:none}
+#scanList li{display:flex;gap:10px;align-items:baseline}
+#scanList li b{color:var(--amber);font-weight:900;min-width:30px;text-align:right;font-variant-numeric:tabular-nums}
+#scanList li.no{opacity:.42}
+#scanList li.no b{color:var(--cream)}
+#scanList li em{font-style:normal;opacity:.5;font-size:11.5px}
+#scan .act{margin-top:13px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#scan button{padding:8px 15px;border-radius:9px;border:1px solid rgba(255,197,51,.45);cursor:pointer;
+  background:rgba(255,197,51,.1);color:var(--cream);font:inherit;font-size:12.5px;font-weight:600}
+#scan button:hover{background:var(--amber);color:var(--ink)}
+#scan .warn{color:#ffd9a0;font-size:12px;opacity:.85;line-height:1.6;margin-top:10px}
+
+.filebtn{display:block;padding:14px 18px;border:1px dashed rgba(255,197,51,.4);border-radius:11px;
+  cursor:pointer;font-size:13.5px;transition:.18s;background:rgba(255,197,51,.04);margin-bottom:9px}
+.filebtn:hover{background:rgba(255,197,51,.12);border-color:var(--amber)}
+.filebtn b{color:var(--amber)}
+.filebtn i{font-style:normal;float:right;opacity:.6;font-size:12px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:118px;padding:12px;border-radius:10px;cursor:pointer;font:inherit;font-size:13.5px;
+  font-weight:600;color:var(--cream);text-align:left;border:1px solid rgba(255,244,220,.2);
+  background:rgba(255,244,220,.05);transition:.18s}
+.choice:hover{border-color:rgba(255,197,51,.6)}
+.choice[aria-pressed=true]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.choice small{display:block;font-weight:400;font-size:11px;opacity:.72;margin-top:2px}
+
+.txt,textarea.txt{width:100%;padding:11px 13px;border-radius:10px;font:inherit;font-size:13.5px;
+  background:rgba(0,0,0,.4);border:1px solid rgba(255,244,220,.18);color:var(--cream);margin-bottom:9px}
+.txt:focus{outline:0;border-color:var(--amber)}
+textarea.txt{resize:vertical;min-height:86px;line-height:1.6}
+.txt.bnfont{font-family:var(--bn);font-size:15px}
+.tip{font-size:11.5px;opacity:.45;margin:-3px 0 12px;line-height:1.5}
+details.more{border:1px solid rgba(255,244,220,.14);border-radius:11px;padding:0;margin-bottom:24px;overflow:hidden}
+details.more>summary{cursor:pointer;padding:13px 16px;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:900;opacity:.7;background:rgba(255,244,220,.04);list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:'▸ ';color:var(--amber)}
+details.more[open]>summary::before{content:'▾ '}
+details.more .inner{padding:18px 16px 4px}
+
+#order{list-style:none}
+#order li{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:7px;
+  background:rgba(255,244,220,.05);border:1px solid rgba(255,244,220,.14);border-radius:10px;font-size:13.5px}
+#order li .nm{flex:1;font-weight:600}
+#order li .nm em{display:block;font-style:normal;font-size:11px;opacity:.55;font-weight:400;margin-top:1px}
+#order li input[type=number]{width:56px;padding:5px 7px;border-radius:7px;font:inherit;font-size:12.5px;
+  background:rgba(0,0,0,.45);border:1px solid rgba(255,244,220,.22);color:var(--cream);text-align:center}
+#order li .u{font-size:11px;opacity:.5;margin-left:-5px}
+#order button{background:rgba(255,244,220,.1);border:0;color:var(--cream);width:26px;height:26px;
+  border-radius:6px;cursor:pointer;font-size:13px;line-height:1}
+#order button:hover{background:var(--amber);color:var(--ink)}
+#order li.off{opacity:.38}
+.go{width:100%;padding:17px;border:0;border-radius:12px;cursor:pointer;background:var(--sindoor);
+  color:#fff;font:inherit;font-weight:900;font-size:17px;letter-spacing:.03em;transition:.18s}
+.go:hover{background:#e2323a}
+.go:disabled{opacity:.6;cursor:default}
+.hint{font-size:12px;opacity:.5;margin-top:14px;line-height:1.75}
+kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size:11px;font-family:inherit}
+.slider{display:block;margin-bottom:14px;font-size:13px}
+.slider span{float:right;opacity:.6;font-variant-numeric:tabular-nums}
+.slider input[type=range]{width:100%;margin-top:7px;accent-color:var(--amber)}
+
+/* ================= STAGE ================= */
+/* Two colour worlds. Dark = over photos. Brand = over the orange pattern. */
+#stage{position:fixed;inset:0;
+  background:radial-gradient(ellipse at 50% 38%,#241003 0%,#150900 45%,#0b0500 78%);
+  --tx:var(--cream); --acc:var(--amber); --st:var(--sindoor);
+  --rowbg:rgba(255,244,220,.06); --shadow:0 2px 14px rgba(0,0,0,.9)}
+#stage.onbrand{--tx:#4A1A08; --acc:#A5170F; --st:rgba(255,250,236,.96);
+  --rowbg:rgba(255,255,255,.4); --shadow:0 1px 8px rgba(255,240,210,.55)}
+
+#brandBg{position:absolute;inset:0;z-index:1;background-size:cover;background-position:center;
+  opacity:0;transition:opacity .9s}
+#brandBg.on{opacity:1}
+/* laser tunnel — the VJ background that runs behind the music screen */
+#tunnel{position:absolute;inset:0;width:100%;height:100%;z-index:1;
+  opacity:0;transition:opacity 1.1s ease}
+#tunnel.on{opacity:1}
+#layers{position:absolute;inset:0;z-index:2}
+.layer{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform,opacity,filter}
+#shade{position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity .8s;
+  background:linear-gradient(to bottom,rgba(11,5,0,.85) 0%,rgba(11,5,0,.1) 24%,
+             rgba(11,5,0,.18) 58%,rgba(11,5,0,.9) 100%)}
+#vig{position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity .8s;
+  background:radial-gradient(ellipse at center,transparent 52%,rgba(11,5,0,.55) 100%)}
+
+.scene{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;opacity:0;transition:opacity .9s;pointer-events:none;
+  padding:calc(25vmin + var(--safe)) calc(7vmin + var(--safe)) calc(10vmin + var(--safe))}
+
+/* ---- logo lockup: the Bengali title curves over the logo ---- */
+.lockup{position:relative;display:block;aspect-ratio:1;pointer-events:none;
+  will-change:transform;transform-origin:center center}
+.lockup svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lockup .arcTxt{font-family:var(--bn);font-weight:800;fill:var(--acc);
+  stroke:var(--st);stroke-width:1.7px;paint-order:stroke fill}
+.lockup .lockLogo{position:absolute;left:50%;top:33%;width:67%;
+  transform:translateX(-50%);will-change:filter}
+#lockTop{position:absolute;top:calc(8.2vmin + var(--safe));left:50%;transform:translateX(-50%);
+  width:22vmin;z-index:5;transition:opacity .6s}
+#lockBig{width:56vmin;max-width:78vw}
+.chromeoff #lockTop{opacity:0}
+.scene.on{opacity:1}
+
+/* designed full-screen slide — fills the screen edge to edge */
+#scSlide{padding:0;z-index:6}
+#slideBg{position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:saturate(.9) blur(2px);opacity:0;transition:opacity .5s}
+#slideImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  will-change:transform}
+
+/* ---- text reveal ---- */
+.rw{display:inline-block;opacity:0;transform:translateY(.55em);
+  animation:rw .72s cubic-bezier(.2,.85,.25,1) both}
+@keyframes rw{to{opacity:1;transform:none}}
+.pr{opacity:0;transform:translateX(-1.1em);animation:pr .6s cubic-bezier(.2,.85,.25,1) both}
+@keyframes pr{to{opacity:1;transform:none}}
+.pop{opacity:0;transform:scale(.82);animation:pop .6s cubic-bezier(.2,1.3,.35,1) both}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+.caret::after{content:'';display:inline-block;width:.07em;height:.95em;background:currentColor;
+  margin-left:.07em;vertical-align:-.1em;animation:blink .75s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---- music screen: laser tunnel + big centred logo + Bengali title ---- */
+#scMusic{justify-content:center;padding-top:calc(8vmin + var(--safe))}
+#scMusic .msub{position:absolute;bottom:calc(9.5vmin + var(--safe));left:0;right:0;
+  font-weight:700;font-size:2.2vmin;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--tx);opacity:.8;text-shadow:var(--shadow)}
+
+/* ---- second screen: the colour field, logo, and a line of your own ---- */
+#scMus2 .m2logo{width:25vmin;max-width:42vw;will-change:transform,filter;
+  filter:drop-shadow(0 1vmin 3.4vmin rgba(0,0,0,.5))}
+#scMus2 .bn{font-family:var(--bn);font-weight:800;font-size:8vmin;line-height:1.24;
+  margin-top:3.4vmin;color:#FFE7A3;-webkit-text-stroke:.34vmin rgba(46,6,32,.9);paint-order:stroke fill;
+  will-change:transform}
+#scMus2 .rule2{width:30vmin;height:.5vmin;margin:3vmin auto 0;border-radius:1vmin;
+  background:linear-gradient(to right,transparent,#FF3D6E,#F4A300,#16C7B0,transparent)}
+#scMus2 .pt{font-weight:900;font-size:2.5vmin;letter-spacing:.34em;text-transform:uppercase;
+  margin-top:2.6vmin;color:#FFF6E2;opacity:.92;text-shadow:0 .3vmin 1.6vmin rgba(0,0,0,.65)}
+/* if the moving backgrounds are switched off this scene sits on the orange
+   pattern instead, and the lettering has to swap back to the brand colours */
+#stage.onbrand #scMus2 .bn{color:var(--acc);-webkit-text-stroke-color:var(--st)}
+#stage.onbrand #scMus2 .pt{color:var(--tx);text-shadow:var(--shadow)}
+#stage.onbrand #scMus2 .rule2{background:linear-gradient(to right,transparent,var(--bottle),var(--bdred),transparent)}
+
+/* title fallback */
+#scTitle .bn{font-family:var(--bn);font-weight:800;font-size:9vmin;line-height:1.22;color:var(--acc);
+  -webkit-text-stroke:.4vmin var(--st);paint-order:stroke fill}
+#scTitle .pt{font-weight:900;font-size:4.6vmin;margin-top:1.4vmin;color:var(--tx);text-shadow:var(--shadow)}
+#scTitle .yr{font-weight:400;font-size:2vmin;letter-spacing:.5em;margin-top:2.6vmin;opacity:.75;color:var(--tx)}
+#scTitle .rule{width:34vmin;height:.45vmin;margin:3.2vmin auto 0;border-radius:1vmin;
+  background:linear-gradient(to right,transparent,var(--bottle),var(--bdred),var(--bottle),transparent)}
+
+#scWel .bn{font-family:var(--bn);font-weight:800;font-size:11vmin;color:var(--acc);line-height:1.2;
+  -webkit-text-stroke:.35vmin var(--st);paint-order:stroke fill}
+#scWel .pt{font-weight:900;font-size:4vmin;margin-top:2vmin;color:var(--tx);letter-spacing:.02em;
+  text-shadow:var(--shadow)}
+#scWel .note{font-size:2.2vmin;margin-top:2.4vmin;opacity:.82;max-width:70vw;line-height:1.6;color:var(--tx)}
+
+#scFlags .pair{display:flex;align-items:center;gap:7vmin}
+.flag{width:26vmin;height:15.6vmin;border-radius:1vmin;box-shadow:0 1.4vmin 5vmin rgba(0,0,0,.5);
+  overflow:hidden;position:relative;background-size:cover;background-position:center}
+.flag.bd{background:var(--bottle)}
+.flag.bd::after{content:'';position:absolute;top:50%;left:45%;transform:translate(-50%,-50%);
+  width:9.4vmin;height:9.4vmin;border-radius:50%;background:var(--bdred)}
+.flag.pt{background:linear-gradient(to right,var(--bottle) 0 40%,#DA291C 40% 100%)}
+.flag.pt::after{content:'';position:absolute;top:50%;left:40%;transform:translate(-50%,-50%);
+  width:6.6vmin;height:6.6vmin;border-radius:50%;border:.7vmin solid var(--amber);background:rgba(255,255,255,.12)}
+#scFlags .join{font-size:7vmin;color:var(--acc);font-weight:900;opacity:.9}
+#scFlags .cap{margin-top:5vmin;font-family:var(--bn);font-size:4.2vmin;color:var(--acc);line-height:1.35}
+#scFlags .cap .sub2{display:block;font-family:'Archivo';font-weight:600;font-size:2.3vmin;
+  color:var(--tx);opacity:.88;margin-top:1.4vmin;letter-spacing:.03em}
+
+#scProg .lead{font-family:var(--bn);font-weight:800;font-size:5.6vmin;color:var(--acc);
+  margin-bottom:1vmin;line-height:1.3;-webkit-text-stroke:.22vmin var(--st);paint-order:stroke fill}
+#scProg .lead .sub2{display:block;font-family:'Archivo';font-weight:600;font-size:2vmin;
+  -webkit-text-stroke:0;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--tx);opacity:.6;margin-top:.8vmin}
+#progList{list-style:none;margin-top:3.4vmin;width:min(78vw,120vmin);max-height:54vh;overflow:hidden}
+#progList li{display:flex;align-items:baseline;gap:2.4vmin;padding:1.3vmin 2.4vmin;border-radius:1vmin;
+  font-size:2.9vmin;text-align:left;line-height:1.35;color:var(--tx)}
+#progList li:nth-child(odd){background:var(--rowbg)}
+#progList li b{color:var(--acc);font-weight:900;font-variant-numeric:tabular-nums;
+  min-width:11vmin;flex:none;font-size:2.7vmin}
+#progList li i{font-style:normal;flex:1;font-family:var(--bn);font-weight:600}
+
+#scNote .kicker{font-size:1.9vmin;letter-spacing:.4em;text-transform:uppercase;color:var(--acc);
+  margin-bottom:3.4vmin;font-weight:900}
+#scNote .body{font-family:var(--bn);font-weight:700;font-size:6vmin;line-height:1.36;max-width:82vw;
+  white-space:pre-line;color:var(--tx)}
+
+#scSpon .lead{font-size:2vmin;letter-spacing:.35em;text-transform:uppercase;opacity:.7;margin-bottom:5vmin;
+  color:var(--tx)}
+#sponGrid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4.5vmin;max-width:86vw}
+#sponGrid img{max-height:13vmin;max-width:26vmin;object-fit:contain;
+  background:#fff;padding:1.6vmin 2.2vmin;border-radius:1.4vmin;will-change:transform;
+  box-shadow:0 1vmin 4vmin rgba(0,0,0,.4)}
+#sponGrid.many img{max-height:9.5vmin;max-width:19vmin}
+
+/* persistent chrome — small logo sits top CENTRE */
+#mark{position:absolute;bottom:calc(3vmin + var(--safe));left:0;right:0;z-index:5;text-align:center;
+  pointer-events:none;font-size:1.85vmin;font-weight:600;letter-spacing:.05em;opacity:.85;
+  color:var(--tx);text-shadow:var(--shadow);will-change:transform;transition:opacity .6s}
+#mark b{color:var(--acc);font-weight:900}
+#logo{position:absolute;top:calc(2.4vmin + var(--safe));left:50%;z-index:5;height:9.6vmin;
+  transform:translateX(-50%);transform-origin:top center;
+  filter:drop-shadow(0 .6vmin 2vmin rgba(0,0,0,.55));will-change:transform;transition:opacity .6s}
+.chromeoff #mark,.chromeoff #logo{opacity:0}
+#black{position:absolute;inset:0;z-index:8;background:#000;opacity:0;pointer-events:none;transition:opacity .5s}
+#black.on{opacity:1}
+#msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9;
+  background:rgba(193,39,45,.94);padding:16px 26px;border-radius:11px;font-size:15px;color:var(--cream);
+  font-weight:700;text-align:center;line-height:1.55;display:none;max-width:70vw}
+#tune{position:absolute;top:14px;left:14px;z-index:9;width:252px;font-size:12.5px;display:none;
+  background:rgba(15,6,0,.93);border:1px solid rgba(255,197,51,.35);border-radius:12px;padding:16px;
+  color:var(--cream)}
+#tune h3{font-size:10px;letter-spacing:.17em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
+#tune label{display:block;margin-bottom:13px}
+#tune label span{float:right;opacity:.6;font-variant-numeric:tabular-nums}
+#tune input[type=range]{width:100%;margin-top:6px;accent-color:var(--amber)}
+#tune .row{display:flex;gap:6px;margin-bottom:13px}
+#tune .row button{flex:1;padding:7px 4px;border-radius:7px;border:1px solid rgba(255,244,220,.2);
+  background:rgba(255,244,220,.06);color:var(--cream);font:inherit;font-size:11px;cursor:pointer}
+#tune .row button[aria-pressed=true]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+#tune .now{opacity:.6;font-size:11.5px;border-top:1px solid rgba(255,244,220,.14);padding-top:10px;line-height:1.6}
+@media(prefers-reduced-motion:reduce){
+  .layer,.scene{transition-duration:.3s!important}
+  .rw,.pr,.pop{animation:none!important;opacity:1!important;transform:none!important}
+  .caret::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="setup"><div class="panel">
+  <h1>মেলা — বাংলাদেশ ফেস্টিভ্যাল ২০২৬</h1>
+  <div class="sub">Show setup — Comunidade de Bangladesh do Porto</div>
+
+  <div id="scan">
+    <span class="t">From this folder</span>
+    <ul id="scanList"><li><em>Looking…</em></li></ul>
+    <div class="act">
+      <button id="rescan">Rescan folder</button>
+      <span class="tip" style="margin:0">Add or remove files, then rescan — no need to reopen.</span>
+    </div>
+    <div class="warn hidden" id="scanWarn"></div>
+  </div>
+
+  <details class="more">
+    <summary>Add extra images by hand (optional)</summary>
+    <div class="inner">
+      <div class="tip">Anything picked here is added on top of what is already in the folder, just for this run.</div>
+      <label class="filebtn" for="fPorto"><b>More Porto photos</b> <i id="cPorto">none</i></label>
+      <input type="file" id="fPorto" accept="image/*" multiple>
+      <label class="filebtn" for="fBd"><b>More Bangladesh photos</b> <i id="cBd">none</i></label>
+      <input type="file" id="fBd" accept="image/*" multiple>
+      <label class="filebtn" for="fSpon"><b>More sponsor logos</b> <i id="cSpon">none</i></label>
+      <input type="file" id="fSpon" accept="image/*" multiple>
+      <label class="filebtn" for="fLogo"><b>Replace the logo</b> <i id="cLogo">none</i></label>
+      <input type="file" id="fLogo" accept="image/*">
+    </div>
+  </details>
+
+  <div class="field">
+    <label>Running order — ↑↓ reorder · seconds each · × turns a scene off</label>
+    <ul id="order"></ul>
+  </div>
+
+  <details class="more">
+    <summary>Words on screen</summary>
+    <div class="inner">
+      <div class="field">
+        <label>Music screen — big logo, this line across the top</label>
+        <input class="txt bnfont" id="tMusicBn" value="বাংলাদেশ ফেস্টিভ্যাল ২০২৬">
+        <input class="txt" id="tMusicPt" value="Festival de Bangladesh · Porto">
+      </div>
+      <div class="field">
+        <label>Second screen — logo, this headline, this line under it</label>
+        <input class="txt bnfont" id="tMus2Bn" value="আনন্দ · সংস্কৃতি · ঐক্য">
+        <input class="txt" id="tMus2Pt" value="Música · Dança · Comida · Porto">
+      </div>
+      <div class="field">
+        <label>Opening title — only used if media/slides/opening.png is missing</label>
+        <input class="txt bnfont" id="tTitleBn" value="মেলা / বাংলাদেশ ফেস্টিভ্যাল">
+        <div class="tip">Use / to break the line.</div>
+        <input class="txt" id="tTitlePt" value="Festival de Bangladesh">
+        <input class="txt" id="tTitleYr" value="২০২৬ · PORTO · 2026">
+      </div>
+      <div class="field">
+        <label>Welcome</label>
+        <input class="txt bnfont" id="tWelBn" value="স্বাগতম">
+        <input class="txt" id="tWelPt" value="Bem-vindos ao nosso Mela">
+        <input class="txt" id="tWelNote" value="Comida · música · dança · artesanato — até tarde">
+      </div>
+      <div class="field">
+        <label>Two flags caption — only used if media/slides/flags.png is missing</label>
+        <input class="txt bnfont" id="tFlagBn" value="বাংলাদেশ ও পর্তুগাল — এক হৃদয়">
+        <input class="txt" id="tFlagPt" value="Bangladesh e Portugal — uma comunidade, dois lares">
+      </div>
+      <div class="field">
+        <label>Programme — one line per item, time then a dash</label>
+        <input class="txt bnfont" id="tProgBn" value="অনুষ্ঠানসূচি">
+        <textarea class="txt bnfont" id="tProg">17:00 — দরজা খোলা / Portas abertas
+18:00 — উদ্বোধনী বক্তব্য / Discurso de abertura
+18:30 — শিশুদের পরিবেশনা / Atuação das crianças
+19:30 — লোকগান / Música folclórica
+20:30 — নৃত্য পরিবেশনা / Dança
+21:30 — খাবার ও আড্ডা / Comida e convívio</textarea>
+      </div>
+      <div class="field">
+        <label>Notice / announcement</label>
+        <textarea class="txt bnfont" id="tNote" style="min-height:64px">খাবারের স্টল রাত ১০টা পর্যন্ত খোলা
+Bancas de comida abertas até às 22h</textarea>
+      </div>
+      <div class="field">
+        <label>Bottom line</label>
+        <input class="txt" id="tMark" value="COMUNIDADE DE BANGLADESH DO PORTO · ESTD 2008">
+      </div>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Screen &amp; look</summary>
+    <div class="inner">
+      <label class="slider">Edge margin — raise it if the screen crops the corners
+        <span id="vSafe">0%</span><input type="range" id="safe" min="0" max="8" step="1" value="0"></label>
+      <label class="slider">Photo darkening — raise it if text is hard to read
+        <span id="vShade">100%</span><input type="range" id="shadeR" min="40" max="170" step="5" value="100"></label>
+      <div class="field">
+        <label>Moving backgrounds — the two music screens</label>
+        <div class="choices">
+          <button class="choice" data-tun="neon" aria-pressed="true">Neon<small>Purple lasers, amber colour field</small></button>
+          <button class="choice" data-tun="flag" aria-pressed="false">Flag colours<small>Green, amber and red</small></button>
+          <button class="choice" data-tun="off" aria-pressed="false">Pattern only<small>Both screens on the orange pattern</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Rehearsing for a screen that is not 16:9</label>
+        <p class="hint" style="margin:0 0 9px">The show fills whatever shape the screen is.
+          To see it in the shape of the LED wall on this laptop, open a window in that
+          shape and press Start show inside it.</p>
+        <div class="choices">
+          <button class="choice" id="prev53" aria-pressed="false">Open a 5 × 3 window<small>The LED wall at the venue</small></button>
+          <button class="choice" id="prev169" aria-pressed="false">Open a 16 × 9 window<small>An ordinary TV or projector</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Colours — the music-only screens (Music only, Laser show, Liquid,
+               Kaleidoscope, Ribbons, Fireworks, Neon grid)</label>
+        <div class="choices">
+          <button class="choice" data-pal="own" aria-pressed="true">Each its own<small>The colours each screen was drawn with</small></button>
+          <button class="choice" data-pal="flag" aria-pressed="false">Bangladesh<small>Green, amber, red</small></button>
+          <button class="choice" data-pal="rainbow" aria-pressed="false">Rainbow<small>The whole spectrum</small></button>
+          <button class="choice" data-pal="ice" aria-pressed="false">Ice<small>Blue, cyan, white</small></button>
+          <button class="choice" data-pal="sunset" aria-pressed="false">Sunset<small>Orange, pink, gold</small></button>
+          <button class="choice" data-pal="jungle" aria-pressed="false">Jungle<small>Green, lime, teal</small></button>
+          <button class="choice" data-pal="candy" aria-pressed="false">Candy<small>Pink, violet, cyan</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Text animation</label>
+        <div class="choices">
+          <button class="choice" id="fxOn" aria-pressed="true">Reveal &amp; type<small>Words rise in, headings type out</small></button>
+          <button class="choice" id="fxOff" aria-pressed="false">Straight in<small>No animation</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Photo order</label>
+        <div class="choices">
+          <button class="choice" id="ordSeq" aria-pressed="true">In order<small>porto-1, porto-2, …</small></button>
+          <button class="choice" id="ordShuf" aria-pressed="false">Shuffled<small>Different each pass</small></button>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="field">
+    <label>Music source</label>
+    <div class="choices">
+      <button class="choice" id="srcMic" aria-pressed="true">Room microphone<small>DJ, PA, phone, live band</small></button>
+      <button class="choice" id="srcFile" aria-pressed="false">Audio file<small>Plays from this laptop</small></button>
+      <button class="choice" id="srcNone" aria-pressed="false">No audio<small>The tunnel drifts gently</small></button>
+    </div>
+    <label class="filebtn hidden" for="fTrack" id="trackBtn" style="margin-top:9px"><b>Choose an audio file</b> <i>MP3 · WAV · M4A</i></label>
+    <input type="file" id="fTrack" accept="audio/*">
+  </div>
+
+  <button class="go" id="go">Start show</button>
+  <div class="hint"><kbd>S</kbd> settings · <kbd>F</kbd> fullscreen · <kbd>→</kbd> next scene · <kbd>←</kbd> previous ·
+    <kbd>Space</kbd> hold this scene · <kbd>B</kbd> black screen for a speech · <kbd>Esc</kbd> back here.
+    Coming back with Esc keeps everything loaded.</div>
+</div></div>
+
+<div id="stage" class="hidden">
+  <div id="brandBg"></div>
+  <canvas id="tunnel"></canvas>
+  <div id="layers"></div>
+  <div id="shade"></div>
+  <div id="vig"></div>
+
+  <div class="scene" id="scSlide">
+    <div id="slideBg"></div>
+    <img id="slideImg" alt="">
+  </div>
+
+  <div class="scene" id="scMusic">
+    <div class="lockup" id="lockBig">
+      <svg viewBox="0 0 240 240" aria-hidden="true">
+        <defs><path id="arcB" d="M 2,58.3 A 260,260 0 0,1 238,58.3" fill="none"></path></defs>
+        <text text-anchor="middle" id="arcWrapB">
+          <textPath class="arcTxt" id="arcTextB" href="#arcB" startOffset="50%"></textPath></text>
+      </svg>
+      <img class="lockLogo" id="logoB" alt="">
+    </div>
+    <div class="msub" id="oMusicPt"></div>
+  </div>
+
+  <div class="scene" id="scMus2">
+    <img class="m2logo" id="logo2" alt="">
+    <div class="bn" id="oM2Bn"></div>
+    <div class="rule2"></div>
+    <div class="pt" id="oM2Pt"></div>
+  </div>
+
+  <!-- music only: the background loop on its own, no logo and no words -->
+  <div class="scene" id="scMus3"></div>
+  <div class="scene" id="scMus4"></div>
+  <div class="scene" id="scMus5"></div>
+  <div class="scene" id="scMus6"></div>
+  <div class="scene" id="scMus7"></div>
+  <div class="scene" id="scMus8"></div>
+  <div class="scene" id="scMus9"></div>
+
+  <div class="scene" id="scTitle">
+    <div class="bn" id="oTitleBn"></div>
+    <div class="pt" id="oTitlePt"></div>
+    <div class="yr" id="oTitleYr"></div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="scene" id="scWel">
+    <div class="bn" id="oWelBn"></div>
+    <div class="pt" id="oWelPt"></div>
+    <div class="note" id="oWelNote"></div>
+  </div>
+
+  <div class="scene" id="scFlags">
+    <div class="pair">
+      <div class="flag bd" id="flagBd"></div>
+      <div class="join">◆</div>
+      <div class="flag pt" id="flagPt"></div>
+    </div>
+    <div class="cap" id="oFlagBn"><span class="sub2" id="oFlagPt"></span></div>
+  </div>
+
+  <div class="scene" id="scProg">
+    <div class="lead" id="oProgBn"><span class="sub2">Programa</span></div>
+    <ul id="progList"></ul>
+  </div>
+
+  <div class="scene" id="scNote">
+    <div class="kicker">Aviso · ঘোষণা</div>
+    <div class="body" id="oNote"></div>
+  </div>
+
+  <div class="scene" id="scSpon">
+    <div class="lead">Com o apoio de · আমাদের সহযোগীরা</div>
+    <div id="sponGrid"></div>
+  </div>
+
+  <div class="lockup" id="lockTop">
+    <svg viewBox="0 0 240 240" aria-hidden="true">
+      <defs><path id="arcT" d="M 2,58.3 A 260,260 0 0,1 238,58.3" fill="none"></path></defs>
+      <text text-anchor="middle" id="arcWrapT">
+        <textPath class="arcTxt" id="arcTextT" href="#arcT" startOffset="50%"></textPath></text>
+    </svg>
+    <img class="lockLogo" id="logoT" alt="">
+  </div>
+  <div id="mark"></div>
+  <div id="black"></div>
+  <div id="msg"></div>
+  <div id="tune">
+    <h3>Settings</h3>
+    <label>Sensitivity <span id="vSens">1.0</span><input type="range" id="sens" min=".3" max="3" step=".1" value="1"></label>
+    <label>Edge margin <span id="vSafe2">0%</span><input type="range" id="safe2" min="0" max="8" step="1" value="0"></label>
+    <div class="row">
+      <button data-tun2="neon" aria-pressed="true">Neon</button>
+      <button data-tun2="flag" aria-pressed="false">Flag</button>
+      <button data-tun2="off" aria-pressed="false">No tunnel</button>
+    </div>
+    <div class="row">
+      <button data-pal2="own" aria-pressed="true">Own</button>
+      <button data-pal2="flag" aria-pressed="false">BD</button>
+      <button data-pal2="rainbow" aria-pressed="false">Rainbow</button>
+      <button data-pal2="ice" aria-pressed="false">Ice</button>
+    </div>
+    <div class="row">
+      <button data-pal2="sunset" aria-pressed="false">Sunset</button>
+      <button data-pal2="jungle" aria-pressed="false">Jungle</button>
+      <button data-pal2="candy" aria-pressed="false">Candy</button>
+    </div>
+    <div class="now" id="now">—</div>
+  </div>
+</div>
+
+<!-- Optional. Only for files that do NOT follow the numbered naming. -->
+<script src="media/manifest.js" onerror="void 0"></script>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const U=f=>[...f].map(x=>URL.createObjectURL(x));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ============================================================
+   1. WHAT IS IN THE FOLDER
+     media/porto/porto-1.jpg       media/bangladesh/bd-1.jpg
+     media/sponsors/sponsor-1.png  media/slides/extra/extra-1.png
+     media/slides/opening.png · flags.png · closing.png
+     media/brand/logo.png · background.png
+   ============================================================ */
+const EXT=['jpg','jpeg','png','webp'];
+const MAXN=24, GAP=6;
+function probe(url){return new Promise(r=>{const i=new Image();i.onload=()=>r(url);i.onerror=()=>r(null);i.src=url;});}
+async function one(base){ for(const e of EXT){ const u=await probe(base+'.'+e); if(u) return u; } return null; }
+async function series(dir,prefix){
+  const found=await Promise.all(Array.from({length:MAXN},(_,i)=>one(`${dir}/${prefix}-${i+1}`)));
+  const out=[]; let gap=0;
+  for(let i=0;i<found.length;i++){
+    if(found[i]){ out.push(found[i]); gap=0; }
+    else { gap++; if(gap>=GAP && (out.length||i>=GAP)) break; }
+  }
+  return out;
+}
+const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,closing:null,logo:null,bg:null};
+async function scanFolder(){
+  const man=(typeof window!=='undefined' && window.MELA_MEDIA)||{};
+  const [porto,bd,spon,extras,opening,flags,closing,logo,bg]=await Promise.all([
+    series('media/porto','porto'), series('media/bangladesh','bd'),
+    series('media/sponsors','sponsor'), series('media/slides/extra','extra'),
+    one('media/slides/opening'), one('media/slides/flags'), one('media/slides/closing'),
+    one('media/brand/logo'), one('media/brand/background')
+  ]);
+  const merge=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
+  M.porto=merge(porto,man.porto); M.bd=merge(bd,man.bangladesh);
+  M.spon=merge(spon,man.sponsors); M.extras=merge(extras,man.extras);
+  M.opening=opening||man.opening||null; M.flags=flags||man.flags||null;
+  M.closing=closing||man.closing||null; M.logo=logo||man.logo||null; M.bg=bg||man.background||null;
+  if(M.bg){ $('slideBg').style.backgroundImage=`url("${M.bg}")`;
+            $('brandBg').style.backgroundImage=`url("${M.bg}")`; }
+  paintScan(); build();
+}
+function paintScan(){
+  const rows=[
+    [M.porto.length,  'Porto photos',      'media/porto/porto-1.jpg …'],
+    [M.bd.length,     'Bangladesh photos', 'media/bangladesh/bd-1.jpg …'],
+    [M.opening?1:0,   'Opening banner',    'media/slides/opening.png'],
+    [M.flags?1:0,     'Flags artwork',     'media/slides/flags.png'],
+    [M.closing?1:0,   'Thank-you slide',   'media/slides/closing.png'],
+    [M.extras.length, 'Extra slides',      'media/slides/extra/extra-1.png …'],
+    [M.spon.length,   'Sponsor logos',     'media/sponsors/sponsor-1.png …'],
+    [M.logo?1:0,      'Logo',              'media/brand/logo.png'],
+    [M.bg?1:0,        'Pattern background','media/brand/background.png'],
+  ];
+  $('scanList').innerHTML=rows.map(([n,label,path])=>
+    `<li class="${n?'':'no'}"><b>${n?n:'–'}</b><span>${esc(label)} ${n?'':'<em>— drop one at '+esc(path)+'</em>'}</span></li>`).join('');
+  const nothing=!M.porto.length && !M.bd.length && !M.opening;
+  $('scanWarn').classList.toggle('hidden',!nothing);
+  $('scanWarn').innerHTML='Nothing found in <b>media/</b>. If you moved this file out of the porto-mela folder, '
+    +'put it back beside the media folder — or use “Add extra images by hand” below.';
+}
+
+/* ---------- manual extras ---------- */
+const up={porto:[],bd:[],spon:[],logo:null};
+let track=null,src='mic',shuffle=false,fx=true,tunMode='neon';
+const PORTO=()=>M.porto.concat(up.porto), BD=()=>M.bd.concat(up.bd), SPON=()=>M.spon.concat(up.spon);
+const LOGO=()=>up.logo||M.logo;
+function preload(urls){ urls.forEach(u=>{ const i=new Image(); i.src=u; }); }
+function hook(inp,cnt,set,multi=true){
+  $(inp).onchange=e=>{
+    const f=e.target.files; if(!f.length)return;
+    const v=multi?U(f):URL.createObjectURL(f[0]);
+    set(v); if(multi) preload(v);
+    $(cnt).textContent=multi?'+'+f.length:f[0].name.slice(0,22);
+    build();
+  };
+}
+hook('fPorto','cPorto',v=>up.porto=v);
+hook('fBd','cBd',v=>up.bd=v);
+hook('fSpon','cSpon',v=>up.spon=v);
+hook('fLogo','cLogo',v=>up.logo=v,false);
+$('fTrack').onchange=e=>{ track=e.target.files[0]; if(track) $('trackBtn').innerHTML='<b>'+esc(track.name)+'</b>'; };
+$('rescan').onclick=async()=>{ $('rescan').disabled=true; $('rescan').textContent='Scanning…';
+  await scanFolder(); $('rescan').disabled=false; $('rescan').textContent='Rescan folder'; };
+
+['srcMic','srcFile','srcNone'].forEach(id=>$(id).onclick=()=>pick(id.slice(3).toLowerCase()));
+function pick(s){ src=s;
+  $('srcMic').setAttribute('aria-pressed',s==='mic');
+  $('srcFile').setAttribute('aria-pressed',s==='file');
+  $('srcNone').setAttribute('aria-pressed',s==='none');
+  $('trackBtn').classList.toggle('hidden',s!=='file'); }
+function pair(aId,bId,set){ $(aId).onclick=()=>set(true); $(bId).onclick=()=>set(false); }
+pair('ordShuf','ordSeq',v=>{ shuffle=v; $('ordShuf').setAttribute('aria-pressed',v); $('ordSeq').setAttribute('aria-pressed',!v); });
+pair('fxOn','fxOff',v=>{ fx=v; $('fxOn').setAttribute('aria-pressed',v); $('fxOff').setAttribute('aria-pressed',!v); });
+
+function setTun(m){ tunMode=m;
+  document.querySelectorAll('[data-tun]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tun===m));
+  document.querySelectorAll('[data-tun2]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.tun2===m));
+  // switching mid-show: the music screen swaps between the dark tunnel
+  // world and the orange pattern straight away
+  if(BGSC[curId] && $(BGSC[curId]).classList.contains('on')) look('brand');
+  build(); }
+document.querySelectorAll('[data-tun]').forEach(b=>b.onclick=()=>setTun(b.dataset.tun));
+document.querySelectorAll('[data-tun2]').forEach(b=>b.onclick=()=>setTun(b.dataset.tun2));
+/* the colour preset for the music-only screens — it takes effect on the
+   next frame, so it can be changed while one of them is up */
+function setPal(m){ barePal=m;
+  document.querySelectorAll('[data-pal]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pal===m));
+  document.querySelectorAll('[data-pal2]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.pal2===m)); }
+/* a second window in the shape of the screen we are playing to, so what
+   the laptop shows is what the wall will show */
+function shapeWin(w,h){
+  const win=window.open(location.href,'shape'+w+'x'+h,
+    `width=${w},height=${h},menubar=no,toolbar=no,location=no,status=no`);
+  if(!win){ alert('The browser blocked the window. Allow pop-ups for this page and try again.'); return; }
+  win.focus();
+}
+$('prev53').onclick =()=>shapeWin(1000,600);   // 5 m × 3 m
+$('prev169').onclick=()=>shapeWin(1024,576);
+document.querySelectorAll('[data-pal]').forEach(b=>b.onclick=()=>setPal(b.dataset.pal));
+document.querySelectorAll('[data-pal2]').forEach(b=>b.onclick=()=>setPal(b.dataset.pal2));
+
+function setSafe(v){ document.documentElement.style.setProperty('--safe',v+'vmin');
+  $('vSafe').textContent=v+'%'; $('vSafe2').textContent=v+'%'; $('safe').value=v; $('safe2').value=v; }
+$('safe').oninput=e=>setSafe(+e.target.value);
+$('safe2').oninput=e=>setSafe(+e.target.value);
+$('shadeR').oninput=e=>{ $('vShade').textContent=e.target.value+'%'; $('shade').dataset.k=e.target.value/100; };
+
+/* ---------- running order ---------- */
+let seq=[
+  {id:'opening',label:'Opening banner', note:'main banner, full screen',            dur:12, on:true},
+  {id:'welcome',label:'Welcome',        note:'স্বাগতম · Bem-vindos',                dur:9,  on:true},
+  {id:'photos', label:'Photos',         note:'Porto and Bangladesh, alternating',   dur:72, on:true},
+  {id:'flags',  label:'Two flags',      note:'flag artwork, full screen',           dur:12, on:true},
+  {id:'porto',  label:'Porto only',     note:'media/porto on its own',              dur:36, on:false},
+  {id:'bd',     label:'Bangladesh only',note:'media/bangladesh on its own',         dur:36, on:false},
+  {id:'music',  label:'Music screen',   note:'logo in the middle, laser tunnel, Bengali title', dur:24, on:true},
+  {id:'music2', label:'Second screen',  note:'logo and your own line, on the colour field', dur:18, on:true},
+  {id:'music3', label:'Music only',     note:'background loop alone — no logo, no words', dur:20, on:true},
+  {id:'prog',   label:'Programme',      note:'tonight’s running order',             dur:24, on:true},
+  {id:'music7', label:'Laser show',     note:'music only — a tunnel of lit tiles, full screen',  dur:20, on:true},
+  {id:'music9', label:'Liquid',         note:'music only — mirrored colour flowing over the screen', dur:18, on:true},
+  {id:'music4', label:'Kaleidoscope',    note:'music only — petals opening and closing',   dur:18, on:true},
+  {id:'extras', label:'Extra slides',   note:'anything in media/slides/extra',      dur:10, on:true},
+  {id:'spon',   label:'Sponsors',       note:'logos, jumping on the beat',          dur:20, on:true},
+  {id:'music5', label:'Ribbons',        note:'music only — bands of light rolling past',  dur:18, on:true},
+  {id:'notice', label:'Notice',         note:'one announcement, big and clear',     dur:12, on:false},
+  {id:'music8', label:'Fireworks',      note:'music only — shells going up on the beat',   dur:20, on:true},
+  {id:'music6', label:'Neon grid',      note:'music only — a floor running to the horizon', dur:18, on:true},
+  {id:'closing',label:'Thank you',      note:'closing slide, full screen',          dur:12, on:true},
+];
+function missingFor(id){
+  switch(id){
+    case 'photos': return !PORTO().length && !BD().length;
+    case 'porto':  return !PORTO().length;
+    case 'bd':     return !BD().length;
+    case 'spon':   return !SPON().length;
+    case 'extras': return !M.extras.length;
+    case 'closing':return !M.closing;
+    case 'prog':   return !progLines().length;
+    case 'notice': return !$('tNote').value.trim();
+    // with the moving backgrounds off these would be empty screens
+    case 'music3': case 'music4': case 'music5': case 'music6':
+    case 'music7': case 'music8': case 'music9': return tunMode==='off';
+    default:       return false;
+  }
+}
+function build(){
+  const ul=$('order'); ul.innerHTML='';
+  seq.forEach((s,i)=>{
+    const missing=missingFor(s.id);
+    const li=document.createElement('li');
+    if(!s.on||missing) li.className='off';
+    li.innerHTML=`<button data-u="${i}" title="Move up">↑</button><button data-d="${i}" title="Move down">↓</button>
+      <span class="nm">${esc(s.label)}<em>${missing?(/^music[3-9]$/.test(s.id)?'moving backgrounds are off — will be skipped':'nothing to show yet — will be skipped'):esc(s.note)}</em></span>
+      <input type="number" min="4" max="600" value="${s.dur}" data-t="${i}"><span class="u">sec</span>
+      <button data-x="${i}" title="On / off">${s.on?'×':'+'}</button>`;
+    ul.appendChild(li);
+  });
+  ul.onclick=e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    const u=b.dataset.u,d=b.dataset.d,x=b.dataset.x;
+    if(u!==undefined&&+u>0)[seq[+u-1],seq[+u]]=[seq[+u],seq[+u-1]];
+    if(d!==undefined&&+d<seq.length-1)[seq[+d+1],seq[+d]]=[seq[+d],seq[+d+1]];
+    if(x!==undefined)seq[+x].on=!seq[+x].on;
+    build();
+  };
+  ul.oninput=e=>{ if(e.target.dataset.t!==undefined) seq[+e.target.dataset.t].dur=Math.max(4,+e.target.value||4); };
+}
+function progLines(){ return $('tProg').value.split('\n').map(l=>l.trim()).filter(Boolean); }
+$('tProg').addEventListener('input',build);
+$('tNote').addEventListener('input',build);
+build();
+
+/* ============================================================
+   2. TEXT REVEAL
+   Bengali is written with joined letter clusters, so typing has to
+   step through graphemes, not code units, or the conjuncts break.
+   ============================================================ */
+const SEG=(typeof Intl!=='undefined' && Intl.Segmenter) ? new Intl.Segmenter('bn',{granularity:'grapheme'}) : null;
+const graphemes=s=>SEG?[...SEG.segment(String(s))].map(o=>o.segment):[...String(s)];
+function words(el,text,start=0,step=.07){
+  el.innerHTML='';
+  let i=0;
+  String(text).split(/(\s+)/).forEach(w=>{
+    if(!w) return;
+    if(/^\s+$/.test(w)){ el.appendChild(document.createTextNode(w)); return; }
+    const s=document.createElement('span');
+    s.className=fx?'rw':''; s.textContent=w;
+    if(fx) s.style.animationDelay=(start+i*step).toFixed(3)+'s';
+    el.appendChild(s); i++;
+  });
+}
+function type(el,text,start=350,step=58){
+  if(!fx){ el.textContent=text; return; }
+  const g=graphemes(text); el.textContent=''; el.classList.add('caret');
+  let i=0;
+  const tick=()=>{ if(i>=g.length){ el.classList.remove('caret'); return; }
+    el.textContent+=g[i++]; timers.push(setTimeout(tick,step)); };
+  timers.push(setTimeout(tick,start));
+}
+function stagger(nodes,cls,start=.15,step=.09){
+  nodes.forEach((n,i)=>{ n.classList.remove(cls);
+    if(!fx){ n.style.animation='none'; n.style.opacity=1; return; }
+    void n.offsetWidth; n.style.animationDelay=(start+i*step).toFixed(3)+'s'; n.classList.add(cls); });
+}
+
+/* ---- the curved title over the logo ----
+   Set once per show. The font is shrunk until the line fits the arc, so a
+   longer festival name still sits neatly on the curve instead of running off it. */
+function setArc(textId,pathId,base){
+  const tp=$(textId), path=$(pathId), el=tp.parentNode;
+  tp.textContent=$('tMusicBn').value;
+  const L=path.getTotalLength ? path.getTotalLength() : 300;
+  let size=base;
+  tp.style.fontSize=size+'px';
+  for(let i=0;i<30 && size>7;i++){
+    const w = el.getComputedTextLength ? el.getComputedTextLength() : 0;
+    if(!w || w<=L*0.90) break;      // w is 0 while the stage is hidden — refit later
+    size-=1; tp.style.fontSize=size+'px';
+  }
+}
+/* must run with the stage on screen, otherwise the text measures as zero
+   and never gets shrunk to the curve */
+function refitArcs(){ setArc('arcTextT','arcT',32); setArc('arcTextB','arcB',32); }
+addEventListener('resize',refitArcs);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(refitArcs);
+function applyStatic(){
+  $('mark').innerHTML=esc($('tMark').value).replace(/·/g,'<b>·</b>');
+}
+/* each scene rebuilds its own text when it comes up, so the effect replays */
+function enterText(id){
+  if(id==='music') words($('oMusicPt'),$('tMusicPt').value,.7,.04);
+  if(id==='music2'){
+    words($('oM2Bn'),$('tMus2Bn').value,.35,.1);
+    words($('oM2Pt'),$('tMus2Pt').value,1.05,.05);
+  }
+  if(id==='title'){
+    const bn=$('tTitleBn').value.split('/').map(s=>s.trim()).filter(Boolean);
+    $('oTitleBn').innerHTML='';
+    bn.forEach((line,li)=>{ const d=document.createElement('div');
+      $('oTitleBn').appendChild(d); words(d,line,.15+li*.35,.08); });
+    words($('oTitlePt'),$('tTitlePt').value,.75,.06);
+    words($('oTitleYr'),$('tTitleYr').value,1.15,.02);
+  }
+  if(id==='welcome'){
+    type($('oWelBn'),$('tWelBn').value,320,90);
+    words($('oWelPt'),$('tWelPt').value,1.1,.07);
+    words($('oWelNote'),$('tWelNote').value,1.6,.04);
+  }
+  if(id==='flags'){
+    words($('oFlagBn'),$('tFlagBn').value,.2,.07);
+    const sp=document.createElement('span'); sp.className='sub2'; $('oFlagBn').appendChild(sp);
+    words(sp,$('tFlagPt').value,.95,.045);
+  }
+  if(id==='prog'){
+    $('oProgBn').innerHTML=''; words($('oProgBn'),$('tProgBn').value,.1,.08);
+    const sp=document.createElement('span'); sp.className='sub2'; sp.textContent='Programa'; $('oProgBn').appendChild(sp);
+    const ul=$('progList'); ul.innerHTML='';
+    progLines().forEach(l=>{
+      const m=l.match(/^\s*([0-9]{1,2}[:.h][0-9]{0,2}|[০-৯]{1,2}[:.][০-৯]{0,2})\s*[—\-–]\s*(.*)$/);
+      const li=document.createElement('li');
+      li.innerHTML=m?`<b>${esc(m[1])}</b><i>${esc(m[2])}</i>`:`<i>${esc(l)}</i>`;
+      ul.appendChild(li);
+    });
+    stagger([...ul.children],'pr',.45,.1);
+  }
+  if(id==='notice') type($('oNote'),$('tNote').value,300,42);
+}
+
+/* ---------- audio ---------- */
+let ac=null,an=null,freq=null,audioEl=null,ceil=40,sens=1,bass=0,mid=0,hi=0,simulate=false;
+async function initAudio(){
+  if(src==='none'){ simulate=true; return; }
+  if(!ac) ac=new (window.AudioContext||window.webkitAudioContext)();
+  await ac.resume();
+  if(!an){ an=ac.createAnalyser(); an.fftSize=4096; an.smoothingTimeConstant=.7;
+           freq=new Uint8Array(an.frequencyBinCount); }
+  if(src==='file'&&track){
+    if(!audioEl){ audioEl=new Audio(URL.createObjectURL(track)); audioEl.loop=true;
+                  ac.createMediaElementSource(audioEl).connect(an); an.connect(ac.destination); }
+    await audioEl.play();
+  }else if(src==='mic'){
+    const st=await navigator.mediaDevices.getUserMedia({audio:{
+      echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    ac.createMediaStreamSource(st).connect(an);
+  }
+  simulate=false;
+}
+
+/* ---------- photo transitions ---------- */
+const TR=['fade','zoomIn','zoomOut','pushL','pushR','pushU','irisIn','wipeL','blurIn','tilt'];
+let trI=Math.floor(Math.random()*TR.length);
+function nextTr(){ trI=(trI+1+Math.floor(Math.random()*3))%TR.length; return TR[trI]; }
+function styleFor(t,phase){
+  const p=phase==='pre';
+  switch(t){
+    case 'zoomIn':  return {opacity:p?0:1, transform:p?'scale(1.28)':'scale(1)', filter:'none'};
+    case 'zoomOut': return {opacity:p?0:1, transform:p?'scale(.78)':'scale(1)',  filter:'none'};
+    case 'pushL':   return {opacity:1, transform:p?'translateX(101%)':'translateX(0)', filter:'none'};
+    case 'pushR':   return {opacity:1, transform:p?'translateX(-101%)':'translateX(0)',filter:'none'};
+    case 'pushU':   return {opacity:1, transform:p?'translateY(101%)':'translateY(0)', filter:'none'};
+    case 'tilt':    return {opacity:p?0:1, transform:p?'scale(1.2) rotate(3.5deg)':'scale(1) rotate(0)',filter:'none'};
+    case 'blurIn':  return {opacity:p?0:1, transform:p?'scale(1.12)':'scale(1)', filter:p?'blur(26px)':'blur(0)'};
+    default:        return {opacity:p?0:1, transform:'scale(1)', filter:'none'};
+  }
+}
+function clipFor(t,phase){
+  const p=phase==='pre';
+  if(t==='irisIn') return p?'circle(0% at 50% 50%)':'circle(85% at 50% 50%)';
+  if(t==='wipeL')  return p?'inset(0 100% 0 0)':'inset(0 0 0 0)';
+  return 'none';
+}
+let live=null;
+function showImage(url){
+  const t=nextTr(), el=document.createElement('div');
+  el.className='layer'; el.style.backgroundImage=`url("${url}")`;
+  Object.assign(el.style,styleFor(t,'pre')); el.style.clipPath=clipFor(t,'pre');
+  $('layers').appendChild(el);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    el.style.transition='opacity 1.3s ease, transform 1.5s cubic-bezier(.22,.7,.2,1), filter 1.3s ease, clip-path 1.4s ease';
+    const on=styleFor(t,'in');
+    Object.assign(el.style,on); el.style.clipPath=clipFor(t,'in');
+    timers.push(setTimeout(()=>{
+      el.style.transition='transform 9s linear';
+      el.style.transform=on.transform.replace('scale(1)','scale(1.1)')
+        +` translate(${(Math.random()*3-1.5).toFixed(1)}%,${(Math.random()*3-1.5).toFixed(1)}%)`;
+    },1600));
+  }));
+  const old=live; live=el;
+  if(old) setTimeout(()=>{ old.style.transition='opacity 1.3s ease'; old.style.opacity=0;
+    setTimeout(()=>old.remove(),1400); },200);
+}
+function clearImages(){ [...$('layers').children].forEach(el=>{
+  el.style.transition='opacity 1s'; el.style.opacity=0; setTimeout(()=>el.remove(),1100); }); live=null; }
+
+/* ---------- scene engine ---------- */
+const TEXTSC={music:'scMusic',music2:'scMus2',music3:'scMus3',music4:'scMus4',music5:'scMus5',music6:'scMus6',
+              music7:'scMus7',music8:'scMus8',music9:'scMus9',
+              welcome:'scWel',prog:'scProg',notice:'scNote',spon:'scSpon'};
+/* the scenes the moving backgrounds belong to */
+const BGSC={music:'scMusic',music2:'scMus2',music3:'scMus3',
+            music4:'scMus4',music5:'scMus5',music6:'scMus6',music7:'scMus7',
+            music8:'scMus8',music9:'scMus9'};
+const ALL=['scSlide','scMusic','scMus2','scMus3','scMus4','scMus5','scMus6','scMus7','scMus8','scMus9',
+           'scTitle','scWel','scFlags','scProg','scNote','scSpon'];
+let idx=-1, timers=[], paused=false, curDur=0, cursor={porto:0,bd:0,photos:0};
+function clearT(){ timers.forEach(clearTimeout); timers=[]; }
+function allOff(){ ALL.forEach(s=>$(s).classList.remove('on')); }
+function playable(){ return seq.filter(s=>s.on && !missingFor(s.id)); }
+function shuffled(a){ const b=a.slice();
+  for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+/* Porto, Bangladesh, Porto, Bangladesh … when one list runs out the rest of
+   the longer one follows on, so no photo is ever dropped. */
+function mixedPhotos(){
+  const a=shuffle?shuffled(PORTO()):PORTO(), b=shuffle?shuffled(BD()):BD(), out=[];
+  for(let i=0;i<Math.max(a.length,b.length);i++){
+    if(i<a.length) out.push(a[i]);
+    if(i<b.length) out.push(b[i]);
+  }
+  return out;
+}
+
+/* three looks: photo (dark over pictures), brand (orange pattern), slide (full-bleed art) */
+function look(kind){
+  const st=$('stage'), k=+($('shade').dataset.k||1);
+  // the laser tunnel takes the music screen over completely — dark world,
+  // no pattern behind it, so the beams read at full strength
+  const tun = !!BGSC[curId] && tunMode!=='off';
+  const brand = kind==='brand' && !!M.bg && !tun;
+  st.classList.toggle('onbrand',brand);
+  $('brandBg').classList.toggle('on',kind==='brand' && !tun);
+  $('shade').style.opacity = kind==='photo' ? Math.min(1.6,k) : 0;
+  $('vig').style.opacity   = kind==='photo' ? 1 : 0;
+  st.classList.toggle('chromeoff',kind==='slide');
+  // on the music screen the big centred lockup replaces the small top one,
+  // and its own subtitle replaces the bottom line
+  const big = !!BGSC[curId];
+  $('lockTop').style.opacity = big ? 0 : '';
+  $('mark').style.opacity = big ? 0 : '';
+}
+let curId=null;
+/* Designed slides fill the screen. But if the screen is a very different shape
+   from the artwork — a long LED banner, say — filling it would cut the sponsor
+   row off. Past a 12% mismatch we show the whole card on the pattern instead. */
+function fitSlide(){
+  const im=$('slideImg');
+  if(!im.naturalWidth||!im.naturalHeight) return;
+  const art=im.naturalWidth/im.naturalHeight, screen=innerWidth/innerHeight;
+  const off=Math.abs(screen-art)/art;
+  im.style.objectFit = off>0.12 ? 'contain' : 'cover';
+  $('slideBg').style.opacity = off>0.12 ? 1 : 0;
+}
+$('slideImg').addEventListener('load',fitSlide);
+addEventListener('resize',fitSlide);
+function slide(url){
+  clearImages(); $('slideImg').src=url;
+  look('slide'); fitSlide();
+  timers.push(setTimeout(()=>$('scSlide').classList.add('on'),300));
+}
+function textScene(el,id){
+  clearImages(); look('brand');
+  timers.push(setTimeout(()=>{ $(el).classList.add('on'); enterText(id); },300));
+}
+
+function run(step){
+  clearT(); allOff();
+  const list=playable();
+  if(!list.length){ $('msg').style.display='block';
+    $('msg').textContent='Nothing to show yet — press Esc and check the folder list.'; return; }
+  $('msg').style.display='none';
+  idx=((idx+(step===undefined?1:step))%list.length+list.length)%list.length;
+  const s=list[idx]; curDur=s.dur; curId=s.id;
+  $('now').innerHTML='Now: <b>'+esc(s.label)+'</b><br>'+(paused?'held — Space to release':'next in '+s.dur+'s')
+    +'<br>'+(idx+1)+' of '+list.length;
+
+  if(s.id==='opening'){ M.opening ? slide(M.opening) : textScene('scTitle','title'); }
+  else if(s.id==='flags'){ M.flags ? slide(M.flags) : textScene('scFlags','flags'); }
+  else if(s.id==='closing'){ slide(M.closing); }
+  else if(s.id==='extras'){
+    const per=Math.max(4000,(s.dur*1000)/M.extras.length);
+    slide(M.extras[0]);
+    for(let i=1;i<M.extras.length;i++)
+      timers.push(setTimeout(()=>{ $('slideImg').src=M.extras[i]; },per*i));
+  }
+  else if(TEXTSC[s.id]){
+    if(s.id==='spon'){ const g=$('sponGrid'), lst=SPON();
+      g.innerHTML=''; g.classList.toggle('many',lst.length>6);
+      lst.forEach(u=>{ const i=document.createElement('img'); i.src=u; i.alt=''; g.appendChild(i); });
+      timers.push(setTimeout(()=>stagger([...g.children],'pop',.1,.11),320)); }
+    textScene(TEXTSC[s.id],s.id);
+  }
+  else if(s.id==='photos'||s.id==='porto'||s.id==='bd'){
+    look('photo');
+    const p = s.id==='photos' ? mixedPhotos()
+            : (shuffle?shuffled(s.id==='porto'?PORTO():BD()):(s.id==='porto'?PORTO():BD()));
+    const per=Math.max(4500,(s.dur*1000)/p.length);
+    let k=cursor[s.id]%p.length;
+    showImage(p[k]);
+    for(let t=per;t<s.dur*1000-500;t+=per)
+      timers.push(setTimeout(()=>{ k=(k+1)%p.length; cursor[s.id]=k; showImage(p[k]); },t));
+    cursor[s.id]=(k+1)%p.length;
+  }
+  if(!paused) timers.push(setTimeout(()=>run(1), s.dur*1000));
+}
+function togglePause(){
+  paused=!paused;
+  if(paused){ clearT(); $('now').innerHTML=$('now').innerHTML.replace(/next in \d+s|held[^<]*/,'held — Space to release'); }
+  else timers.push(setTimeout(()=>run(1), curDur*1000));
+}
+
+/* ============================================================
+   3. THE LASER TUNNEL, and everything else that moves to the music
+   ============================================================ */
+let t0=performance.now();
+/* ---- laser tunnel: rings rushing at the camera, beams turning with them ---- */
+const tcv=$('tunnel'), tx=tcv.getContext('2d');
+let travel=0, spin=0, flash=0, rush=0, flow=0, lastB=0, lastFrame=performance.now();
+/* the new screens' own clock — kept apart from the ones above so the
+   tunnel, the colour field and the warp behave exactly as before */
+let nflow=0, nspin=0, ndir=1, ndirS=1, nturn=9, nmorph=7, nshift=0;
+let lastDt=.016, lastKick=0;
+function tfit(){ const r=Math.min(devicePixelRatio||1,2);
+  tcv.width=Math.max(1,innerWidth*r); tcv.height=Math.max(1,innerHeight*r);
+  tx.setTransform(r,0,0,r,0,0); }
+addEventListener('resize',tfit);
+/* two colour worlds: violet lasers, or the flag's green rising into red */
+const FLAGH=[152,150,44,356,352,150];
+function tunHue(p,T){
+  if(tunMode!=='flag') return 258 + 80*(.5+.5*Math.sin(p*3.4+T*.55));
+  // the flag's own colours — green, a little amber, red. Never through blue.
+  return FLAGH[Math.floor((((p*2.1+T*.11)%1)+1)%1*FLAGH.length)];
+}
+/* eighteen rings, not twenty-six, and each one a different shape */
+const RINGS=18, SIDES=12, BEAMS=6;
+const RINGKIND=[6,'blocks',4,12,'dots',3,'blocks',8];
+/* the loose shapes: fixed angles and speeds, worked out once */
+const MOTES=Array.from({length:9},(_,i)=>({
+  a:(i*2.39996)%(Math.PI*2), rad:.62+((i*7)%5)*.12, sp:.7+((i*3)%4)*.16,
+  size:.7+((i*5)%3)*.35, turn:(i%2?1:-1)*(.5+(i%3)*.3), f:i%3 }));
+/* Two moving backgrounds share this canvas — the tunnel on the music screen,
+   the colour field on the second screen. Only one is ever up at a time. */
+function paintBackdrop(W,H,dt,T){
+  const world = tunMode==='off' ? null
+              : $('scMusic').classList.contains('on')  ? 'tunnel'
+              : $('scMus2').classList.contains('on')   ? 'field'
+              : $('scMus3').classList.contains('on')   ? 'warp'
+              : $('scMus4').classList.contains('on')   ? 'bloom'
+              : $('scMus5').classList.contains('on')   ? 'ribbons'
+              : $('scMus6').classList.contains('on')   ? 'grid'
+              : $('scMus7').classList.contains('on')   ? 'cubes'
+              : $('scMus8').classList.contains('on')   ? 'fire'
+              : $('scMus9').classList.contains('on')   ? 'liquid' : null;
+  tcv.classList.toggle('on',!!world);
+  if(!world) return;
+
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid));
+  // a beat lifts the whole picture, but gently — no hard strobe, this is
+  // projected at a public event
+  const kick=Math.max(0,b-lastB); lastB=b;
+  flash=Math.max(flash*.86, Math.min(.3,kick*1.4));
+  // the beat throws things forward and spins them up, then it eases back
+  rush=Math.max(rush*.90, Math.min(1,kick*3.2));
+  lastDt=dt; lastKick=kick;
+  travel+=dt*(.18+b*.55+rush*1.5);
+  spin  +=dt*(.10+m*.34+rush*.75);
+  flow  +=dt*(.20+m*.5+rush*.9);
+
+  /* The three new screens run on their own clock: it turns round every so
+     often and swaps their shapes over part way through. The three older
+     screens are left exactly as they were. */
+  if(world==='bloom'||world==='ribbons'||world==='grid'||world==='cubes'||world==='fire'||world==='liquid'){
+    nturn-=dt;
+    if(nturn<=0 && (kick>.12 || nturn<-2.5)){ ndir=-ndir; nturn=7+Math.random()*8; }
+    ndirS+=(ndir-ndirS)*Math.min(1,dt*1.1);
+    nmorph-=dt;
+    if(nmorph<=0 && (kick>.12 || nmorph<-2)){ nshift++; nmorph=6+Math.random()*7; }
+    nflow+=dt*(.22+m*.5+rush*.9)*ndirS;
+    nspin+=dt*(.12+m*.3+rush*.6)*ndirS;
+  }
+  (world==='tunnel'?drawTunnel:world==='field'?drawField
+   :world==='warp'?drawWarp:world==='bloom'?drawBloom
+   :world==='ribbons'?drawRibbons:world==='grid'?drawGrid
+   :world==='cubes'?drawCubes:world==='fire'?drawFireworks:drawLiquid)(W,H,T);
+}
+
+function drawTunnel(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const cx=W/2, cy=H*.47, R=Math.hypot(W,H)*.62;
+  const base=tunMode==='flag' ? [8,26,18] : [16,6,34];
+
+  tx.globalCompositeOperation='source-over';
+  const bg=tx.createRadialGradient(cx,cy,0,cx,cy,R);
+  bg.addColorStop(0,`rgba(${base[0]+40},${base[1]+18},${base[2]+52},1)`);
+  bg.addColorStop(.45,`rgb(${base[0]},${base[1]},${base[2]})`);
+  bg.addColorStop(1,'#04010a');
+  tx.fillStyle=bg; tx.fillRect(0,0,W,H);
+
+  tx.globalCompositeOperation='lighter';
+
+  /* The rings. Not one shape repeated — a wide hexagon, a ring broken into
+     blocks, a turned square, a fine twelve-sided one, a triangle. Fewer of
+     them and further apart than a solid tunnel, so the screen stays open
+     around the logo without going empty. */
+  for(let i=0;i<RINGS;i++){
+    const p=(i/RINGS+travel)%1;
+    // each ring pushes out on the beat, and not all at the same instant —
+    // the phase term staggers them so the tunnel breathes rather than jumps
+    const pop=1 + b*.13*(.6+.4*Math.sin(i*1.7+T*2.2)) + flash*.35;
+    const r=R*Math.pow(p,2.7)*pop;
+    if(r<3) continue;
+    const fade=Math.min(1,p*7)*(1-Math.pow(p,8));
+    const hue=tunHue(i/RINGS+travel*.5,T);
+    const al=((.12+.62*fade)*(.5+.5*b)+flash*.28);
+    const lw=Math.max(1,(.7+p*5.2)*(1+b*.85));
+    const rot=spin*(i%2?1:-.7)+p*2.3+rush*(i%2?.55:-.4);   // every other ring turns back
+    const kind=RINGKIND[i%RINGKIND.length];
+    const bright=`hsla(${hue.toFixed(0)},100%,${(58+22*b).toFixed(0)}%,${al.toFixed(3)})`;
+    const soft  =`hsla(${hue.toFixed(0)},100%,52%,${((.05+.15*fade)*(.5+.6*b)).toFixed(3)})`;
+    const pt=(a,k)=>{ const rr=r*(1+.07*m*Math.sin(a*3+T*1.3))*(k||1);
+                      return [cx+Math.cos(a)*rr, cy+Math.sin(a)*rr*.92]; };
+
+    if(kind==='blocks'){
+      // a ring cut into separate bars, like lights set into the wall
+      const n=10, span=Math.PI*2/n*.34;
+      tx.lineCap='butt'; tx.lineWidth=lw*3.2;
+      for(let k=0;k<n;k++){
+        const a=rot+k*(Math.PI*2/n);
+        const [x1,y1]=pt(a-span/2), [x2,y2]=pt(a+span/2);
+        tx.strokeStyle=(k%3===0)?bright:soft;
+        tx.beginPath(); tx.moveTo(x1,y1); tx.lineTo(x2,y2); tx.stroke();
+      }
+      tx.lineCap='round';
+    }else if(kind==='dots'){
+      // a sparse ring of small squares, turning as it comes
+      const n=8, sz=Math.max(1.5,lw*1.9);
+      tx.fillStyle=bright;
+      for(let k=0;k<n;k++){
+        const a=rot*1.4+k*(Math.PI*2/n), [x,y]=pt(a);
+        tx.save(); tx.translate(x,y); tx.rotate(a+T*.8);
+        tx.fillRect(-sz,-sz,sz*2,sz*2); tx.restore();
+      }
+    }else{
+      const sides=kind;
+      tx.beginPath();
+      for(let k=0;k<=sides;k++){ const [x,y]=pt(rot+k*(Math.PI*2/sides));
+        k?tx.lineTo(x,y):tx.moveTo(x,y); }
+      tx.closePath();
+      // a wide soft pass under the bright line — that is what makes it glow
+      // without the cost of a canvas shadow on every ring
+      tx.strokeStyle=soft; tx.lineWidth=lw*5.5; tx.stroke();
+      tx.strokeStyle=bright; tx.lineWidth=lw; tx.stroke();
+    }
+  }
+
+  /* A handful of loose shapes drifting out between the rings — a triangle,
+     a bar, an open square — so the tunnel is not only concentric. */
+  for(let i=0;i<MOTES.length;i++){
+    const M0=MOTES[i];
+    const p=((i*.137+travel*M0.sp)%1+1)%1;
+    const d=Math.pow(p,2.5);
+    const rr=R*d*M0.rad;
+    if(rr<6) continue;
+    const a=M0.a+spin*M0.turn+rush*M0.turn*.9;
+    const x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr*.92;
+    const sz=Math.max(2,R*d*.04*M0.size)*(1+b*.42+flash*.6);
+    const hue=tunHue(i*.31+travel*.4,T);
+    const al=(Math.min(1,p*6)*(1-Math.pow(p,7)))*(.30+.55*b+flash*.5);
+    tx.strokeStyle=`hsla(${hue.toFixed(0)},100%,72%,${al.toFixed(3)})`;
+    tx.lineWidth=Math.max(1,sz*.14);
+    tx.save(); tx.translate(x,y); tx.rotate(a+T*M0.turn*1.6);
+    tx.beginPath();
+    if(M0.f===0){ tx.rect(-sz,-sz,sz*2,sz*2); }
+    else if(M0.f===1){ tx.moveTo(0,-sz); tx.lineTo(sz*.9,sz*.7); tx.lineTo(-sz*.9,sz*.7); tx.closePath(); }
+    else { tx.rect(-sz*1.5,-sz*.22,sz*3,sz*.44); }
+    tx.stroke(); tx.restore();
+  }
+
+  /* the beams — fewer and finer than the rings, they flicker on the top end */
+  for(let s=0;s<BEAMS;s++){
+    const a=spin*1.7+s*(Math.PI*2/BEAMS);
+    const len=R*(.52+.42*Math.abs(Math.sin(s*1.7+T*1.1)))*(1+b*.24+flash*.4);
+    const ex=cx+Math.cos(a)*len, ey=cy+Math.sin(a)*len*.92;
+    const hue=tunHue(s/BEAMS+.3,T);
+    const g=tx.createLinearGradient(cx,cy,ex,ey);
+    g.addColorStop(0,`hsla(${hue.toFixed(0)},100%,76%,${(.18+.42*h).toFixed(3)})`);
+    g.addColorStop(.55,`hsla(${hue.toFixed(0)},100%,64%,${(.08+.24*h).toFixed(3)})`);
+    g.addColorStop(1,`hsla(${hue.toFixed(0)},100%,60%,0)`);
+    tx.strokeStyle=g; tx.lineWidth=(1+3.2*b)*(s%2?1:1.8);
+    tx.beginPath(); tx.moveTo(cx,cy); tx.lineTo(ex,ey); tx.stroke();
+  }
+
+
+  /* the glow down the throat of the tunnel */
+  const cr=R*(.05+.17*b+flash*.2);
+  const gg=tx.createRadialGradient(cx,cy,0,cx,cy,cr);
+  const ch=tunHue(T*.12,T);
+  gg.addColorStop(0,`hsla(${ch.toFixed(0)},100%,92%,${(.45+.4*b).toFixed(3)})`);
+  gg.addColorStop(.35,`hsla(${ch.toFixed(0)},100%,70%,${(.20+.3*b).toFixed(3)})`);
+  gg.addColorStop(1,`hsla(${ch.toFixed(0)},100%,60%,0)`);
+  tx.fillStyle=gg; tx.beginPath(); tx.arc(cx,cy,cr,0,Math.PI*2); tx.fill();
+
+  if(flash>.01){
+    tx.fillStyle=`hsla(${ch.toFixed(0)},100%,80%,${(flash*.16).toFixed(3)})`;
+    tx.fillRect(0,0,W,H);
+  }
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ---- the colour field: the second screen's background. Nothing recedes
+   here — a lattice that rolls like cloth, wide arcs swinging round the
+   logo, and festival confetti coming up from the floor. Warm amber, pink
+   and teal, so it does not read as the tunnel in another colour. ---- */
+const F_NEON=[42,340,168,258], F_FLAG=[152,356,42,120];
+const CONF=Array.from({length:30},(_,i)=>({
+  x:((i*0.6180339887)%1), sp:.55+((i*7)%5)*.22, sz:.5+((i*3)%4)*.3,
+  turn:(i%2?1:-1)*(.6+(i%3)*.45), f:i%3, sway:.4+((i*11)%4)*.3 }));
+function drawField(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const P=tunMode==='flag'?F_FLAG:F_NEON;
+  const cx=W/2, cy=H*.46;
+
+  /* the ground: a warm-to-cool wash, with a glow behind the logo that
+     swells on the beat */
+  tx.globalCompositeOperation='source-over';
+  const g=tx.createLinearGradient(0,0,W,H);
+  g.addColorStop(0,tunMode==='flag'?'#04170f':'#120428');
+  g.addColorStop(.55,tunMode==='flag'?'#0a0d06':'#1b0620');
+  g.addColorStop(1,tunMode==='flag'?'#1a0407':'#2a0616');
+  tx.fillStyle=g; tx.fillRect(0,0,W,H);
+  const gr=Math.min(W,H)*(.36+.14*b+flash*.3);
+  const gl=tx.createRadialGradient(cx,cy,0,cx,cy,gr);
+  gl.addColorStop(0,`hsla(${P[0]},95%,58%,${(.22+.2*b).toFixed(3)})`);
+  gl.addColorStop(1,`hsla(${P[0]},95%,50%,0)`);
+  tx.fillStyle=gl; tx.fillRect(0,0,W,H);
+
+  tx.globalCompositeOperation='lighter';
+
+  /* the lattice — a grid of small diamonds rolling in a slow wave */
+  const cols=26, rows=14, sx=W/(cols-1), sy=H/(rows-1);
+  for(let r=0;r<rows;r++){
+    for(let c=0;c<cols;c++){
+      const px=c*sx, py=r*sy;
+      const w1=Math.sin(c*.55+flow*1.7)+Math.sin(r*.7-flow*1.1);
+      const dy=w1*sy*.22*(1+b*1.1);
+      const dx=Math.cos(r*.6+flow*1.3)*sx*.16;
+      // the wave crests decide which dots are lit, so the light travels
+      // across the lattice instead of the whole grid glowing at once
+      const lit=Math.pow((w1+2)/4,2.4);
+      // and it thins out towards the middle, leaving the logo and the
+      // words on clear ground
+      const dc=Math.hypot(px-cx,(py-cy)*1.35)/(Math.min(W,H)*.46);
+      const clear=Math.min(1,Math.max(0,dc-.35)/.5);
+      if(clear<=.02) continue;
+      const sz=Math.max(.5,(.7+3.1*lit)*(1+b*.9))*(Math.min(W,H)/900);
+      const hue=P[(r+c)%P.length];
+      tx.fillStyle=`hsla(${hue},95%,${(52+24*lit).toFixed(0)}%,${(clear*(.06+.62*lit)*(.45+.55*b)).toFixed(3)})`;
+      tx.save(); tx.translate(px+dx,py+dy); tx.rotate(Math.PI/4+flow*.35);
+      tx.fillRect(-sz*3,-sz*3,sz*6,sz*6); tx.restore();
+    }
+  }
+
+  /* three wide arcs swinging round the logo, each on its own tilt */
+  for(let i=0;i<3;i++){
+    const rad=Math.min(W,H)*(.30+i*.16)*(1+b*.07+flash*.16);
+    const tilt=(i%2?1:-1)*(.18+i*.12);
+    const a0=spin*(1+i*.45)*(i%2?1:-1);
+    const span=Math.PI*(.55+.2*Math.sin(T*.4+i));
+    const hue=P[(i+1)%P.length];
+    tx.save(); tx.translate(cx,cy); tx.rotate(tilt); tx.scale(1,.62);
+    tx.lineCap='round';
+    tx.strokeStyle=`hsla(${hue},95%,50%,${(.10+.16*m).toFixed(3)})`;
+    tx.lineWidth=(3+9*b)*3.2;
+    tx.beginPath(); tx.arc(0,0,rad,a0,a0+span); tx.stroke();
+    tx.strokeStyle=`hsla(${hue},100%,${(66+16*b).toFixed(0)}%,${(.32+.4*h).toFixed(3)})`;
+    tx.lineWidth=3+9*b;
+    tx.beginPath(); tx.arc(0,0,rad,a0,a0+span); tx.stroke();
+    tx.restore();
+  }
+
+  /* confetti coming up off the floor, turning as it rises */
+  for(let i=0;i<CONF.length;i++){
+    const K=CONF[i];
+    const p=((flow*K.sp*.34+K.x)%1+1)%1;      // 0 at the floor, 1 off the top
+    const y=H*(1.06-p*1.16);
+    const x=W*K.x + Math.sin(p*6.2+i)*W*.05*K.sway;
+    const sz=Math.min(W,H)*.012*K.sz*(1+b*.5+flash*.5);
+    const hue=P[i%P.length];
+    const al=Math.min(1,p*7)*(1-Math.pow(p,3))*(.35+.5*b);
+    tx.save(); tx.translate(x,y); tx.rotate(p*9*K.turn+T*K.turn);
+    tx.fillStyle=`hsla(${hue},95%,${(60+18*b).toFixed(0)}%,${al.toFixed(3)})`;
+    if(K.f===0) tx.fillRect(-sz,-sz*.5,sz*2,sz);
+    else if(K.f===1){ tx.beginPath(); tx.moveTo(0,-sz); tx.lineTo(sz*.9,sz*.7);
+                      tx.lineTo(-sz*.9,sz*.7); tx.closePath(); tx.fill(); }
+    else { tx.beginPath(); tx.arc(0,0,sz*.7,0,Math.PI*2); tx.fill(); }
+    tx.restore();
+  }
+
+  if(flash>.01){
+    tx.fillStyle=`hsla(${P[0]},95%,74%,${(flash*.14).toFixed(3)})`;
+    tx.fillRect(0,0,W,H);
+  }
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ============================================================
+   Colours for the music-only screens (3–9)
+   Pick a preset and every one of them uses it; leave it on "own" and
+   each screen keeps the colours it was designed with.
+   ============================================================ */
+const PALS={
+  own:    null,
+  flag:   [152,42,356,110],
+  ice:    [196,212,232,178],
+  sunset: [18,340,44,6],
+  jungle: [140,96,168,54],
+  candy:  [318,276,190,45],
+  rainbow:[0,45,90,140,190,240,290,330]
+};
+let barePal='own';
+/* the hues a music-only screen should use */
+function pal7(ownNeon,ownFlag){
+  const p=PALS[barePal]; if(p) return p;
+  return tunMode==='flag'?ownFlag:ownNeon;
+}
+/* a very dark ground colour that goes with whatever palette is up.
+   fb is the colour the screen uses when no preset is picked. */
+function deep7(fb,l,k){
+  const p=PALS[barePal];
+  return p?`hsl(${p[(k||0)%p.length]},58%,${l}%)`:fb;
+}
+
+/* ---- the warp: the music-only screen. A corridor of corner brackets
+   coming at you, streaks tearing past, and chevrons opening outwards.
+   Ice blue and white with a hot pink edge — no rings, no lattice, so it
+   reads as a third place rather than the tunnel again. ---- */
+const W_ICE=[188,206,232,318], W_FLAG=[152,356,42,90];
+const FRAMES=11, CHEV=8;
+/* angle and depth come from different hashes — tie them to one sequence and
+   the streaks comb themselves into a spiral on one side of the screen */
+const hash=n=>{const x=Math.sin(n*127.1+n*n*.317)*43758.5453; return x-Math.floor(x);};
+const STREAK=Array.from({length:52},(_,i)=>({
+  a:hash(i+1)*Math.PI*2, off:hash(i+91),
+  sp:.7+hash(i+37)*1.1, len:.5+hash(i+53)*.8, w:hash(i+11)<.25?2.2:1 }));
+function drawWarp(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const P=pal7(W_ICE,W_FLAG);
+  const cx=W/2, cy=H*.5, R=Math.hypot(W,H)*.6;
+
+  tx.globalCompositeOperation='source-over';
+  const bg=tx.createRadialGradient(cx,cy,0,cx,cy,R);
+  bg.addColorStop(0,deep7(tunMode==='flag'?'#04231a':'#04182c',9,0));
+  bg.addColorStop(.5,deep7(tunMode==='flag'?'#020c09':'#020a16',5,1));
+  bg.addColorStop(1,'#01040a');
+  tx.fillStyle=bg; tx.fillRect(0,0,W,H);
+  tx.globalCompositeOperation='lighter';
+
+  /* streaks tearing past the camera — the faster the music, the longer */
+  for(let i=0;i<STREAK.length;i++){
+    const S=STREAK[i];
+    const p=((travel*S.sp*1.35+S.off)%1+1)%1;
+    const d0=Math.pow(p,2.6), d1=Math.pow(Math.min(1,p+ (.03+.16*b+rush*.2)*S.len),2.6);
+    const r0=R*d0*1.15, r1=R*d1*1.15;
+    if(r1<8) continue;
+    const ca=Math.cos(S.a), sa=Math.sin(S.a)*.92;
+    const hue=P[i%P.length];
+    const al=Math.min(1,p*5)*(1-Math.pow(p,6))*(.34+.55*h);
+    tx.strokeStyle=`hsla(${hue},100%,${(72+14*b).toFixed(0)}%,${al.toFixed(3)})`;
+    tx.lineWidth=S.w*(1+d1*3)*(1+b*.7);
+    tx.beginPath(); tx.moveTo(cx+ca*r0,cy+sa*r0); tx.lineTo(cx+ca*r1,cy+sa*r1); tx.stroke();
+  }
+
+  /* the corridor: square frames, drawn only at their corners */
+  for(let i=0;i<FRAMES;i++){
+    const p=(i/FRAMES+travel*.8)%1;
+    const d=Math.pow(p,2.5)*(1+b*.10+flash*.3);
+    const hw=R*d*.80, hh=hw*.62;
+    if(hw<6) continue;
+    const fade=Math.min(1,p*6)*(1-Math.pow(p,9));
+    const hue=P[i%P.length];
+    const al=(.18+.72*fade)*(.5+.5*b)+flash*.25;
+    const lw=Math.max(1,(1+d*7)*(1+b*.8));
+    const arm=Math.min(hw,hh)*(.30+.12*Math.sin(T*.8+i));   // corner length
+    const tilt=(i%2?1:-1)*(spin*.22+rush*.12);
+    tx.save(); tx.translate(cx,cy); tx.rotate(tilt);
+    tx.lineCap='square';
+    tx.strokeStyle=`hsla(${hue},100%,50%,${((.05+.13*fade)*(.5+.6*b)).toFixed(3)})`;
+    tx.lineWidth=lw*4.5; drawCorners(hw,hh,arm);
+    tx.strokeStyle=`hsla(${hue},100%,${(66+18*b).toFixed(0)}%,${al.toFixed(3)})`;
+    tx.lineWidth=lw; drawCorners(hw,hh,arm);
+    tx.lineCap='round'; tx.restore();
+  }
+
+  /* chevrons opening outwards, off the beat */
+  for(let i=0;i<CHEV;i++){
+    const p=((travel*1.1+i/CHEV)%1+1)%1;
+    const d=Math.pow(p,2.4);
+    const rr=R*d*.95;
+    if(rr<10) continue;
+    const a=spin*.5+i*(Math.PI*2/CHEV);
+    const sz=R*d*.12*(1+b*.5);
+    const hue=P[(i+2)%P.length];
+    const al=Math.min(1,p*6)*(1-Math.pow(p,7))*(.34+.5*b);
+    tx.strokeStyle=`hsla(${hue},100%,74%,${al.toFixed(3)})`;
+    tx.lineWidth=Math.max(1.2,sz*.17);
+    tx.save(); tx.translate(cx+Math.cos(a)*rr, cy+Math.sin(a)*rr*.92); tx.rotate(a);
+    tx.beginPath(); tx.moveTo(-sz*.7,-sz); tx.lineTo(sz*.5,0); tx.lineTo(-sz*.7,sz); tx.stroke();
+    tx.restore();
+  }
+
+  /* the light at the far end */
+  const cr=R*(.05+.14*b+flash*.22);
+  const gg=tx.createRadialGradient(cx,cy,0,cx,cy,cr);
+  gg.addColorStop(0,`hsla(${P[2]},100%,94%,${(.5+.35*b).toFixed(3)})`);
+  gg.addColorStop(.4,`hsla(${P[0]},100%,72%,${(.22+.3*b).toFixed(3)})`);
+  gg.addColorStop(1,`hsla(${P[0]},100%,60%,0)`);
+  tx.fillStyle=gg; tx.beginPath(); tx.arc(cx,cy,cr,0,Math.PI*2); tx.fill();
+
+  if(flash>.01){
+    tx.fillStyle=`hsla(${P[1]},100%,82%,${(flash*.14).toFixed(3)})`;
+    tx.fillRect(0,0,W,H);
+  }
+  tx.globalCompositeOperation='source-over';
+}
+/* the four corners of one frame — eight short strokes, no full outline */
+function drawCorners(hw,hh,arm){
+  tx.beginPath();
+  for(const sx of [-1,1]) for(const sy of [-1,1]){
+    tx.moveTo(sx*hw, sy*hh); tx.lineTo(sx*(hw-arm), sy*hh);
+    tx.moveTo(sx*hw, sy*hh); tx.lineTo(sx*hw, sy*(hh-arm));
+  }
+  tx.stroke();
+}
+
+/* ---- Kaleidoscope: petals opening and closing round the middle. Nothing
+   recedes here, it breathes. Magenta, gold and violet. ---- */
+const K_NEON=[320,45,275,196], K_FLAG=[152,356,42,110];
+function drawBloom(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const P=pal7(K_NEON,K_FLAG);
+  const cx=W/2, cy=H/2, R=Math.min(W,H)*.5;
+
+  tx.globalCompositeOperation='source-over';
+  const bg=tx.createRadialGradient(cx,cy,0,cx,cy,R*1.7);
+  bg.addColorStop(0,deep7(tunMode==='flag'?'#0b1f10':'#22062a',9,2));
+  bg.addColorStop(1,'#050109');
+  tx.fillStyle=bg; tx.fillRect(0,0,W,H);
+  tx.globalCompositeOperation='lighter';
+
+  const breath=.5+.5*Math.sin(T*.55+nspin*.6);
+  const petals=[6,8,10,12][nshift%4];        // the count changes over mid-scene
+  for(let layer=0;layer<5;layer++){
+    const rr=R*(.16+layer*.155)*(.86+.22*breath+b*.16+flash*.2);
+    const hue=P[(layer+nshift)%P.length];
+    const rot=nspin*(layer%2?1.1:-.8)+layer*.4;
+    const pw=R*(.10+.035*layer)*(.7+.5*breath+b*.3);
+    const ph=pw*(.34+.3*breath);
+    for(let k=0;k<petals;k++){
+      const a=rot+k*(Math.PI*2/petals);
+      const x=cx+Math.cos(a)*rr, y=cy+Math.sin(a)*rr;
+      tx.save(); tx.translate(x,y); tx.rotate(a);
+      tx.beginPath(); tx.ellipse(0,0,pw,ph,0,0,Math.PI*2);
+      tx.strokeStyle=`hsla(${hue},95%,50%,${(.05+.12*m).toFixed(3)})`;
+      tx.lineWidth=(2+7*b)*3; tx.stroke();
+      tx.strokeStyle=`hsla(${hue},100%,${(64+18*b).toFixed(0)}%,${(.20+.42*(1-layer/6)+flash*.3).toFixed(3)})`;
+      tx.lineWidth=2+7*b; tx.stroke();
+      tx.restore();
+      if(layer===4){   // a thin spoke back to the middle, on the top end
+        tx.strokeStyle=`hsla(${P[(k+nshift)%P.length]},100%,74%,${(.06+.22*h).toFixed(3)})`;
+        tx.lineWidth=1+2*b;
+        tx.beginPath(); tx.moveTo(cx,cy); tx.lineTo(x,y); tx.stroke();
+      }
+    }
+  }
+  const cr=R*(.10+.13*b+flash*.2);
+  const gg=tx.createRadialGradient(cx,cy,0,cx,cy,cr);
+  gg.addColorStop(0,`hsla(${P[1]},100%,90%,${(.42+.4*b).toFixed(3)})`);
+  gg.addColorStop(1,`hsla(${P[0]},100%,60%,0)`);
+  tx.fillStyle=gg; tx.beginPath(); tx.arc(cx,cy,cr,0,Math.PI*2); tx.fill();
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ---- Ribbons: wide bands of light rolling across the screen with sparks
+   riding along them. Teal, violet and rose. ---- */
+const R_NEON=[168,272,318,205], R_FLAG=[152,356,42,120];
+function drawRibbons(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const P=pal7(R_NEON,R_FLAG);
+
+  tx.globalCompositeOperation='source-over';
+  const bg=tx.createLinearGradient(0,0,0,H);
+  bg.addColorStop(0,deep7(tunMode==='flag'?'#03150e':'#0a0722',8,3));
+  bg.addColorStop(1,deep7(tunMode==='flag'?'#12040a':'#22062a',9,4));
+  tx.fillStyle=bg; tx.fillRect(0,0,W,H);
+  tx.globalCompositeOperation='lighter';
+
+  const bands=[3,4,5,4][nshift%4];
+  const step=W/44;
+  const wave=(u,ph,mid0,amp)=>mid0+Math.sin(u*4.2+ph)*amp+Math.sin(u*9.1-ph*1.6)*amp*.35;
+  for(let i=0;i<bands;i++){
+    const hue=P[(i+nshift)%P.length];
+    const mid0=H*(.24+.52*(i+.5)/bands);
+    const amp=H*(.06+.05*Math.sin(T*.4+i))*(1+b*1.1);
+    const thick=H*(.035+.02*Math.sin(T*.7+i*1.7))*(1+b*.8+flash*.5);
+    const ph=nflow*(i%2?1:-1)*(.7+i*.22)+i*2.1;
+    const g=tx.createLinearGradient(0,mid0-amp-thick,0,mid0+amp+thick);
+    g.addColorStop(0,`hsla(${hue},100%,62%,0)`);
+    g.addColorStop(.5,`hsla(${hue},100%,${(58+16*b).toFixed(0)}%,${(.20+.3*m).toFixed(3)})`);
+    g.addColorStop(1,`hsla(${hue},100%,62%,0)`);
+    tx.fillStyle=g;
+    tx.beginPath();
+    for(let x=0;x<=W+step;x+=step) x?tx.lineTo(x,wave(x/W,ph,mid0,amp)-thick):tx.moveTo(0,wave(0,ph,mid0,amp)-thick);
+    for(let x=W+step;x>=0;x-=step) tx.lineTo(x,wave(x/W,ph,mid0,amp)+thick);
+    tx.closePath(); tx.fill();
+    tx.strokeStyle=`hsla(${hue},100%,${(74+14*b).toFixed(0)}%,${(.3+.4*h).toFixed(3)})`;
+    tx.lineWidth=1.4+3*b;
+    tx.beginPath();
+    for(let x=0;x<=W+step;x+=step) x?tx.lineTo(x,wave(x/W,ph,mid0,amp)-thick):tx.moveTo(0,wave(0,ph,mid0,amp)-thick);
+    tx.stroke();
+    for(let k=0;k<5;k++){     // sparks riding the band
+      const u=((nflow*.16*(1+k*.2)+k*.19+i*.37)%1+1)%1;
+      const sz=Math.min(W,H)*.006*(1+b*1.2+flash);
+      tx.fillStyle=`hsla(${hue},100%,86%,${(.3+.45*b).toFixed(3)})`;
+      tx.beginPath(); tx.arc(u*W,wave(u,ph,mid0,amp),sz,0,Math.PI*2); tx.fill();
+    }
+  }
+  if(flash>.01){ tx.fillStyle=`hsla(${P[2]},100%,80%,${(flash*.12).toFixed(3)})`; tx.fillRect(0,0,W,H); }
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ---- Neon grid: a floor running away to the horizon, the rows coming at
+   you — or away, when the loop turns round. ---- */
+const G_NEON=[318,28,190,262], G_FLAG=[152,356,42,120];
+function drawGrid(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const P=pal7(G_NEON,G_FLAG);
+  const hz=H*.54, cx=W/2;
+
+  tx.globalCompositeOperation='source-over';
+  const sky=tx.createLinearGradient(0,0,0,hz);
+  sky.addColorStop(0,deep7(tunMode==='flag'?'#03130c':'#150430',10,5));
+  sky.addColorStop(1,deep7(tunMode==='flag'?'#0d1a06':'#3a0836',13,6));
+  tx.fillStyle=sky; tx.fillRect(0,0,W,hz);
+  const flr=tx.createLinearGradient(0,hz,0,H);
+  flr.addColorStop(0,deep7(tunMode==='flag'?'#04150d':'#1a0324',8,7));
+  flr.addColorStop(1,'#04010a');
+  tx.fillStyle=flr; tx.fillRect(0,hz,W,H-hz);
+  tx.globalCompositeOperation='lighter';
+
+  const sr=Math.min(W,H)*(.17+.03*b+flash*.06);
+  const sg=tx.createLinearGradient(0,hz-sr,0,hz+sr*.2);
+  sg.addColorStop(0,`hsla(${P[1]},100%,68%,${(.55+.3*b).toFixed(3)})`);
+  sg.addColorStop(1,`hsla(${P[0]},100%,56%,${(.30+.3*b).toFixed(3)})`);
+  tx.save(); tx.beginPath(); tx.arc(cx,hz-sr*.12,sr,0,Math.PI*2); tx.clip();
+  tx.fillStyle=sg; tx.fillRect(cx-sr,hz-sr*1.2,sr*2,sr*2);
+  tx.globalCompositeOperation='destination-out';
+  for(let i=0;i<7;i++){          // the bands across the sun slide with the music
+    const y=hz-sr*1.1+((i*sr*.28+nflow*sr*.12)%(sr*2));
+    tx.fillRect(cx-sr,y,sr*2,sr*.07*(1+i*.35));
+  }
+  tx.globalCompositeOperation='lighter';
+  tx.restore();
+
+  for(let i=0;i<40;i++){         // stars over the horizon
+    const x=((i*97)%1000)/1000*W, y=((i*173)%1000)/1000*hz*.9;
+    const tw=.25+.75*Math.abs(Math.sin(T*1.3+i));
+    tx.fillStyle=`hsla(${P[3]},100%,88%,${(tw*(.18+.3*h)).toFixed(3)})`;
+    tx.fillRect(x,y,1.6,1.6);
+  }
+
+  const lanes=[9,13,17,13][nshift%4];
+  tx.strokeStyle=`hsla(${P[0]},100%,${(62+16*b).toFixed(0)}%,${(.22+.3*m).toFixed(3)})`;
+  tx.lineWidth=1.2+2.2*b;
+  for(let i=-lanes;i<=lanes;i++){
+    tx.beginPath(); tx.moveTo(cx,hz); tx.lineTo(cx+(i/lanes)*W*1.6,H); tx.stroke();
+  }
+  const rows=16;
+  for(let i=0;i<rows;i++){
+    const p=((i/rows+nflow*.32)%1+1)%1;
+    const d=Math.pow(p,2.6), y=hz+(H-hz)*d;
+    const al=(1-Math.pow(1-p,2))*(.20+.45*b)+flash*.2;
+    tx.strokeStyle=`hsla(${P[(i+nshift)%P.length]},100%,${(66+14*b).toFixed(0)}%,${al.toFixed(3)})`;
+    tx.lineWidth=(.8+d*3.4)*(1+b*.8);
+    tx.beginPath(); tx.moveTo(0,y); tx.lineTo(W,y); tx.stroke();
+  }
+  const hg=tx.createLinearGradient(0,hz-H*.06,0,hz+H*.05);
+  hg.addColorStop(0,`hsla(${P[0]},100%,60%,0)`);
+  hg.addColorStop(.5,`hsla(${P[0]},100%,66%,${(.22+.25*b).toFixed(3)})`);
+  hg.addColorStop(1,`hsla(${P[0]},100%,60%,0)`);
+  tx.fillStyle=hg; tx.fillRect(0,hz-H*.06,W,H*.11);
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ---- Laser show: flying down a tunnel whose walls are lit tiles, filling
+   the screen edge to edge, with beams sweeping over the top. Each ring of
+   tiles is fed by its own slice of the music, so the walls light up with
+   what is actually playing. ---- */
+const TSEG=16, SEC=18, C_FLAG=[152,356,42,110];
+const tileLit=(i,k)=>{const x=Math.sin(i*12.9898+k*78.233)*43758.5453; return x-Math.floor(x);};
+/* one slice of the spectrum per sector — the real thing when there is audio,
+   a drifting stand-in when there is not */
+function sectorEnergy(k,T){
+  if(an && !simulate){
+    const lo=Math.floor(16+Math.pow(k/SEC,1.75)*540), up=lo+20;
+    let v=0; for(let j=lo;j<up;j++) v=Math.max(v,freq[j]);
+    return Math.min(1,(v/255)*sens*1.4);
+  }
+  return Math.max(0,.34+.34*Math.sin(T*1.7+k*1.1)+.2*Math.sin(T*2.9+k*2.3));
+}
+function drawCubes(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const cx=W/2, cy=H*.5, R=Math.hypot(W,H)*.82;
+  // no preset: run the whole spectrum round the tunnel. With one: use it.
+  const P=pal7(null,C_FLAG), flag=!!P;
+
+  tx.globalCompositeOperation='source-over';
+  tx.fillStyle='#050110'; tx.fillRect(0,0,W,H);
+
+  const energy=[]; for(let k=0;k<SEC;k++) energy.push(sectorEnergy(k,T));
+  const step=Math.PI*2/SEC, gap=step*.13;
+
+  /* the rings, far ones first so the near ones cover them */
+  const order=[];
+  for(let i=0;i<TSEG;i++) order.push({i,p:((i/TSEG+nflow*.30)%1+1)%1});
+  order.sort((a,c)=>a.p-c.p);
+  for(const {i,p} of order){
+    const p2=p+1/TSEG; if(p2>1) continue;
+    const r0=R*Math.pow(p,2.7), r1=R*Math.pow(p2,2.7);
+    if(r1<3) continue;
+    const fade=Math.min(1,p*7)*(1-Math.pow(p,11));
+    const tw=nspin*.7+p*2.6;                       // the corridor twists as it comes
+    for(let k=0;k<SEC;k++){
+      const e=energy[(k+i)%SEC];
+      const lit=tileLit(i,k);
+      // a tile is either dark wall or a lit panel, and the music decides
+      const on=lit<.34+e*.5;
+      const a0=tw+k*step+gap, a1=tw+(k+1)*step-gap;
+      const hue=P ? P[(k+i)%P.length]
+                  : (k*(360/SEC)+i*14+T*26)%360;
+      // deep saturated walls, lit panels a good deal brighter — but not so
+      // bright that the whole wall bleaches out to white
+      const l=on ? Math.min(72,30+30*e+14*b+flash*14) : (6+11*e);
+      const al=fade*(on?(.62+.38*e):.55);
+      tx.fillStyle=`hsla(${hue.toFixed(0)},${flag?88:96}%,${l.toFixed(0)}%,${al.toFixed(3)})`;
+      tx.beginPath();
+      tx.moveTo(cx+Math.cos(a0)*r0, cy+Math.sin(a0)*r0*.94);
+      tx.lineTo(cx+Math.cos(a1)*r0, cy+Math.sin(a1)*r0*.94);
+      tx.lineTo(cx+Math.cos(a1)*r1, cy+Math.sin(a1)*r1*.94);
+      tx.lineTo(cx+Math.cos(a0)*r1, cy+Math.sin(a0)*r1*.94);
+      tx.closePath(); tx.fill();
+      // the brightest panels get a white core, the way a real light does
+      if(on && e>.72){
+        tx.globalCompositeOperation='lighter';
+        const am=(a0+a1)/2, rm=(r0+r1)/2, sp=(a1-a0)*.30, rs=(r1-r0)*.28;
+        tx.fillStyle=`hsla(${hue.toFixed(0)},100%,88%,${(fade*(.14+.34*e)).toFixed(3)})`;
+        tx.beginPath();
+        tx.moveTo(cx+Math.cos(am-sp)*(rm-rs), cy+Math.sin(am-sp)*(rm-rs)*.94);
+        tx.lineTo(cx+Math.cos(am+sp)*(rm-rs), cy+Math.sin(am+sp)*(rm-rs)*.94);
+        tx.lineTo(cx+Math.cos(am+sp)*(rm+rs), cy+Math.sin(am+sp)*(rm+rs)*.94);
+        tx.lineTo(cx+Math.cos(am-sp)*(rm+rs), cy+Math.sin(am-sp)*(rm+rs)*.94);
+        tx.closePath(); tx.fill();
+        tx.globalCompositeOperation='source-over';
+      }
+    }
+  }
+
+  /* the beams over the top of it — a rig sweeping the room */
+  tx.globalCompositeOperation='lighter';
+  const beams=8;
+  for(let s=0;s<beams;s++){
+    const a=nspin*2.1*(s%2?1:-1)+s*(Math.PI*2/beams)+Math.sin(T*.6+s)*.5;
+    const len=R*(.9+.35*Math.abs(Math.sin(T*.9+s*1.3)));
+    const ex=cx+Math.cos(a)*len, ey=cy+Math.sin(a)*len*.94;
+    const hue=P ? P[s%P.length] : (s*(360/beams)+T*40)%360;
+    const g=tx.createLinearGradient(cx,cy,ex,ey);
+    g.addColorStop(0,`hsla(${hue.toFixed(0)},100%,86%,${(.20+.45*h+flash*.4).toFixed(3)})`);
+    g.addColorStop(.6,`hsla(${hue.toFixed(0)},100%,66%,${(.08+.26*h).toFixed(3)})`);
+    g.addColorStop(1,`hsla(${hue.toFixed(0)},100%,60%,0)`);
+    tx.strokeStyle=g; tx.lineWidth=(2+9*b)*(s%3?1:1.9);
+    tx.beginPath(); tx.moveTo(cx,cy); tx.lineTo(ex,ey); tx.stroke();
+  }
+
+  /* the light at the far end, and a soft lift on the beat */
+  const cr=R*(.06+.16*b+flash*.26);
+  const gg=tx.createRadialGradient(cx,cy,0,cx,cy,cr);
+  const ch=P?P[2%P.length]:(T*46)%360;
+  gg.addColorStop(0,`hsla(${ch.toFixed(0)},100%,96%,${(.5+.4*b).toFixed(3)})`);
+  gg.addColorStop(.4,`hsla(${ch.toFixed(0)},100%,74%,${(.22+.3*b).toFixed(3)})`);
+  gg.addColorStop(1,`hsla(${ch.toFixed(0)},100%,60%,0)`);
+  tx.fillStyle=gg; tx.beginPath(); tx.arc(cx,cy,cr,0,Math.PI*2); tx.fill();
+  if(flash>.01){
+    tx.fillStyle=`hsla(${ch.toFixed(0)},100%,84%,${(flash*.15).toFixed(3)})`;
+    tx.fillRect(0,0,W,H);
+  }
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ---- Fireworks. Shells go up on the beat and break at the top; the
+   sparks fall under gravity, twinkling out. A loud kick sends up a big
+   one. Nothing here recedes or spins — it is the night sky. ---- */
+const FW={rockets:[],sparks:[]};
+let fwWait=.4;
+const FIRE_FLAG=[152,356,42,50];
+function fwHue(){
+  const P=pal7(null,FIRE_FLAG);
+  return P ? P[Math.floor(Math.random()*P.length)] : Math.floor(Math.random()*360);
+}
+function fwLaunch(W,H,big){
+  const peak=H*(big?.92:.62+Math.random()*.26);
+  const g=H*.36;
+  FW.rockets.push({
+    x:W*(.14+Math.random()*.72), y:H*1.02,
+    vx:W*(Math.random()-.5)*.06, vy:-Math.sqrt(2*g*peak),
+    px:0,py:0, hue:fwHue(), big:!!big,
+    kind:Math.floor(Math.random()*3)      // ball, ring, or willow
+  });
+}
+function fwBurst(r,W,H){
+  const n=r.big?220:120+Math.floor(Math.random()*70);
+  const sp=H*(r.big?.62:.44);
+  for(let i=0;i<n;i++){
+    let a,v;
+    if(r.kind===1){                        // a flat ring, seen edge on
+      a=(i/n)*Math.PI*2; v=sp*(.92+Math.random()*.16);
+    }else{
+      a=Math.random()*Math.PI*2; v=sp*Math.pow(Math.random(),.42);
+    }
+    FW.sparks.push({
+      x:r.x, y:r.y, px:r.x, py:r.y,
+      vx:Math.cos(a)*v+r.vx*.3, vy:Math.sin(a)*v*(r.kind===2?.55:1),
+      hue:(r.hue+(Math.random()<.18?60:0))%360,
+      life:1, max:(r.kind===2?3.2:1.9)+Math.random()*1.1,
+      drag:r.kind===2?.62:.78, twk:Math.random()*6.3
+    });
+  }
+}
+function drawFireworks(W,H,T){
+  const dt=Math.min(.05,lastDt);
+  const b=Math.max(0,Math.min(1,bass)), h=Math.max(0,Math.min(1,hi));
+  const g=H*.36;
+
+  /* the night: deep blue above, a warm glow along the bottom */
+  tx.globalCompositeOperation='source-over';
+  const sky=tx.createLinearGradient(0,0,0,H);
+  sky.addColorStop(0,deep7(tunMode==='flag'?'#02100b':'#03061c',6,8));
+  sky.addColorStop(.62,deep7(tunMode==='flag'?'#04150d':'#060a24',8,9));
+  sky.addColorStop(1,deep7(tunMode==='flag'?'#0b1206':'#160a1e',8,10));
+  tx.fillStyle=sky; tx.fillRect(0,0,W,H);
+  const gl=tx.createLinearGradient(0,H*.82,0,H);
+  gl.addColorStop(0,'rgba(255,170,60,0)');
+  gl.addColorStop(1,`rgba(255,150,60,${(.06+.10*b).toFixed(3)})`);
+  tx.fillStyle=gl; tx.fillRect(0,H*.8,W,H*.2);
+
+  tx.globalCompositeOperation='lighter';
+
+  /* send one up on a strong beat, and keep a steady trickle going anyway */
+  fwWait-=dt;
+  if(lastKick>.14 && FW.rockets.length<12){ fwLaunch(W,H,lastKick>.26); fwWait=.16; }
+  else if(fwWait<=0 && FW.rockets.length<9){ fwLaunch(W,H,Math.random()<.25); fwWait=.18+Math.random()*.5; }
+
+  /* the shells on their way up */
+  for(let i=FW.rockets.length-1;i>=0;i--){
+    const r=FW.rockets[i];
+    r.px=r.x; r.py=r.y;
+    r.vy+=g*dt; r.x+=r.vx*dt; r.y+=r.vy*dt;
+    tx.strokeStyle=`hsla(${r.hue},100%,80%,.85)`;
+    tx.lineWidth=r.big?3:2;
+    tx.beginPath(); tx.moveTo(r.px,r.py); tx.lineTo(r.x,r.y); tx.stroke();
+    // a few embers falling off the tail
+    tx.fillStyle=`hsla(40,100%,72%,${(.3+.3*Math.random()).toFixed(2)})`;
+    tx.fillRect(r.x-1,r.y+2,2,2);
+    if(r.vy>=-H*.06 || r.y<H*.12){
+      fwBurst(r,W,H); FW.rockets.splice(i,1);
+      // the flash of the break
+      const fr=H*(r.big?.10:.06);
+      const fg=tx.createRadialGradient(r.x,r.y,0,r.x,r.y,fr);
+      fg.addColorStop(0,`hsla(${r.hue},100%,92%,.6)`);
+      fg.addColorStop(1,`hsla(${r.hue},100%,70%,0)`);
+      tx.fillStyle=fg; tx.beginPath(); tx.arc(r.x,r.y,fr,0,Math.PI*2); tx.fill();
+    }
+  }
+
+  /* the sparks coming down */
+  for(let i=FW.sparks.length-1;i>=0;i--){
+    const s=FW.sparks[i];
+    s.life-=dt/s.max;
+    if(s.life<=0){ FW.sparks.splice(i,1); continue; }
+    s.px=s.x; s.py=s.y;
+    s.vy+=g*dt*.55;
+    s.vx*=1-(1-s.drag)*dt*1.6; s.vy*=1-(1-s.drag)*dt*1.1;
+    s.x+=s.vx*dt; s.y+=s.vy*dt;
+    // they twinkle as they burn out, and the beat lifts them all a little
+    const tw=.55+.45*Math.sin(T*22+s.twk);
+    const al=Math.min(1,s.life*1.9)*(.55+.45*tw)*(.75+.45*b);
+    tx.beginPath(); tx.moveTo(s.px,s.py); tx.lineTo(s.x,s.y);
+    // the soft halo is only worth its cost on the fresh, bright sparks
+    if(s.life>.5){
+      tx.strokeStyle=`hsla(${s.hue},100%,58%,${(al*.30).toFixed(3)})`;
+      tx.lineWidth=(2+5*s.life)*(1+b*.5); tx.stroke();
+    }
+    tx.strokeStyle=`hsla(${s.hue},100%,${(60+26*s.life).toFixed(0)}%,${al.toFixed(3)})`;
+    tx.lineWidth=1.2+2*s.life*(1+b*.5); tx.stroke();
+  }
+  if(FW.sparks.length>2200) FW.sparks.splice(0,FW.sparks.length-2200);
+
+  /* a wash of light over the whole sky when something big goes off */
+  if(flash>.01){
+    const fh=pal7(null,FIRE_FLAG);
+    tx.fillStyle=`hsla(${fh?fh[0]:210},100%,80%,${(flash*.10).toFixed(3)})`;
+    tx.fillRect(0,0,W,H);
+  }
+  tx.globalCompositeOperation='source-over';
+}
+
+/* ---- Liquid: big soft blobs of colour drifting over each other, then the
+   whole picture folded back on itself so it comes out symmetrical, the way
+   a VJ loop does. Ripples go out from the middle on the beat. ---- */
+const BLOBS=Array.from({length:11},(_,i)=>({
+  ax:.30+((i*7)%5)*.13, ay:.26+((i*5)%4)*.15,     // how far it wanders
+  fx:.13+((i*3)%6)*.045, fy:.11+((i*5)%7)*.038,   // how fast, each on its own
+  ph:i*1.7, hue:i*(360/11), sz:.20+((i*11)%5)*.07 }));
+const RIPPLE=[];
+const L_FLAG=[152,356,42,110];
+function drawLiquid(W,H,T){
+  const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid)), h=Math.max(0,Math.min(1,hi));
+  const P=pal7(null,L_FLAG), flag=!!P;
+  const cx=W/2, cy=H/2, R=Math.hypot(W,H)*.5;
+  const t=nflow*1.6;
+
+  tx.globalCompositeOperation='source-over';
+  tx.fillStyle=flag?'#02100a':'#0a0320'; tx.fillRect(0,0,W,H);
+  // screen, not lighter: the colours keep their identity where blobs
+  // overlap instead of piling up into white
+  tx.globalCompositeOperation='screen';
+
+  /* the blobs. Soft edges and heavy overlap — that is what makes it read
+     as liquid rather than as circles. */
+  for(let i=0;i<BLOBS.length;i++){
+    const B=BLOBS[i];
+    const x=cx+Math.sin(t*B.fx*6.1+B.ph)*W*B.ax;
+    const y=cy+Math.cos(t*B.fy*5.7+B.ph*1.3)*H*B.ay;
+    const r=R*B.sz*(.8+.3*Math.sin(t*2.1+i)+b*.45+flash*.35);
+    const hue=P?P[(i+nshift)%P.length]:(B.hue+T*22+nshift*40)%360;
+    const g=tx.createRadialGradient(x,y,0,x,y,r);
+    g.addColorStop(0,`hsla(${hue.toFixed(0)},100%,${(54+16*b).toFixed(0)}%,${(.78+.2*m).toFixed(3)})`);
+    g.addColorStop(.42,`hsla(${hue.toFixed(0)},100%,46%,${(.42+.24*m).toFixed(3)})`);
+    g.addColorStop(1,`hsla(${hue.toFixed(0)},100%,36%,0)`);
+    tx.fillStyle=g; tx.beginPath(); tx.arc(x,y,r,0,Math.PI*2); tx.fill();
+  }
+
+  /* bright streaks curling through it, so there is something sharp over
+     all that softness */
+  tx.globalCompositeOperation='lighter';
+  for(let i=0;i<4;i++){
+    const hue=P?P[(i+1)%P.length]:(T*34+i*90)%360;
+    const rad=R*(.28+i*.13)*(1+b*.10);
+    const a0=nspin*(i%2?1.5:-1.1)+i*1.7;
+    tx.strokeStyle=`hsla(${hue.toFixed(0)},100%,${(76+12*b).toFixed(0)}%,${(.18+.3*h).toFixed(3)})`;
+    tx.lineWidth=1.5+5*b;
+    tx.beginPath();
+    tx.ellipse(cx,cy,rad,rad*(.5+.3*Math.sin(T*.5+i)),i*.6+nspin*.3,a0,a0+2.1);
+    tx.stroke();
+  }
+
+  /* fold the picture back over itself — left onto right, then top onto
+     bottom — so the whole thing comes out symmetrical */
+  tx.globalCompositeOperation='screen';
+  tx.globalAlpha=.58;
+  tx.save(); tx.translate(W,0); tx.scale(-1,1); tx.drawImage(tcv,0,0,W,H); tx.restore();
+  tx.globalAlpha=1;
+  tx.globalCompositeOperation='lighter';
+
+  /* ripples going out on the beat */
+  if(lastKick>.14 && RIPPLE.length<7) RIPPLE.push({r:R*.04,life:1,hue:P?P[1%P.length]:(T*60)%360});
+  for(let i=RIPPLE.length-1;i>=0;i--){
+    const p=RIPPLE[i];
+    p.r+=R*.9*Math.min(.05,lastDt); p.life-=Math.min(.05,lastDt)*.85;
+    if(p.life<=0){ RIPPLE.splice(i,1); continue; }
+    tx.strokeStyle=`hsla(${p.hue.toFixed(0)},100%,82%,${(p.life*.34).toFixed(3)})`;
+    tx.lineWidth=(1+7*p.life)*(1+b*.6);
+    tx.beginPath(); tx.arc(cx,cy,p.r,0,Math.PI*2); tx.stroke();
+  }
+
+  /* a bright core, and the treble picked out as fine spokes */
+  const cr=R*(.06+.14*b+flash*.2);
+  const gg=tx.createRadialGradient(cx,cy,0,cx,cy,cr);
+  const ch=P?P[2%P.length]:(T*50)%360;
+  gg.addColorStop(0,`hsla(${ch.toFixed(0)},100%,94%,${(.32+.35*b).toFixed(3)})`);
+  gg.addColorStop(1,`hsla(${ch.toFixed(0)},100%,64%,0)`);
+  tx.fillStyle=gg; tx.beginPath(); tx.arc(cx,cy,cr,0,Math.PI*2); tx.fill();
+  // fine spokes, only when there is something up at the top end to show
+  if(h>.25){
+    const spokes=9;
+    for(let s=0;s<spokes;s++){
+      const a=nspin*1.3+s*(Math.PI*2/spokes);
+      const len=R*(.3+.45*h);
+      tx.strokeStyle=`hsla(${(ch+s*16)%360},100%,86%,${(.14*(h-.25)).toFixed(3)})`;
+      tx.lineWidth=1+1.5*b;
+      tx.beginPath(); tx.moveTo(cx,cy); tx.lineTo(cx+Math.cos(a)*len,cy+Math.sin(a)*len); tx.stroke();
+    }
+  }
+  // a soft edge round the picture so the middle carries the eye
+  tx.globalCompositeOperation='source-over';
+  const vg=tx.createRadialGradient(cx,cy,R*.35,cx,cy,R*1.05);
+  vg.addColorStop(0,'rgba(0,0,0,0)'); vg.addColorStop(1,'rgba(0,0,0,.34)');
+  tx.fillStyle=vg; tx.fillRect(0,0,W,H);
+  tx.globalCompositeOperation='source-over';
+}
+
+function draw(){
+  requestAnimationFrame(draw);
+  const W=innerWidth,H=innerHeight;
+
+  if(an && !simulate){
+    an.getByteFrequencyData(freq);
+    const band=(a,b)=>{let s=0;for(let i=a;i<b;i++)s+=freq[i];return s/(b-a);};
+    const rB=band(2,22), rM=band(22,340), rH=band(340,860);
+    ceil=Math.max(rB,rM,ceil*.996,12);
+    const n=v=>Math.min(1,(v/ceil)*sens);
+    bass+=(n(rB)-bass)*.32; mid+=(n(rM)-mid)*.2; hi+=(n(rH)-hi)*.36;
+  }else{
+    // no audio: the three numbers drift on their own so nothing stands still
+    const t=(performance.now()-t0)/1000;
+    bass=.24+.16*Math.sin(t*1.1);
+    mid =.30+.18*Math.sin(t*.63+1.7);
+    hi  =.26+.20*Math.sin(t*1.9+.4);
+  }
+
+  const nowMs=performance.now();
+  const dt=Math.min(.05,Math.max(0,(nowMs-lastFrame)/1000)); lastFrame=nowMs;
+  paintBackdrop(W,H,dt,(nowMs-t0)/1000);
+
+
+  /* everything that beats with the bass */
+  const j=1+bass*.17, y=-bass*2.4;
+  /* the lockup moves as one piece — the curved title rides with the logo
+     rather than drifting against it */
+  const b2=Math.max(0,Math.min(1,bass));
+  const lift=-b2*2.7, sc=1+b2*.085;
+  $('lockTop').style.transform=`translateX(-50%) translateY(${lift.toFixed(2)}vmin) scale(${sc.toFixed(3)})`;
+  $('lockBig').style.transform=`translateY(${(lift*1.35).toFixed(2)}vmin) scale(${(1+b2*.11).toFixed(3)})`;
+  const lf=`saturate(${(1+b2*.38).toFixed(2)}) brightness(${(1+b2*.13).toFixed(3)})`
+         +` drop-shadow(0 .5vmin 1.4vmin rgba(0,0,0,.38))`;
+  $('logoT').style.filter=lf; $('logoB').style.filter=lf; $('logo2').style.filter=lf;
+  $('logo2').style.transform=`translateY(${(lift*1.2).toFixed(2)}vmin) scale(${(1+b2*.10).toFixed(3)})`;
+  $('oM2Bn').style.transform=`scale(${(1+b2*.05).toFixed(3)})`;
+  const bright=(1+b2*.16).toFixed(3);
+  $('arcWrapT').style.filter=`brightness(${bright})`;
+  $('arcWrapB').style.filter=`brightness(${bright})`;
+  [...$('sponGrid').children].forEach((el,i)=>{
+    el.style.transform=`translateY(${y*.7}vmin) scale(${1+bass*(.13+(i%3)*.045)})`; });
+  $('flagBd').style.transform=`scale(${1+bass*.09}) rotate(${bass*1.4}deg)`;
+  $('flagPt').style.transform=`scale(${1+bass*.09}) rotate(${-bass*1.4}deg)`;
+  $('scTitle').style.transform=`scale(${1+bass*.035})`;
+  $('slideImg').style.transform=`scale(${1+bass*.018})`;
+  const tt=(performance.now()-t0)/1000;
+  $('mark').style.transform=`translate(${(Math.sin(tt/37)*1.1).toFixed(2)}vmin,${(Math.sin(tt/53)*.5).toFixed(2)}vmin)`;
+}
+
+/* ---------- start / stop ---------- */
+let started=false;
+async function start(){
+  $('setup').classList.add('hidden'); $('stage').classList.remove('hidden');
+  applyStatic(); refitArcs();
+  const l=LOGO();
+  [$('logoT'),$('logoB'),$('logo2')].forEach(el=>el.style.display=l?'':'none');
+  if(l){ $('logoT').src=l; $('logoB').src=l; $('logo2').src=l; }
+  tfit(); if(!started){ started=true; draw(); }
+  idx=-1; paused=false; run(1);
+  try{ await initAudio(); }
+  catch(err){
+    simulate=true; $('msg').style.display='block';
+    $('msg').innerHTML = src==='mic'
+      ? 'Microphone blocked — the tunnel will drift on its own.<br>To use it: allow the mic in the address bar, press <b>Esc</b>, then Start show again.'
+      : 'That audio file would not play — the tunnel will drift on its own.<br>Press <b>Esc</b> and try another file.';
+    setTimeout(()=>$('msg').style.display='none',9000);
+  }
+  keepAwake();
+}
+function toSetup(){
+  clearT(); allOff(); clearImages();
+  paused=false; $('black').classList.remove('on');
+  $('stage').classList.add('hidden'); $('setup').classList.remove('hidden');
+  $('go').disabled=false; $('go').textContent='Start show';
+  document.body.style.cursor='default';
+  if(audioEl) audioEl.pause();
+  if(ac && ac.state==='running') ac.suspend();
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+}
+$('go').onclick=()=>{
+  $('go').disabled=true; $('go').textContent='Starting…';
+  document.documentElement.requestFullscreen?.().catch(()=>{});
+  start();
+};
+
+let wake=null;
+async function keepAwake(){ try{ wake=await navigator.wakeLock.request('screen'); }catch(e){} }
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible' && !$('stage').classList.contains('hidden')) keepAwake(); });
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ toSetup(); return; }
+  if(/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+  const k=e.key.toLowerCase();
+  if(k==='s') $('tune').style.display=$('tune').style.display==='block'?'none':'block';
+  if(k==='f') document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  if(k==='b') $('black').classList.toggle('on');
+  if(e.key===' '){ e.preventDefault(); togglePause(); }
+  if(e.key==='ArrowRight'){ paused=false; run(1); }
+  if(e.key==='ArrowLeft'){ paused=false; run(-1); }
+});
+$('sens').oninput=e=>{sens=+e.target.value;$('vSens').textContent=sens.toFixed(1);};
+
+let idle;addEventListener('mousemove',()=>{document.body.style.cursor='default';clearTimeout(idle);
+  idle=setTimeout(()=>{if($('setup').classList.contains('hidden'))document.body.style.cursor='none';},3000);});
+
+$('shade').dataset.k='1';
+scanFolder();
+})();
+</script>
+</body>
+</html>

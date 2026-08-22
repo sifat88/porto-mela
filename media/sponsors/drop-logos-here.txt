@@ -1,0 +1,4 @@
+Drop sponsor logos here and name them sponsor-1.png, sponsor-2.png, and so on.
+PNG with a transparent background looks best.
+They are already printed along the bottom of the opening banner, so this
+scene is optional.

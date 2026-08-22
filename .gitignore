@@ -1,0 +1,5 @@
+# macOS
+.DS_Store
+
+# the big sponsor video — not used by the show, too large for a plain git repo
+mynztrip-sponsor-video.mp4

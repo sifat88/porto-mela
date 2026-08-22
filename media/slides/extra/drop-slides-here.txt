@@ -1,0 +1,3 @@
+Drop extra full-screen designed cards here: extra-1.png, extra-2.png, and so on.
+They are shown one after another as their own scene.
+Good for a sponsor thank-you card, a raffle notice, or a photo credit slide.

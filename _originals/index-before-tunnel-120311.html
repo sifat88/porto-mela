@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>মেলা — Festival de Bangladesh 2026</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@600;700;800&family=Noto+Sans+Bengali:wght@500;700;900&family=Archivo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --saffron:#F79B1E; --amber:#FFC533; --sindoor:#C1272D;
+  --bottle:#006A4E; --bdred:#F42A41; --azulejo:#1B4F8C;
+  --cream:#FFF4DC; --ink:#2A1405;
+  --safe:0vmin;
+  --bn:'Baloo Da 2','Noto Sans Bengali',sans-serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden;background:#0b0500}
+body{font-family:'Archivo',system-ui,sans-serif;color:var(--cream)}
+.hidden{display:none!important}
+
+/* ================= SETUP ================= */
+#setup{position:fixed;inset:0;z-index:100;overflow-y:auto;padding:4vh 4vw;
+  background:radial-gradient(circle at 28% 15%,rgba(255,197,51,.3),transparent 55%),
+             linear-gradient(160deg,#F79B1E,#DA5F18 65%,#7d2a0a);}
+.panel{width:min(820px,100%);margin:0 auto;background:rgba(18,7,0,.88);
+  border:1px solid rgba(255,197,51,.35);border-radius:20px;padding:34px 30px;backdrop-filter:blur(12px)}
+.panel h1{font-family:var(--bn);font-size:29px;color:var(--amber);line-height:1.35}
+.panel .sub{font-size:13.5px;opacity:.7;margin:6px 0 22px}
+.field{margin-bottom:24px}
+.field>label,.legend{display:block;font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;
+  opacity:.6;margin-bottom:9px;font-weight:900}
+input[type=file]{display:none}
+
+#scan{border:1px solid rgba(255,197,51,.3);border-radius:13px;padding:16px 18px;margin-bottom:24px;
+  background:rgba(255,197,51,.06);font-size:13px;line-height:1.75}
+#scan .t{font-size:10.5px;letter-spacing:.17em;text-transform:uppercase;font-weight:900;opacity:.6;
+  margin-bottom:10px;display:block}
+#scanList{list-style:none}
+#scanList li{display:flex;gap:10px;align-items:baseline}
+#scanList li b{color:var(--amber);font-weight:900;min-width:30px;text-align:right;font-variant-numeric:tabular-nums}
+#scanList li.no{opacity:.42}
+#scanList li.no b{color:var(--cream)}
+#scanList li em{font-style:normal;opacity:.5;font-size:11.5px}
+#scan .act{margin-top:13px;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+#scan button{padding:8px 15px;border-radius:9px;border:1px solid rgba(255,197,51,.45);cursor:pointer;
+  background:rgba(255,197,51,.1);color:var(--cream);font:inherit;font-size:12.5px;font-weight:600}
+#scan button:hover{background:var(--amber);color:var(--ink)}
+#scan .warn{color:#ffd9a0;font-size:12px;opacity:.85;line-height:1.6;margin-top:10px}
+
+.filebtn{display:block;padding:14px 18px;border:1px dashed rgba(255,197,51,.4);border-radius:11px;
+  cursor:pointer;font-size:13.5px;transition:.18s;background:rgba(255,197,51,.04);margin-bottom:9px}
+.filebtn:hover{background:rgba(255,197,51,.12);border-color:var(--amber)}
+.filebtn b{color:var(--amber)}
+.filebtn i{font-style:normal;float:right;opacity:.6;font-size:12px}
+.choices{display:flex;gap:9px;flex-wrap:wrap}
+.choice{flex:1;min-width:118px;padding:12px;border-radius:10px;cursor:pointer;font:inherit;font-size:13.5px;
+  font-weight:600;color:var(--cream);text-align:left;border:1px solid rgba(255,244,220,.2);
+  background:rgba(255,244,220,.05);transition:.18s}
+.choice:hover{border-color:rgba(255,197,51,.6)}
+.choice[aria-pressed=true]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+.choice small{display:block;font-weight:400;font-size:11px;opacity:.72;margin-top:2px}
+
+.txt,textarea.txt{width:100%;padding:11px 13px;border-radius:10px;font:inherit;font-size:13.5px;
+  background:rgba(0,0,0,.4);border:1px solid rgba(255,244,220,.18);color:var(--cream);margin-bottom:9px}
+.txt:focus{outline:0;border-color:var(--amber)}
+textarea.txt{resize:vertical;min-height:86px;line-height:1.6}
+.txt.bnfont{font-family:var(--bn);font-size:15px}
+.tip{font-size:11.5px;opacity:.45;margin:-3px 0 12px;line-height:1.5}
+details.more{border:1px solid rgba(255,244,220,.14);border-radius:11px;padding:0;margin-bottom:24px;overflow:hidden}
+details.more>summary{cursor:pointer;padding:13px 16px;font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;font-weight:900;opacity:.7;background:rgba(255,244,220,.04);list-style:none}
+details.more>summary::-webkit-details-marker{display:none}
+details.more>summary::before{content:'▸ ';color:var(--amber)}
+details.more[open]>summary::before{content:'▾ '}
+details.more .inner{padding:18px 16px 4px}
+
+#order{list-style:none}
+#order li{display:flex;align-items:center;gap:10px;padding:10px 12px;margin-bottom:7px;
+  background:rgba(255,244,220,.05);border:1px solid rgba(255,244,220,.14);border-radius:10px;font-size:13.5px}
+#order li .nm{flex:1;font-weight:600}
+#order li .nm em{display:block;font-style:normal;font-size:11px;opacity:.55;font-weight:400;margin-top:1px}
+#order li input[type=number]{width:56px;padding:5px 7px;border-radius:7px;font:inherit;font-size:12.5px;
+  background:rgba(0,0,0,.45);border:1px solid rgba(255,244,220,.22);color:var(--cream);text-align:center}
+#order li .u{font-size:11px;opacity:.5;margin-left:-5px}
+#order button{background:rgba(255,244,220,.1);border:0;color:var(--cream);width:26px;height:26px;
+  border-radius:6px;cursor:pointer;font-size:13px;line-height:1}
+#order button:hover{background:var(--amber);color:var(--ink)}
+#order li.off{opacity:.38}
+.go{width:100%;padding:17px;border:0;border-radius:12px;cursor:pointer;background:var(--sindoor);
+  color:#fff;font:inherit;font-weight:900;font-size:17px;letter-spacing:.03em;transition:.18s}
+.go:hover{background:#e2323a}
+.go:disabled{opacity:.6;cursor:default}
+.hint{font-size:12px;opacity:.5;margin-top:14px;line-height:1.75}
+kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size:11px;font-family:inherit}
+.slider{display:block;margin-bottom:14px;font-size:13px}
+.slider span{float:right;opacity:.6;font-variant-numeric:tabular-nums}
+.slider input[type=range]{width:100%;margin-top:7px;accent-color:var(--amber)}
+
+/* ================= STAGE ================= */
+/* Two colour worlds. Dark = over photos. Brand = over the orange pattern. */
+#stage{position:fixed;inset:0;
+  background:radial-gradient(ellipse at 50% 38%,#241003 0%,#150900 45%,#0b0500 78%);
+  --tx:var(--cream); --acc:var(--amber); --st:var(--sindoor);
+  --rowbg:rgba(255,244,220,.06); --shadow:0 2px 14px rgba(0,0,0,.9)}
+#stage.onbrand{--tx:#4A1A08; --acc:#A5170F; --st:rgba(255,250,236,.96);
+  --rowbg:rgba(255,255,255,.4); --shadow:0 1px 8px rgba(255,240,210,.55)}
+
+#brandBg{position:absolute;inset:0;z-index:1;background-size:cover;background-position:center;
+  opacity:0;transition:opacity .9s}
+#brandBg.on{opacity:1}
+#bars{position:absolute;inset:0;width:100%;height:100%;z-index:3}
+#layers{position:absolute;inset:0;z-index:2}
+.layer{position:absolute;inset:0;background-size:cover;background-position:center;will-change:transform,opacity,filter}
+#shade{position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity .8s;
+  background:linear-gradient(to bottom,rgba(11,5,0,.85) 0%,rgba(11,5,0,.1) 24%,
+             rgba(11,5,0,.18) 58%,rgba(11,5,0,.9) 100%)}
+#vig{position:absolute;inset:0;z-index:2;pointer-events:none;transition:opacity .8s;
+  background:radial-gradient(ellipse at center,transparent 52%,rgba(11,5,0,.55) 100%)}
+
+.scene{position:absolute;inset:0;z-index:4;display:flex;align-items:center;justify-content:center;
+  flex-direction:column;text-align:center;opacity:0;transition:opacity .9s;pointer-events:none;
+  padding:calc(25vmin + var(--safe)) calc(7vmin + var(--safe)) calc(10vmin + var(--safe))}
+
+/* ---- logo lockup: the Bengali title curves over the logo ---- */
+.lockup{position:relative;display:block;aspect-ratio:1;pointer-events:none;
+  will-change:transform;transform-origin:center center}
+.lockup svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.lockup .arcTxt{font-family:var(--bn);font-weight:800;fill:var(--acc);
+  stroke:var(--st);stroke-width:1.7px;paint-order:stroke fill}
+.lockup .lockLogo{position:absolute;left:50%;top:33%;width:67%;
+  transform:translateX(-50%);will-change:filter}
+#lockTop{position:absolute;top:calc(1.2vmin + var(--safe));left:50%;transform:translateX(-50%);
+  width:22vmin;z-index:5;transition:opacity .6s}
+#lockBig{width:56vmin;max-width:78vw}
+.chromeoff #lockTop{opacity:0}
+.scene.on{opacity:1}
+
+/* designed full-screen slide — fills the screen edge to edge */
+#scSlide{padding:0;z-index:6}
+#slideBg{position:absolute;inset:0;background-size:cover;background-position:center;
+  filter:saturate(.9) blur(2px);opacity:0;transition:opacity .5s}
+#slideImg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;
+  will-change:transform}
+
+/* ---- text reveal ---- */
+.rw{display:inline-block;opacity:0;transform:translateY(.55em);
+  animation:rw .72s cubic-bezier(.2,.85,.25,1) both}
+@keyframes rw{to{opacity:1;transform:none}}
+.pr{opacity:0;transform:translateX(-1.1em);animation:pr .6s cubic-bezier(.2,.85,.25,1) both}
+@keyframes pr{to{opacity:1;transform:none}}
+.pop{opacity:0;transform:scale(.82);animation:pop .6s cubic-bezier(.2,1.3,.35,1) both}
+@keyframes pop{to{opacity:1;transform:scale(1)}}
+.caret::after{content:'';display:inline-block;width:.07em;height:.95em;background:currentColor;
+  margin-left:.07em;vertical-align:-.1em;animation:blink .75s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+
+/* ---- music screen: pattern + bars + big centred logo + Bengali title ---- */
+#scMusic{justify-content:center;padding-top:calc(8vmin + var(--safe))}
+#scMusic .msub{position:absolute;bottom:calc(9.5vmin + var(--safe));left:0;right:0;
+  font-weight:700;font-size:2.2vmin;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--tx);opacity:.8;text-shadow:var(--shadow)}
+
+/* title fallback */
+#scTitle .bn{font-family:var(--bn);font-weight:800;font-size:9vmin;line-height:1.22;color:var(--acc);
+  -webkit-text-stroke:.4vmin var(--st);paint-order:stroke fill}
+#scTitle .pt{font-weight:900;font-size:4.6vmin;margin-top:1.4vmin;color:var(--tx);text-shadow:var(--shadow)}
+#scTitle .yr{font-weight:400;font-size:2vmin;letter-spacing:.5em;margin-top:2.6vmin;opacity:.75;color:var(--tx)}
+#scTitle .rule{width:34vmin;height:.45vmin;margin:3.2vmin auto 0;border-radius:1vmin;
+  background:linear-gradient(to right,transparent,var(--bottle),var(--bdred),var(--bottle),transparent)}
+
+#scWel .bn{font-family:var(--bn);font-weight:800;font-size:11vmin;color:var(--acc);line-height:1.2;
+  -webkit-text-stroke:.35vmin var(--st);paint-order:stroke fill}
+#scWel .pt{font-weight:900;font-size:4vmin;margin-top:2vmin;color:var(--tx);letter-spacing:.02em;
+  text-shadow:var(--shadow)}
+#scWel .note{font-size:2.2vmin;margin-top:2.4vmin;opacity:.82;max-width:70vw;line-height:1.6;color:var(--tx)}
+
+#scFlags .pair{display:flex;align-items:center;gap:7vmin}
+.flag{width:26vmin;height:15.6vmin;border-radius:1vmin;box-shadow:0 1.4vmin 5vmin rgba(0,0,0,.5);
+  overflow:hidden;position:relative;background-size:cover;background-position:center}
+.flag.bd{background:var(--bottle)}
+.flag.bd::after{content:'';position:absolute;top:50%;left:45%;transform:translate(-50%,-50%);
+  width:9.4vmin;height:9.4vmin;border-radius:50%;background:var(--bdred)}
+.flag.pt{background:linear-gradient(to right,var(--bottle) 0 40%,#DA291C 40% 100%)}
+.flag.pt::after{content:'';position:absolute;top:50%;left:40%;transform:translate(-50%,-50%);
+  width:6.6vmin;height:6.6vmin;border-radius:50%;border:.7vmin solid var(--amber);background:rgba(255,255,255,.12)}
+#scFlags .join{font-size:7vmin;color:var(--acc);font-weight:900;opacity:.9}
+#scFlags .cap{margin-top:5vmin;font-family:var(--bn);font-size:4.2vmin;color:var(--acc);line-height:1.35}
+#scFlags .cap .sub2{display:block;font-family:'Archivo';font-weight:600;font-size:2.3vmin;
+  color:var(--tx);opacity:.88;margin-top:1.4vmin;letter-spacing:.03em}
+
+#scProg .lead{font-family:var(--bn);font-weight:800;font-size:5.6vmin;color:var(--acc);
+  margin-bottom:1vmin;line-height:1.3;-webkit-text-stroke:.22vmin var(--st);paint-order:stroke fill}
+#scProg .lead .sub2{display:block;font-family:'Archivo';font-weight:600;font-size:2vmin;
+  -webkit-text-stroke:0;
+  letter-spacing:.3em;text-transform:uppercase;color:var(--tx);opacity:.6;margin-top:.8vmin}
+#progList{list-style:none;margin-top:3.4vmin;width:min(78vw,120vmin);max-height:54vh;overflow:hidden}
+#progList li{display:flex;align-items:baseline;gap:2.4vmin;padding:1.3vmin 2.4vmin;border-radius:1vmin;
+  font-size:2.9vmin;text-align:left;line-height:1.35;color:var(--tx)}
+#progList li:nth-child(odd){background:var(--rowbg)}
+#progList li b{color:var(--acc);font-weight:900;font-variant-numeric:tabular-nums;
+  min-width:11vmin;flex:none;font-size:2.7vmin}
+#progList li i{font-style:normal;flex:1;font-family:var(--bn);font-weight:600}
+
+#scNote .kicker{font-size:1.9vmin;letter-spacing:.4em;text-transform:uppercase;color:var(--acc);
+  margin-bottom:3.4vmin;font-weight:900}
+#scNote .body{font-family:var(--bn);font-weight:700;font-size:6vmin;line-height:1.36;max-width:82vw;
+  white-space:pre-line;color:var(--tx)}
+
+#scSpon .lead{font-size:2vmin;letter-spacing:.35em;text-transform:uppercase;opacity:.7;margin-bottom:5vmin;
+  color:var(--tx)}
+#sponGrid{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:4.5vmin;max-width:86vw}
+#sponGrid img{max-height:13vmin;max-width:26vmin;object-fit:contain;
+  background:#fff;padding:1.6vmin 2.2vmin;border-radius:1.4vmin;will-change:transform;
+  box-shadow:0 1vmin 4vmin rgba(0,0,0,.4)}
+#sponGrid.many img{max-height:9.5vmin;max-width:19vmin}
+
+/* persistent chrome — small logo now sits top CENTRE, above the bars */
+#mark{position:absolute;bottom:calc(3vmin + var(--safe));left:0;right:0;z-index:5;text-align:center;
+  pointer-events:none;font-size:1.85vmin;font-weight:600;letter-spacing:.05em;opacity:.85;
+  color:var(--tx);text-shadow:var(--shadow);will-change:transform;transition:opacity .6s}
+#mark b{color:var(--acc);font-weight:900}
+#logo{position:absolute;top:calc(2.4vmin + var(--safe));left:50%;z-index:5;height:9.6vmin;
+  transform:translateX(-50%);transform-origin:top center;
+  filter:drop-shadow(0 .6vmin 2vmin rgba(0,0,0,.55));will-change:transform;transition:opacity .6s}
+.chromeoff #mark,.chromeoff #logo{opacity:0}
+#black{position:absolute;inset:0;z-index:8;background:#000;opacity:0;pointer-events:none;transition:opacity .5s}
+#black.on{opacity:1}
+#msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:9;
+  background:rgba(193,39,45,.94);padding:16px 26px;border-radius:11px;font-size:15px;color:var(--cream);
+  font-weight:700;text-align:center;line-height:1.55;display:none;max-width:70vw}
+#tune{position:absolute;top:14px;left:14px;z-index:9;width:252px;font-size:12.5px;display:none;
+  background:rgba(15,6,0,.93);border:1px solid rgba(255,197,51,.35);border-radius:12px;padding:16px;
+  color:var(--cream)}
+#tune h3{font-size:10px;letter-spacing:.17em;text-transform:uppercase;opacity:.55;margin-bottom:12px}
+#tune label{display:block;margin-bottom:13px}
+#tune label span{float:right;opacity:.6;font-variant-numeric:tabular-nums}
+#tune input[type=range]{width:100%;margin-top:6px;accent-color:var(--amber)}
+#tune .row{display:flex;gap:6px;margin-bottom:13px}
+#tune .row button{flex:1;padding:7px 4px;border-radius:7px;border:1px solid rgba(255,244,220,.2);
+  background:rgba(255,244,220,.06);color:var(--cream);font:inherit;font-size:11px;cursor:pointer}
+#tune .row button[aria-pressed=true]{background:var(--amber);color:var(--ink);border-color:var(--amber)}
+#tune .now{opacity:.6;font-size:11.5px;border-top:1px solid rgba(255,244,220,.14);padding-top:10px;line-height:1.6}
+@media(prefers-reduced-motion:reduce){
+  .layer,.scene{transition-duration:.3s!important}
+  .rw,.pr,.pop{animation:none!important;opacity:1!important;transform:none!important}
+  .caret::after{display:none}
+}
+</style>
+</head>
+<body>
+
+<div id="setup"><div class="panel">
+  <h1>মেলা — বাংলাদেশ ফেস্টিভ্যাল ২০২৬</h1>
+  <div class="sub">Show setup — Comunidade de Bangladesh do Porto</div>
+
+  <div id="scan">
+    <span class="t">From this folder</span>
+    <ul id="scanList"><li><em>Looking…</em></li></ul>
+    <div class="act">
+      <button id="rescan">Rescan folder</button>
+      <span class="tip" style="margin:0">Add or remove files, then rescan — no need to reopen.</span>
+    </div>
+    <div class="warn hidden" id="scanWarn"></div>
+  </div>
+
+  <details class="more">
+    <summary>Add extra images by hand (optional)</summary>
+    <div class="inner">
+      <div class="tip">Anything picked here is added on top of what is already in the folder, just for this run.</div>
+      <label class="filebtn" for="fPorto"><b>More Porto photos</b> <i id="cPorto">none</i></label>
+      <input type="file" id="fPorto" accept="image/*" multiple>
+      <label class="filebtn" for="fBd"><b>More Bangladesh photos</b> <i id="cBd">none</i></label>
+      <input type="file" id="fBd" accept="image/*" multiple>
+      <label class="filebtn" for="fSpon"><b>More sponsor logos</b> <i id="cSpon">none</i></label>
+      <input type="file" id="fSpon" accept="image/*" multiple>
+      <label class="filebtn" for="fLogo"><b>Replace the logo</b> <i id="cLogo">none</i></label>
+      <input type="file" id="fLogo" accept="image/*">
+    </div>
+  </details>
+
+  <div class="field">
+    <label>Running order — ↑↓ reorder · seconds each · × turns a scene off</label>
+    <ul id="order"></ul>
+  </div>
+
+  <details class="more">
+    <summary>Words on screen</summary>
+    <div class="inner">
+      <div class="field">
+        <label>Music screen — big logo, bars, this line across the top</label>
+        <input class="txt bnfont" id="tMusicBn" value="বাংলাদেশ ফেস্টিভ্যাল ২০২৬">
+        <input class="txt" id="tMusicPt" value="Festival de Bangladesh · Porto">
+      </div>
+      <div class="field">
+        <label>Opening title — only used if media/slides/opening.png is missing</label>
+        <input class="txt bnfont" id="tTitleBn" value="মেলা / বাংলাদেশ ফেস্টিভ্যাল">
+        <div class="tip">Use / to break the line.</div>
+        <input class="txt" id="tTitlePt" value="Festival de Bangladesh">
+        <input class="txt" id="tTitleYr" value="২০২৬ · PORTO · 2026">
+      </div>
+      <div class="field">
+        <label>Welcome</label>
+        <input class="txt bnfont" id="tWelBn" value="স্বাগতম">
+        <input class="txt" id="tWelPt" value="Bem-vindos ao nosso Mela">
+        <input class="txt" id="tWelNote" value="Comida · música · dança · artesanato — até tarde">
+      </div>
+      <div class="field">
+        <label>Two flags caption — only used if media/slides/flags.png is missing</label>
+        <input class="txt bnfont" id="tFlagBn" value="বাংলাদেশ ও পর্তুগাল — এক হৃদয়">
+        <input class="txt" id="tFlagPt" value="Bangladesh e Portugal — uma comunidade, dois lares">
+      </div>
+      <div class="field">
+        <label>Programme — one line per item, time then a dash</label>
+        <input class="txt bnfont" id="tProgBn" value="অনুষ্ঠানসূচি">
+        <textarea class="txt bnfont" id="tProg">17:00 — দরজা খোলা / Portas abertas
+18:00 — উদ্বোধনী বক্তব্য / Discurso de abertura
+18:30 — শিশুদের পরিবেশনা / Atuação das crianças
+19:30 — লোকগান / Música folclórica
+20:30 — নৃত্য পরিবেশনা / Dança
+21:30 — খাবার ও আড্ডা / Comida e convívio</textarea>
+      </div>
+      <div class="field">
+        <label>Notice / announcement</label>
+        <textarea class="txt bnfont" id="tNote" style="min-height:64px">খাবারের স্টল রাত ১০টা পর্যন্ত খোলা
+Bancas de comida abertas até às 22h</textarea>
+      </div>
+      <div class="field">
+        <label>Bottom line</label>
+        <input class="txt" id="tMark" value="COMUNIDADE DE BANGLADESH DO PORTO · ESTD 2008">
+      </div>
+    </div>
+  </details>
+
+  <details class="more">
+    <summary>Screen &amp; look</summary>
+    <div class="inner">
+      <label class="slider">Edge margin — raise it if the screen crops the corners
+        <span id="vSafe">0%</span><input type="range" id="safe" min="0" max="8" step="1" value="0"></label>
+      <label class="slider">Photo darkening — raise it if text is hard to read
+        <span id="vShade">100%</span><input type="range" id="shadeR" min="40" max="170" step="5" value="100"></label>
+      <div class="field">
+        <label>Visualiser bars</label>
+        <div class="choices">
+          <button class="choice" data-bar="full" aria-pressed="true">Full height<small>Fills the screen</small></button>
+          <button class="choice" data-bar="low" aria-pressed="false">Low band<small>Bottom strip only</small></button>
+          <button class="choice" data-bar="mirror" aria-pressed="false">Mirrored<small>Top and bottom</small></button>
+          <button class="choice" data-bar="off" aria-pressed="false">Off<small>Photos only</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Text animation</label>
+        <div class="choices">
+          <button class="choice" id="fxOn" aria-pressed="true">Reveal &amp; type<small>Words rise in, headings type out</small></button>
+          <button class="choice" id="fxOff" aria-pressed="false">Straight in<small>No animation</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Photo order</label>
+        <div class="choices">
+          <button class="choice" id="ordSeq" aria-pressed="true">In order<small>porto-1, porto-2, …</small></button>
+          <button class="choice" id="ordShuf" aria-pressed="false">Shuffled<small>Different each pass</small></button>
+        </div>
+      </div>
+      <div class="field">
+        <label>Bars over the designed slides</label>
+        <div class="choices">
+          <button class="choice" id="slideBarsOff" aria-pressed="true">Keep slides clean<small>Recommended</small></button>
+          <button class="choice" id="slideBarsOn" aria-pressed="false">Show bars there too<small>Busier</small></button>
+        </div>
+      </div>
+    </div>
+  </details>
+
+  <div class="field">
+    <label>Music source</label>
+    <div class="choices">
+      <button class="choice" id="srcMic" aria-pressed="true">Room microphone<small>DJ, PA, phone, live band</small></button>
+      <button class="choice" id="srcFile" aria-pressed="false">Audio file<small>Plays from this laptop</small></button>
+      <button class="choice" id="srcNone" aria-pressed="false">No audio<small>Bars drift gently</small></button>
+    </div>
+    <label class="filebtn hidden" for="fTrack" id="trackBtn" style="margin-top:9px"><b>Choose an audio file</b> <i>MP3 · WAV · M4A</i></label>
+    <input type="file" id="fTrack" accept="audio/*">
+  </div>
+
+  <button class="go" id="go">Start show</button>
+  <div class="hint"><kbd>S</kbd> settings · <kbd>F</kbd> fullscreen · <kbd>→</kbd> next scene · <kbd>←</kbd> previous ·
+    <kbd>Space</kbd> hold this scene · <kbd>B</kbd> black screen for a speech · <kbd>Esc</kbd> back here.
+    Coming back with Esc keeps everything loaded.</div>
+</div></div>
+
+<div id="stage" class="hidden">
+  <div id="brandBg"></div>
+  <div id="layers"></div>
+  <div id="shade"></div>
+  <div id="vig"></div>
+  <canvas id="bars"></canvas>
+
+  <div class="scene" id="scSlide">
+    <div id="slideBg"></div>
+    <img id="slideImg" alt="">
+  </div>
+
+  <div class="scene" id="scMusic">
+    <div class="lockup" id="lockBig">
+      <svg viewBox="0 0 240 240" aria-hidden="true">
+        <defs><path id="arcB" d="M 2,58.3 A 260,260 0 0,1 238,58.3" fill="none"></path></defs>
+        <text text-anchor="middle" id="arcWrapB">
+          <textPath class="arcTxt" id="arcTextB" href="#arcB" startOffset="50%"></textPath></text>
+      </svg>
+      <img class="lockLogo" id="logoB" alt="">
+    </div>
+    <div class="msub" id="oMusicPt"></div>
+  </div>
+
+  <div class="scene" id="scTitle">
+    <div class="bn" id="oTitleBn"></div>
+    <div class="pt" id="oTitlePt"></div>
+    <div class="yr" id="oTitleYr"></div>
+    <div class="rule"></div>
+  </div>
+
+  <div class="scene" id="scWel">
+    <div class="bn" id="oWelBn"></div>
+    <div class="pt" id="oWelPt"></div>
+    <div class="note" id="oWelNote"></div>
+  </div>
+
+  <div class="scene" id="scFlags">
+    <div class="pair">
+      <div class="flag bd" id="flagBd"></div>
+      <div class="join">◆</div>
+      <div class="flag pt" id="flagPt"></div>
+    </div>
+    <div class="cap" id="oFlagBn"><span class="sub2" id="oFlagPt"></span></div>
+  </div>
+
+  <div class="scene" id="scProg">
+    <div class="lead" id="oProgBn"><span class="sub2">Programa</span></div>
+    <ul id="progList"></ul>
+  </div>
+
+  <div class="scene" id="scNote">
+    <div class="kicker">Aviso · ঘোষণা</div>
+    <div class="body" id="oNote"></div>
+  </div>
+
+  <div class="scene" id="scSpon">
+    <div class="lead">Com o apoio de · আমাদের সহযোগীরা</div>
+    <div id="sponGrid"></div>
+  </div>
+
+  <div class="lockup" id="lockTop">
+    <svg viewBox="0 0 240 240" aria-hidden="true">
+      <defs><path id="arcT" d="M 2,58.3 A 260,260 0 0,1 238,58.3" fill="none"></path></defs>
+      <text text-anchor="middle" id="arcWrapT">
+        <textPath class="arcTxt" id="arcTextT" href="#arcT" startOffset="50%"></textPath></text>
+    </svg>
+    <img class="lockLogo" id="logoT" alt="">
+  </div>
+  <div id="mark"></div>
+  <div id="black"></div>
+  <div id="msg"></div>
+  <div id="tune">
+    <h3>Settings</h3>
+    <label>Sensitivity <span id="vSens">1.0</span><input type="range" id="sens" min=".3" max="3" step=".1" value="1"></label>
+    <label>Bar count <span id="vBars">96</span><input type="range" id="nbars" min="24" max="160" step="8" value="96"></label>
+    <label>Bar opacity <span id="vOp">55%</span><input type="range" id="op" min="0" max="100" step="5" value="55"></label>
+    <label>Edge margin <span id="vSafe2">0%</span><input type="range" id="safe2" min="0" max="8" step="1" value="0"></label>
+    <div class="row">
+      <button data-bar2="full" aria-pressed="true">Full</button>
+      <button data-bar2="low" aria-pressed="false">Low</button>
+      <button data-bar2="mirror" aria-pressed="false">Mirror</button>
+      <button data-bar2="off" aria-pressed="false">Off</button>
+    </div>
+    <div class="now" id="now">—</div>
+  </div>
+</div>
+
+<!-- Optional. Only for files that do NOT follow the numbered naming. -->
+<script src="media/manifest.js" onerror="void 0"></script>
+<script>
+(()=>{
+const $=id=>document.getElementById(id);
+const U=f=>[...f].map(x=>URL.createObjectURL(x));
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+/* ============================================================
+   1. WHAT IS IN THE FOLDER
+     media/porto/porto-1.jpg       media/bangladesh/bd-1.jpg
+     media/sponsors/sponsor-1.png  media/slides/extra/extra-1.png
+     media/slides/opening.png · flags.png · closing.png
+     media/brand/logo.png · background.png
+   ============================================================ */
+const EXT=['jpg','jpeg','png','webp'];
+const MAXN=24, GAP=6;
+function probe(url){return new Promise(r=>{const i=new Image();i.onload=()=>r(url);i.onerror=()=>r(null);i.src=url;});}
+async function one(base){ for(const e of EXT){ const u=await probe(base+'.'+e); if(u) return u; } return null; }
+async function series(dir,prefix){
+  const found=await Promise.all(Array.from({length:MAXN},(_,i)=>one(`${dir}/${prefix}-${i+1}`)));
+  const out=[]; let gap=0;
+  for(let i=0;i<found.length;i++){
+    if(found[i]){ out.push(found[i]); gap=0; }
+    else { gap++; if(gap>=GAP && (out.length||i>=GAP)) break; }
+  }
+  return out;
+}
+const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,closing:null,logo:null,bg:null};
+async function scanFolder(){
+  const man=(typeof window!=='undefined' && window.MELA_MEDIA)||{};
+  const [porto,bd,spon,extras,opening,flags,closing,logo,bg]=await Promise.all([
+    series('media/porto','porto'), series('media/bangladesh','bd'),
+    series('media/sponsors','sponsor'), series('media/slides/extra','extra'),
+    one('media/slides/opening'), one('media/slides/flags'), one('media/slides/closing'),
+    one('media/brand/logo'), one('media/brand/background')
+  ]);
+  const merge=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
+  M.porto=merge(porto,man.porto); M.bd=merge(bd,man.bangladesh);
+  M.spon=merge(spon,man.sponsors); M.extras=merge(extras,man.extras);
+  M.opening=opening||man.opening||null; M.flags=flags||man.flags||null;
+  M.closing=closing||man.closing||null; M.logo=logo||man.logo||null; M.bg=bg||man.background||null;
+  if(M.bg){ $('slideBg').style.backgroundImage=`url("${M.bg}")`;
+            $('brandBg').style.backgroundImage=`url("${M.bg}")`; }
+  paintScan(); build();
+}
+function paintScan(){
+  const rows=[
+    [M.porto.length,  'Porto photos',      'media/porto/porto-1.jpg …'],
+    [M.bd.length,     'Bangladesh photos', 'media/bangladesh/bd-1.jpg …'],
+    [M.opening?1:0,   'Opening banner',    'media/slides/opening.png'],
+    [M.flags?1:0,     'Flags artwork',     'media/slides/flags.png'],
+    [M.closing?1:0,   'Thank-you slide',   'media/slides/closing.png'],
+    [M.extras.length, 'Extra slides',      'media/slides/extra/extra-1.png …'],
+    [M.spon.length,   'Sponsor logos',     'media/sponsors/sponsor-1.png …'],
+    [M.logo?1:0,      'Logo',              'media/brand/logo.png'],
+    [M.bg?1:0,        'Pattern background','media/brand/background.png'],
+  ];
+  $('scanList').innerHTML=rows.map(([n,label,path])=>
+    `<li class="${n?'':'no'}"><b>${n?n:'–'}</b><span>${esc(label)} ${n?'':'<em>— drop one at '+esc(path)+'</em>'}</span></li>`).join('');
+  const nothing=!M.porto.length && !M.bd.length && !M.opening;
+  $('scanWarn').classList.toggle('hidden',!nothing);
+  $('scanWarn').innerHTML='Nothing found in <b>media/</b>. If you moved this file out of the porto-mela folder, '
+    +'put it back beside the media folder — or use “Add extra images by hand” below.';
+}
+
+/* ---------- manual extras ---------- */
+const up={porto:[],bd:[],spon:[],logo:null};
+let track=null,src='mic',shuffle=false,barMode='full',cleanSlides=true,fx=true;
+const PORTO=()=>M.porto.concat(up.porto), BD=()=>M.bd.concat(up.bd), SPON=()=>M.spon.concat(up.spon);
+const LOGO=()=>up.logo||M.logo;
+function preload(urls){ urls.forEach(u=>{ const i=new Image(); i.src=u; }); }
+function hook(inp,cnt,set,multi=true){
+  $(inp).onchange=e=>{
+    const f=e.target.files; if(!f.length)return;
+    const v=multi?U(f):URL.createObjectURL(f[0]);
+    set(v); if(multi) preload(v);
+    $(cnt).textContent=multi?'+'+f.length:f[0].name.slice(0,22);
+    build();
+  };
+}
+hook('fPorto','cPorto',v=>up.porto=v);
+hook('fBd','cBd',v=>up.bd=v);
+hook('fSpon','cSpon',v=>up.spon=v);
+hook('fLogo','cLogo',v=>up.logo=v,false);
+$('fTrack').onchange=e=>{ track=e.target.files[0]; if(track) $('trackBtn').innerHTML='<b>'+esc(track.name)+'</b>'; };
+$('rescan').onclick=async()=>{ $('rescan').disabled=true; $('rescan').textContent='Scanning…';
+  await scanFolder(); $('rescan').disabled=false; $('rescan').textContent='Rescan folder'; };
+
+['srcMic','srcFile','srcNone'].forEach(id=>$(id).onclick=()=>pick(id.slice(3).toLowerCase()));
+function pick(s){ src=s;
+  $('srcMic').setAttribute('aria-pressed',s==='mic');
+  $('srcFile').setAttribute('aria-pressed',s==='file');
+  $('srcNone').setAttribute('aria-pressed',s==='none');
+  $('trackBtn').classList.toggle('hidden',s!=='file'); }
+function pair(aId,bId,set){ $(aId).onclick=()=>set(true); $(bId).onclick=()=>set(false); }
+pair('ordShuf','ordSeq',v=>{ shuffle=v; $('ordShuf').setAttribute('aria-pressed',v); $('ordSeq').setAttribute('aria-pressed',!v); });
+pair('slideBarsOff','slideBarsOn',v=>{ cleanSlides=v; $('slideBarsOff').setAttribute('aria-pressed',v); $('slideBarsOn').setAttribute('aria-pressed',!v); });
+pair('fxOn','fxOff',v=>{ fx=v; $('fxOn').setAttribute('aria-pressed',v); $('fxOff').setAttribute('aria-pressed',!v); });
+
+function setBar(m){ barMode=m;
+  document.querySelectorAll('[data-bar]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.bar===m));
+  document.querySelectorAll('[data-bar2]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.bar2===m)); }
+document.querySelectorAll('[data-bar]').forEach(b=>b.onclick=()=>setBar(b.dataset.bar));
+document.querySelectorAll('[data-bar2]').forEach(b=>b.onclick=()=>setBar(b.dataset.bar2));
+
+function setSafe(v){ document.documentElement.style.setProperty('--safe',v+'vmin');
+  $('vSafe').textContent=v+'%'; $('vSafe2').textContent=v+'%'; $('safe').value=v; $('safe2').value=v; }
+$('safe').oninput=e=>setSafe(+e.target.value);
+$('safe2').oninput=e=>setSafe(+e.target.value);
+$('shadeR').oninput=e=>{ $('vShade').textContent=e.target.value+'%'; $('shade').dataset.k=e.target.value/100; };
+
+/* ---------- running order ---------- */
+let seq=[
+  {id:'opening',label:'Opening banner', note:'main banner, full screen',            dur:12, on:true},
+  {id:'welcome',label:'Welcome',        note:'স্বাগতম · Bem-vindos',                dur:9,  on:true},
+  {id:'photos', label:'Photos',         note:'Porto and Bangladesh, alternating',   dur:72, on:true},
+  {id:'flags',  label:'Two flags',      note:'flag artwork, full screen',           dur:12, on:true},
+  {id:'porto',  label:'Porto only',     note:'media/porto on its own',              dur:36, on:false},
+  {id:'bd',     label:'Bangladesh only',note:'media/bangladesh on its own',         dur:36, on:false},
+  {id:'music',  label:'Music screen',   note:'logo in the middle, bars, Bengali title', dur:24, on:true},
+  {id:'prog',   label:'Programme',      note:'tonight’s running order',             dur:24, on:true},
+  {id:'extras', label:'Extra slides',   note:'anything in media/slides/extra',      dur:10, on:true},
+  {id:'spon',   label:'Sponsors',       note:'logos, jumping on the beat',          dur:20, on:true},
+  {id:'notice', label:'Notice',         note:'one announcement, big and clear',     dur:12, on:false},
+  {id:'closing',label:'Thank you',      note:'closing slide, full screen',          dur:12, on:true},
+];
+function missingFor(id){
+  switch(id){
+    case 'photos': return !PORTO().length && !BD().length;
+    case 'porto':  return !PORTO().length;
+    case 'bd':     return !BD().length;
+    case 'spon':   return !SPON().length;
+    case 'extras': return !M.extras.length;
+    case 'closing':return !M.closing;
+    case 'prog':   return !progLines().length;
+    case 'notice': return !$('tNote').value.trim();
+    default:       return false;
+  }
+}
+function build(){
+  const ul=$('order'); ul.innerHTML='';
+  seq.forEach((s,i)=>{
+    const missing=missingFor(s.id);
+    const li=document.createElement('li');
+    if(!s.on||missing) li.className='off';
+    li.innerHTML=`<button data-u="${i}" title="Move up">↑</button><button data-d="${i}" title="Move down">↓</button>
+      <span class="nm">${esc(s.label)}<em>${missing?'nothing to show yet — will be skipped':esc(s.note)}</em></span>
+      <input type="number" min="4" max="600" value="${s.dur}" data-t="${i}"><span class="u">sec</span>
+      <button data-x="${i}" title="On / off">${s.on?'×':'+'}</button>`;
+    ul.appendChild(li);
+  });
+  ul.onclick=e=>{
+    const b=e.target.closest('button'); if(!b)return;
+    const u=b.dataset.u,d=b.dataset.d,x=b.dataset.x;
+    if(u!==undefined&&+u>0)[seq[+u-1],seq[+u]]=[seq[+u],seq[+u-1]];
+    if(d!==undefined&&+d<seq.length-1)[seq[+d+1],seq[+d]]=[seq[+d],seq[+d+1]];
+    if(x!==undefined)seq[+x].on=!seq[+x].on;
+    build();
+  };
+  ul.oninput=e=>{ if(e.target.dataset.t!==undefined) seq[+e.target.dataset.t].dur=Math.max(4,+e.target.value||4); };
+}
+function progLines(){ return $('tProg').value.split('\n').map(l=>l.trim()).filter(Boolean); }
+$('tProg').addEventListener('input',build);
+$('tNote').addEventListener('input',build);
+build();
+
+/* ============================================================
+   2. TEXT REVEAL
+   Bengali is written with joined letter clusters, so typing has to
+   step through graphemes, not code units, or the conjuncts break.
+   ============================================================ */
+const SEG=(typeof Intl!=='undefined' && Intl.Segmenter) ? new Intl.Segmenter('bn',{granularity:'grapheme'}) : null;
+const graphemes=s=>SEG?[...SEG.segment(String(s))].map(o=>o.segment):[...String(s)];
+function words(el,text,start=0,step=.07){
+  el.innerHTML='';
+  let i=0;
+  String(text).split(/(\s+)/).forEach(w=>{
+    if(!w) return;
+    if(/^\s+$/.test(w)){ el.appendChild(document.createTextNode(w)); return; }
+    const s=document.createElement('span');
+    s.className=fx?'rw':''; s.textContent=w;
+    if(fx) s.style.animationDelay=(start+i*step).toFixed(3)+'s';
+    el.appendChild(s); i++;
+  });
+}
+function type(el,text,start=350,step=58){
+  if(!fx){ el.textContent=text; return; }
+  const g=graphemes(text); el.textContent=''; el.classList.add('caret');
+  let i=0;
+  const tick=()=>{ if(i>=g.length){ el.classList.remove('caret'); return; }
+    el.textContent+=g[i++]; timers.push(setTimeout(tick,step)); };
+  timers.push(setTimeout(tick,start));
+}
+function stagger(nodes,cls,start=.15,step=.09){
+  nodes.forEach((n,i)=>{ n.classList.remove(cls);
+    if(!fx){ n.style.animation='none'; n.style.opacity=1; return; }
+    void n.offsetWidth; n.style.animationDelay=(start+i*step).toFixed(3)+'s'; n.classList.add(cls); });
+}
+
+/* ---- the curved title over the logo ----
+   Set once per show. The font is shrunk until the line fits the arc, so a
+   longer festival name still sits neatly on the curve instead of running off it. */
+function setArc(textId,pathId,base){
+  const tp=$(textId), path=$(pathId), el=tp.parentNode;
+  tp.textContent=$('tMusicBn').value;
+  const L=path.getTotalLength ? path.getTotalLength() : 300;
+  let size=base;
+  tp.style.fontSize=size+'px';
+  for(let i=0;i<30 && size>7;i++){
+    const w = el.getComputedTextLength ? el.getComputedTextLength() : 0;
+    if(!w || w<=L*0.90) break;      // w is 0 while the stage is hidden — refit later
+    size-=1; tp.style.fontSize=size+'px';
+  }
+}
+/* must run with the stage on screen, otherwise the text measures as zero
+   and never gets shrunk to the curve */
+function refitArcs(){ setArc('arcTextT','arcT',32); setArc('arcTextB','arcB',32); }
+addEventListener('resize',refitArcs);
+if(document.fonts && document.fonts.ready) document.fonts.ready.then(refitArcs);
+function applyStatic(){
+  $('mark').innerHTML=esc($('tMark').value).replace(/·/g,'<b>·</b>');
+}
+/* each scene rebuilds its own text when it comes up, so the effect replays */
+function enterText(id){
+  if(id==='music') words($('oMusicPt'),$('tMusicPt').value,.7,.04);
+  if(id==='title'){
+    const bn=$('tTitleBn').value.split('/').map(s=>s.trim()).filter(Boolean);
+    $('oTitleBn').innerHTML='';
+    bn.forEach((line,li)=>{ const d=document.createElement('div');
+      $('oTitleBn').appendChild(d); words(d,line,.15+li*.35,.08); });
+    words($('oTitlePt'),$('tTitlePt').value,.75,.06);
+    words($('oTitleYr'),$('tTitleYr').value,1.15,.02);
+  }
+  if(id==='welcome'){
+    type($('oWelBn'),$('tWelBn').value,320,90);
+    words($('oWelPt'),$('tWelPt').value,1.1,.07);
+    words($('oWelNote'),$('tWelNote').value,1.6,.04);
+  }
+  if(id==='flags'){
+    words($('oFlagBn'),$('tFlagBn').value,.2,.07);
+    const sp=document.createElement('span'); sp.className='sub2'; $('oFlagBn').appendChild(sp);
+    words(sp,$('tFlagPt').value,.95,.045);
+  }
+  if(id==='prog'){
+    $('oProgBn').innerHTML=''; words($('oProgBn'),$('tProgBn').value,.1,.08);
+    const sp=document.createElement('span'); sp.className='sub2'; sp.textContent='Programa'; $('oProgBn').appendChild(sp);
+    const ul=$('progList'); ul.innerHTML='';
+    progLines().forEach(l=>{
+      const m=l.match(/^\s*([0-9]{1,2}[:.h][0-9]{0,2}|[০-৯]{1,2}[:.][০-৯]{0,2})\s*[—\-–]\s*(.*)$/);
+      const li=document.createElement('li');
+      li.innerHTML=m?`<b>${esc(m[1])}</b><i>${esc(m[2])}</i>`:`<i>${esc(l)}</i>`;
+      ul.appendChild(li);
+    });
+    stagger([...ul.children],'pr',.45,.1);
+  }
+  if(id==='notice') type($('oNote'),$('tNote').value,300,42);
+}
+
+/* ---------- audio ---------- */
+let ac=null,an=null,freq=null,audioEl=null,ceil=40,sens=1,bass=0,mid=0,hi=0,simulate=false;
+async function initAudio(){
+  if(src==='none'){ simulate=true; return; }
+  if(!ac) ac=new (window.AudioContext||window.webkitAudioContext)();
+  await ac.resume();
+  if(!an){ an=ac.createAnalyser(); an.fftSize=4096; an.smoothingTimeConstant=.7;
+           freq=new Uint8Array(an.frequencyBinCount); }
+  if(src==='file'&&track){
+    if(!audioEl){ audioEl=new Audio(URL.createObjectURL(track)); audioEl.loop=true;
+                  ac.createMediaElementSource(audioEl).connect(an); an.connect(ac.destination); }
+    await audioEl.play();
+  }else if(src==='mic'){
+    const st=await navigator.mediaDevices.getUserMedia({audio:{
+      echoCancellation:false,noiseSuppression:false,autoGainControl:false}});
+    ac.createMediaStreamSource(st).connect(an);
+  }
+  simulate=false;
+}
+
+/* ---------- photo transitions ---------- */
+const TR=['fade','zoomIn','zoomOut','pushL','pushR','pushU','irisIn','wipeL','blurIn','tilt'];
+let trI=Math.floor(Math.random()*TR.length);
+function nextTr(){ trI=(trI+1+Math.floor(Math.random()*3))%TR.length; return TR[trI]; }
+function styleFor(t,phase){
+  const p=phase==='pre';
+  switch(t){
+    case 'zoomIn':  return {opacity:p?0:1, transform:p?'scale(1.28)':'scale(1)', filter:'none'};
+    case 'zoomOut': return {opacity:p?0:1, transform:p?'scale(.78)':'scale(1)',  filter:'none'};
+    case 'pushL':   return {opacity:1, transform:p?'translateX(101%)':'translateX(0)', filter:'none'};
+    case 'pushR':   return {opacity:1, transform:p?'translateX(-101%)':'translateX(0)',filter:'none'};
+    case 'pushU':   return {opacity:1, transform:p?'translateY(101%)':'translateY(0)', filter:'none'};
+    case 'tilt':    return {opacity:p?0:1, transform:p?'scale(1.2) rotate(3.5deg)':'scale(1) rotate(0)',filter:'none'};
+    case 'blurIn':  return {opacity:p?0:1, transform:p?'scale(1.12)':'scale(1)', filter:p?'blur(26px)':'blur(0)'};
+    default:        return {opacity:p?0:1, transform:'scale(1)', filter:'none'};
+  }
+}
+function clipFor(t,phase){
+  const p=phase==='pre';
+  if(t==='irisIn') return p?'circle(0% at 50% 50%)':'circle(85% at 50% 50%)';
+  if(t==='wipeL')  return p?'inset(0 100% 0 0)':'inset(0 0 0 0)';
+  return 'none';
+}
+let live=null;
+function showImage(url){
+  const t=nextTr(), el=document.createElement('div');
+  el.className='layer'; el.style.backgroundImage=`url("${url}")`;
+  Object.assign(el.style,styleFor(t,'pre')); el.style.clipPath=clipFor(t,'pre');
+  $('layers').appendChild(el);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{
+    el.style.transition='opacity 1.3s ease, transform 1.5s cubic-bezier(.22,.7,.2,1), filter 1.3s ease, clip-path 1.4s ease';
+    const on=styleFor(t,'in');
+    Object.assign(el.style,on); el.style.clipPath=clipFor(t,'in');
+    timers.push(setTimeout(()=>{
+      el.style.transition='transform 9s linear';
+      el.style.transform=on.transform.replace('scale(1)','scale(1.1)')
+        +` translate(${(Math.random()*3-1.5).toFixed(1)}%,${(Math.random()*3-1.5).toFixed(1)}%)`;
+    },1600));
+  }));
+  const old=live; live=el;
+  if(old) setTimeout(()=>{ old.style.transition='opacity 1.3s ease'; old.style.opacity=0;
+    setTimeout(()=>old.remove(),1400); },200);
+}
+function clearImages(){ [...$('layers').children].forEach(el=>{
+  el.style.transition='opacity 1s'; el.style.opacity=0; setTimeout(()=>el.remove(),1100); }); live=null; }
+
+/* ---------- scene engine ---------- */
+const TEXTSC={music:'scMusic',welcome:'scWel',prog:'scProg',notice:'scNote',spon:'scSpon'};
+const ALL=['scSlide','scMusic','scTitle','scWel','scFlags','scProg','scNote','scSpon'];
+let idx=-1, timers=[], paused=false, curDur=0, cursor={porto:0,bd:0,photos:0};
+function clearT(){ timers.forEach(clearTimeout); timers=[]; }
+function allOff(){ ALL.forEach(s=>$(s).classList.remove('on')); }
+function playable(){ return seq.filter(s=>s.on && !missingFor(s.id)); }
+function shuffled(a){ const b=a.slice();
+  for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
+/* Porto, Bangladesh, Porto, Bangladesh … when one list runs out the rest of
+   the longer one follows on, so no photo is ever dropped. */
+function mixedPhotos(){
+  const a=shuffle?shuffled(PORTO()):PORTO(), b=shuffle?shuffled(BD()):BD(), out=[];
+  for(let i=0;i<Math.max(a.length,b.length);i++){
+    if(i<a.length) out.push(a[i]);
+    if(i<b.length) out.push(b[i]);
+  }
+  return out;
+}
+
+/* three looks: photo (dark over pictures), brand (orange pattern), slide (full-bleed art) */
+function look(kind){
+  const st=$('stage'), k=+($('shade').dataset.k||1);
+  const brand = kind==='brand' && !!M.bg;
+  st.classList.toggle('onbrand',brand);
+  $('brandBg').classList.toggle('on',kind==='brand');
+  $('shade').style.opacity = kind==='photo' ? Math.min(1.6,k) : 0;
+  $('vig').style.opacity   = kind==='photo' ? 1 : 0;
+  st.classList.toggle('chromeoff',kind==='slide');
+  // on the music screen the big centred lockup replaces the small top one,
+  // and its own subtitle replaces the bottom line
+  const big = curId==='music';
+  $('lockTop').style.opacity = big ? 0 : '';
+  $('mark').style.opacity = big ? 0 : '';
+}
+let curId=null;
+/* Designed slides fill the screen. But if the screen is a very different shape
+   from the artwork — a long LED banner, say — filling it would cut the sponsor
+   row off. Past a 12% mismatch we show the whole card on the pattern instead. */
+function fitSlide(){
+  const im=$('slideImg');
+  if(!im.naturalWidth||!im.naturalHeight) return;
+  const art=im.naturalWidth/im.naturalHeight, screen=innerWidth/innerHeight;
+  const off=Math.abs(screen-art)/art;
+  im.style.objectFit = off>0.12 ? 'contain' : 'cover';
+  $('slideBg').style.opacity = off>0.12 ? 1 : 0;
+}
+$('slideImg').addEventListener('load',fitSlide);
+addEventListener('resize',fitSlide);
+function slide(url){
+  clearImages(); $('slideImg').src=url;
+  look('slide'); fitSlide();
+  timers.push(setTimeout(()=>$('scSlide').classList.add('on'),300));
+}
+function textScene(el,id){
+  clearImages(); look('brand');
+  timers.push(setTimeout(()=>{ $(el).classList.add('on'); enterText(id); },300));
+}
+
+function run(step){
+  clearT(); allOff();
+  const list=playable();
+  if(!list.length){ $('msg').style.display='block';
+    $('msg').textContent='Nothing to show yet — press Esc and check the folder list.'; return; }
+  $('msg').style.display='none';
+  idx=((idx+(step===undefined?1:step))%list.length+list.length)%list.length;
+  const s=list[idx]; curDur=s.dur; curId=s.id;
+  $('now').innerHTML='Now: <b>'+esc(s.label)+'</b><br>'+(paused?'held — Space to release':'next in '+s.dur+'s')
+    +'<br>'+(idx+1)+' of '+list.length;
+
+  if(s.id==='opening'){ M.opening ? slide(M.opening) : textScene('scTitle','title'); }
+  else if(s.id==='flags'){ M.flags ? slide(M.flags) : textScene('scFlags','flags'); }
+  else if(s.id==='closing'){ slide(M.closing); }
+  else if(s.id==='extras'){
+    const per=Math.max(4000,(s.dur*1000)/M.extras.length);
+    slide(M.extras[0]);
+    for(let i=1;i<M.extras.length;i++)
+      timers.push(setTimeout(()=>{ $('slideImg').src=M.extras[i]; },per*i));
+  }
+  else if(TEXTSC[s.id]){
+    if(s.id==='spon'){ const g=$('sponGrid'), lst=SPON();
+      g.innerHTML=''; g.classList.toggle('many',lst.length>6);
+      lst.forEach(u=>{ const i=document.createElement('img'); i.src=u; i.alt=''; g.appendChild(i); });
+      timers.push(setTimeout(()=>stagger([...g.children],'pop',.1,.11),320)); }
+    textScene(TEXTSC[s.id],s.id);
+  }
+  else if(s.id==='photos'||s.id==='porto'||s.id==='bd'){
+    look('photo');
+    const p = s.id==='photos' ? mixedPhotos()
+            : (shuffle?shuffled(s.id==='porto'?PORTO():BD()):(s.id==='porto'?PORTO():BD()));
+    const per=Math.max(4500,(s.dur*1000)/p.length);
+    let k=cursor[s.id]%p.length;
+    showImage(p[k]);
+    for(let t=per;t<s.dur*1000-500;t+=per)
+      timers.push(setTimeout(()=>{ k=(k+1)%p.length; cursor[s.id]=k; showImage(p[k]); },t));
+    cursor[s.id]=(k+1)%p.length;
+  }
+  if(!paused) timers.push(setTimeout(()=>run(1), s.dur*1000));
+}
+function togglePause(){
+  paused=!paused;
+  if(paused){ clearT(); $('now').innerHTML=$('now').innerHTML.replace(/next in \d+s|held[^<]*/,'held — Space to release'); }
+  else timers.push(setTimeout(()=>run(1), curDur*1000));
+}
+
+/* ============================================================
+   3. BARS — Bangladesh green rising into the flag red
+   ============================================================ */
+const cv=$('bars'), ctx=cv.getContext('2d');
+let NB=96, OP=.55, t0=performance.now();
+function fit(){ const r=devicePixelRatio||1; cv.width=Math.max(1,innerWidth*r); cv.height=Math.max(1,innerHeight*r);
+  ctx.setTransform(r,0,0,r,0,0); }
+addEventListener('resize',fit);
+const smooth=new Float32Array(220);
+function draw(){
+  requestAnimationFrame(draw);
+  const W=innerWidth,H=innerHeight;
+  ctx.clearRect(0,0,W,H);
+  const onSlide=$('scSlide').classList.contains('on');
+  const hideBars = barMode==='off' || (onSlide && cleanSlides);
+
+  let vals;
+  if(an && !simulate){
+    an.getByteFrequencyData(freq);
+    const band=(a,b)=>{let s=0;for(let i=a;i<b;i++)s+=freq[i];return s/(b-a);};
+    const rB=band(2,22), rM=band(22,340), rH=band(340,860);
+    ceil=Math.max(rB,rM,ceil*.996,12);
+    const n=v=>Math.min(1,(v/ceil)*sens);
+    bass+=(n(rB)-bass)*.32; mid+=(n(rM)-mid)*.2; hi+=(n(rH)-hi)*.36;
+    vals=i=>{
+      const lo=Math.floor(Math.pow(i/NB,2.05)*900)+2;
+      const up=Math.max(lo+1,Math.floor(Math.pow((i+1)/NB,2.05)*900)+2);
+      let v=0; for(let j=lo;j<up;j++) v=Math.max(v,freq[j]);
+      return Math.min(1,(v/255)*sens*1.25);
+    };
+  }else{
+    const t=(performance.now()-t0)/1000;
+    bass=.24+.16*Math.sin(t*1.1);
+    vals=i=>{ const x=i/NB;
+      return Math.max(0,(.30+.24*Math.sin(t*.9+x*7)+.16*Math.sin(t*1.7+x*17)+.09*Math.sin(t*2.6+x*31))*(1-x*.55))*sens; };
+  }
+
+  if(!hideBars){
+    const bw=W/NB, cap = barMode==='low' ? H*.34 : H*.92;
+    // one gradient anchored to the SCREEN, not to each bar, so the field reads
+    // green at the bottom and flag-red at the top the way the logo does
+    const g=ctx.createLinearGradient(0,H,0,H-cap);
+    g.addColorStop(0,   `rgba(0,84,60,${OP})`);
+    g.addColorStop(.22, `rgba(0,128,88,${OP*.97})`);
+    g.addColorStop(.40, `rgba(0,150,101,${OP*.95})`);
+    g.addColorStop(.52, `rgba(150,96,64,${OP*.94})`);
+    g.addColorStop(.64, `rgba(214,52,54,${OP*.93})`);
+    g.addColorStop(1,   `rgba(244,42,65,${OP*.88})`);
+    ctx.fillStyle=g;
+    const caps=[];
+    for(let i=0;i<NB;i++){
+      const v=vals(i);
+      smooth[i]+=(v-smooth[i])*(v>smooth[i]?.55:.12);
+      const h=Math.max(0,smooth[i]*cap);
+      if(h<1) continue;
+      ctx.fillRect(i*bw+bw*.13, H-h, bw*.74, h);
+      caps.push([i*bw+bw*.13, H-h-2]);
+    }
+    ctx.fillStyle=`rgba(255,248,232,${OP*.8})`;
+    caps.forEach(([x,y])=>ctx.fillRect(x,y,bw*.74,2.5));
+    if(barMode==='mirror'){
+      const g2=ctx.createLinearGradient(0,0,0,cap*.45);
+      g2.addColorStop(0,`rgba(244,42,65,${OP*.4})`);
+      g2.addColorStop(1,`rgba(0,106,78,${OP*.18})`);
+      ctx.fillStyle=g2;
+      for(let i=0;i<NB;i++){ const h=smooth[i]*cap*.45; if(h<1) continue;
+        ctx.fillRect(i*bw+bw*.13, 0, bw*.74, h); }
+    }
+  }
+
+  /* everything that beats with the bass */
+  const j=1+bass*.17, y=-bass*2.4;
+  /* the lockup moves as one piece — the curved title rides with the logo
+     rather than drifting against it */
+  const b2=Math.max(0,Math.min(1,bass));
+  const lift=-b2*2.7, sc=1+b2*.085;
+  $('lockTop').style.transform=`translateX(-50%) translateY(${lift.toFixed(2)}vmin) scale(${sc.toFixed(3)})`;
+  $('lockBig').style.transform=`translateY(${(lift*1.35).toFixed(2)}vmin) scale(${(1+b2*.11).toFixed(3)})`;
+  const lf=`saturate(${(1+b2*.38).toFixed(2)}) brightness(${(1+b2*.13).toFixed(3)})`
+         +` drop-shadow(0 .5vmin 1.4vmin rgba(0,0,0,.38))`;
+  $('logoT').style.filter=lf; $('logoB').style.filter=lf;
+  const bright=(1+b2*.16).toFixed(3);
+  $('arcWrapT').style.filter=`brightness(${bright})`;
+  $('arcWrapB').style.filter=`brightness(${bright})`;
+  [...$('sponGrid').children].forEach((el,i)=>{
+    el.style.transform=`translateY(${y*.7}vmin) scale(${1+bass*(.13+(i%3)*.045)})`; });
+  $('flagBd').style.transform=`scale(${1+bass*.09}) rotate(${bass*1.4}deg)`;
+  $('flagPt').style.transform=`scale(${1+bass*.09}) rotate(${-bass*1.4}deg)`;
+  $('scTitle').style.transform=`scale(${1+bass*.035})`;
+  $('slideImg').style.transform=`scale(${1+bass*.018})`;
+  const tt=(performance.now()-t0)/1000;
+  $('mark').style.transform=`translate(${(Math.sin(tt/37)*1.1).toFixed(2)}vmin,${(Math.sin(tt/53)*.5).toFixed(2)}vmin)`;
+}
+
+/* ---------- start / stop ---------- */
+let started=false;
+async function start(){
+  $('setup').classList.add('hidden'); $('stage').classList.remove('hidden');
+  applyStatic(); refitArcs();
+  const l=LOGO();
+  $('logoT').style.display=l?'':'none'; $('logoB').style.display=l?'':'none';
+  if(l){ $('logoT').src=l; $('logoB').src=l; }
+  fit(); if(!started){ started=true; draw(); }
+  idx=-1; paused=false; run(1);
+  try{ await initAudio(); }
+  catch(err){
+    simulate=true; $('msg').style.display='block';
+    $('msg').innerHTML = src==='mic'
+      ? 'Microphone blocked — the bars will drift on their own.<br>To use it: allow the mic in the address bar, press <b>Esc</b>, then Start show again.'
+      : 'That audio file would not play — the bars will drift on their own.<br>Press <b>Esc</b> and try another file.';
+    setTimeout(()=>$('msg').style.display='none',9000);
+  }
+  keepAwake();
+}
+function toSetup(){
+  clearT(); allOff(); clearImages();
+  paused=false; $('black').classList.remove('on');
+  $('stage').classList.add('hidden'); $('setup').classList.remove('hidden');
+  $('go').disabled=false; $('go').textContent='Start show';
+  document.body.style.cursor='default';
+  if(audioEl) audioEl.pause();
+  if(ac && ac.state==='running') ac.suspend();
+  if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
+}
+$('go').onclick=()=>{
+  $('go').disabled=true; $('go').textContent='Starting…';
+  document.documentElement.requestFullscreen?.().catch(()=>{});
+  start();
+};
+
+let wake=null;
+async function keepAwake(){ try{ wake=await navigator.wakeLock.request('screen'); }catch(e){} }
+document.addEventListener('visibilitychange',()=>{
+  if(document.visibilityState==='visible' && !$('stage').classList.contains('hidden')) keepAwake(); });
+
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){ toSetup(); return; }
+  if(/^(INPUT|TEXTAREA)$/.test(document.activeElement.tagName)) return;
+  const k=e.key.toLowerCase();
+  if(k==='s') $('tune').style.display=$('tune').style.display==='block'?'none':'block';
+  if(k==='f') document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  if(k==='b') $('black').classList.toggle('on');
+  if(e.key===' '){ e.preventDefault(); togglePause(); }
+  if(e.key==='ArrowRight'){ paused=false; run(1); }
+  if(e.key==='ArrowLeft'){ paused=false; run(-1); }
+});
+$('sens').oninput=e=>{sens=+e.target.value;$('vSens').textContent=sens.toFixed(1);};
+$('nbars').oninput=e=>{NB=+e.target.value;$('vBars').textContent=NB;};
+$('op').oninput=e=>{OP=e.target.value/100;$('vOp').textContent=e.target.value+'%';};
+
+let idle;addEventListener('mousemove',()=>{document.body.style.cursor='default';clearTimeout(idle);
+  idle=setTimeout(()=>{if($('setup').classList.contains('hidden'))document.body.style.cursor='none';},3000);});
+
+$('shade').dataset.k='1';
+scanFolder();
+})();
+</script>
+</body>
+</html>
