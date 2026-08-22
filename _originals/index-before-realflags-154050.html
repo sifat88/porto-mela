@@ -208,10 +208,6 @@ kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size
 .flag{width:26vmin;height:15.6vmin;border-radius:1vmin;box-shadow:0 1.4vmin 5vmin rgba(0,0,0,.5);
   overflow:hidden;position:relative;background-size:cover;background-position:center}
 .flag.bd{background:var(--bottle)}
-.flag.art::after{display:none}      /* real artwork: no drawn disc or ring over it */
-/* .flag.bd / .flag.pt set `background:` in shorthand, which wipes the size
-   and the position, so the artwork is placed inline in the script instead */
-.flag.art{background-color:transparent}
 .flag.bd::after{content:'';position:absolute;top:50%;left:45%;transform:translate(-50%,-50%);
   width:9.4vmin;height:9.4vmin;border-radius:50%;background:var(--bdred)}
 .flag.pt{background:linear-gradient(to right,var(--bottle) 0 40%,#DA291C 40% 100%)}
@@ -597,23 +593,20 @@ async function series(dir,prefix){
   }
   return out;
 }
-const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,closing:null,logo:null,bg:null,
-         flagBD:null,flagPT:null};
+const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,closing:null,logo:null,bg:null};
 async function scanFolder(){
   const man=(typeof window!=='undefined' && window.MELA_MEDIA)||{};
-  const [porto,bd,spon,extras,opening,flags,closing,logo,bg,flagBD,flagPT]=await Promise.all([
+  const [porto,bd,spon,extras,opening,flags,closing,logo,bg]=await Promise.all([
     series('media/porto','porto'), series('media/bangladesh','bd'),
     series('media/sponsors','sponsor'), series('media/slides/extra','extra'),
     one('media/slides/opening'), one('media/slides/flags'), one('media/slides/closing'),
-    one('media/brand/logo'), one('media/brand/background'),
-    one('media/brand/flag-bd'), one('media/brand/flag-pt')
+    one('media/brand/logo'), one('media/brand/background')
   ]);
   const merge=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   M.porto=merge(porto,man.porto); M.bd=merge(bd,man.bangladesh);
   M.spon=merge(spon,man.sponsors); M.extras=merge(extras,man.extras);
   M.opening=opening||man.opening||null; M.flags=flags||man.flags||null;
   M.closing=closing||man.closing||null; M.logo=logo||man.logo||null; M.bg=bg||man.background||null;
-  M.flagBD=flagBD||man.flagBD||null; M.flagPT=flagPT||man.flagPT||null;
   if(M.bg){ $('slideBg').style.backgroundImage=`url("${M.bg}")`;
             $('brandBg').style.backgroundImage=`url("${M.bg}")`; }
   paintScan(); build();
@@ -629,8 +622,6 @@ function paintScan(){
     [M.spon.length,   'Sponsor logos',     'media/sponsors/sponsor-1.png …'],
     [M.logo?1:0,      'Logo',              'media/brand/logo.png'],
     [M.bg?1:0,        'Pattern background','media/brand/background.png'],
-    [M.flagBD?1:0,    'Bangladesh flag',   'media/brand/flag-bd.jpg'],
-    [M.flagPT?1:0,    'Portugal flag',     'media/brand/flag-pt.jpg'],
   ];
   $('scanList').innerHTML=rows.map(([n,label,path])=>
     `<li class="${n?'':'no'}"><b>${n?n:'–'}</b><span>${esc(label)} ${n?'':'<em>— drop one at '+esc(path)+'</em>'}</span></li>`).join('');
@@ -1025,17 +1016,7 @@ function run(step){
     +'<br>'+(idx+1)+' of '+list.length;
 
   if(s.id==='opening'){ M.opening ? slide(M.opening) : textScene('scTitle','title'); }
-  else if(s.id==='flags'){
-    // the real artwork on the two panels, if we have it
-    const bdA=M.flagBD, ptA=M.flagPT;
-    $('flagBd').classList.toggle('art',!!bdA); $('flagPt').classList.toggle('art',!!ptA);
-    [[$('flagBd'),bdA],[$('flagPt'),ptA]].forEach(([el,url])=>{
-      el.style.backgroundImage=url?`url("${url}")`:'';
-      el.style.backgroundSize=url?'cover':'';
-      el.style.backgroundPosition=url?'center':'';
-    });
-    M.flags ? slide(M.flags) : textScene('scFlags','flags');
-  }
+  else if(s.id==='flags'){ M.flags ? slide(M.flags) : textScene('scFlags','flags'); }
   else if(s.id==='closing'){ M.closing ? slide(M.closing) : textScene('scEnd','end'); }
   else if(s.id==='extras'){
     const per=Math.max(4000,(s.dur*1000)/M.extras.length);
@@ -1978,21 +1959,8 @@ function drawLiquid(W,H,T){
    column lifted by a travelling wave — that is what makes the cloth
    move. The music drives how hard it blows.
    ============================================================ */
-let _bd=null,_pt=null,_bdImg=null,_ptImg=null;
-/* the real flag files, if they are in the folder */
-function flagArt(url,slot){
-  const cur=slot==='bd'?_bdImg:_ptImg;
-  if(cur===undefined) return null;
-  if(cur===null && url){
-    const im=new Image(); im.src=url;
-    im.onerror=()=>{ if(slot==='bd') _bdImg=undefined; else _ptImg=undefined; };
-    if(slot==='bd') _bdImg=im; else _ptImg=im;
-    return null;
-  }
-  return (cur && cur.naturalWidth) ? cur : null;
-}
+let _bd=null,_pt=null;
 function flagBD(){
-  const art=flagArt(M.flagBD,'bd'); if(art) return art;
   if(_bd) return _bd;
   const c=document.createElement('canvas'); c.width=600; c.height=360;   // 5:3, as the flag is
   const g=c.getContext('2d');
@@ -2001,7 +1969,6 @@ function flagBD(){
   return _bd=c;
 }
 function flagPT(){
-  const art=flagArt(M.flagPT,'pt'); if(art) return art;
   if(_pt) return _pt;
   const c=document.createElement('canvas'); c.width=600; c.height=400;   // 3:2
   const g=c.getContext('2d');
@@ -2046,7 +2013,7 @@ function flagPT(){
 
 function drawFlag(W,H,T,src){
   const b=Math.max(0,Math.min(1,bass)), m=Math.max(0,Math.min(1,mid));
-  const sw=src.naturalWidth||src.width, sh=src.naturalHeight||src.height;
+  const sw=src.width, sh=src.height;
 
   /* the sky behind it */
   tx.globalCompositeOperation='source-over';

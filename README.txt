@@ -127,7 +127,10 @@ the same way:
   Fireworks      shells going up on the beat over a night sky
   Neon grid      a floor running to the horizon under a banded sun
 
-The two flag screens are drawn by the show itself — nothing to supply.
+The two flag screens use the real flag artwork from media/brand — 
+flag-bd.jpg and flag-pt.jpg. Replace either file with your own and the
+waving screen and the "Two flags" card both pick it up. If a file is
+missing the show falls back to a flag it draws itself, so nothing breaks.
 They keep the real flag colours, so the colour presets below do not
 touch them. If you would rather use your own artwork, the "Two flags"
 scene near the start still shows media/slides/flags.png.
@@ -201,6 +204,8 @@ Single fixed files:
   media/slides/flags.png      the two-flags artwork
   media/slides/closing.png    the thank-you card, shown last. Delete it
                               and the show draws its own instead.
+  media/brand/flag-bd.jpg     the Bangladesh flag artwork
+  media/brand/flag-pt.jpg     the Portuguese flag artwork
   media/brand/logo.png        small logo in the top-right corner
   media/brand/background.png  pattern behind the designed slides
 
