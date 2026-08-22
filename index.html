@@ -579,6 +579,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
      media/porto/porto-1.jpg       media/bangladesh/bd-1.jpg
      media/sponsors/sponsor-1.png  media/slides/extra/extra-1.png
      media/slides/opening.png · flags.png · raffle.jpg
+     media/slides/ad-1.jpg · ad-2.jpg   (the sponsor's own screens)
      media/brand/logo.png · background.png
    ============================================================ */
 const EXT=['jpg','jpeg','png','webp'];
@@ -595,15 +596,16 @@ async function series(dir,prefix){
   return out;
 }
 const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,raffle:null,logo:null,bg:null,
-         flagBD:null,flagPT:null};
+         flagBD:null,flagPT:null,ad1:null,ad2:null};
 async function scanFolder(){
   const man=(typeof window!=='undefined' && window.MELA_MEDIA)||{};
-  const [porto,bd,spon,extras,opening,flags,raffle,logo,bg,flagBD,flagPT]=await Promise.all([
+  const [porto,bd,spon,extras,opening,flags,raffle,logo,bg,flagBD,flagPT,ad1,ad2]=await Promise.all([
     series('media/porto','porto'), series('media/bangladesh','bd'),
     series('media/sponsors','sponsor'), series('media/slides/extra','extra'),
     one('media/slides/opening'), one('media/slides/flags'), one('media/slides/raffle'),
     one('media/brand/logo'), one('media/brand/background'),
-    one('media/brand/flag-bd'), one('media/brand/flag-pt')
+    one('media/brand/flag-bd'), one('media/brand/flag-pt'),
+    one('media/slides/ad-1'), one('media/slides/ad-2')
   ]);
   const merge=(a,b)=>[...new Set([...(a||[]),...(b||[])])];
   M.porto=merge(porto,man.porto); M.bd=merge(bd,man.bangladesh);
@@ -611,6 +613,7 @@ async function scanFolder(){
   M.opening=opening||man.opening||null; M.flags=flags||man.flags||null;
   M.raffle=raffle||man.raffle||null; M.logo=logo||man.logo||null; M.bg=bg||man.background||null;
   M.flagBD=flagBD||man.flagBD||null; M.flagPT=flagPT||man.flagPT||null;
+  M.ad1=ad1||man.ad1||null; M.ad2=ad2||man.ad2||null;
   if(M.bg){ $('slideBg').style.backgroundImage=`url("${M.bg}")`;
             $('brandBg').style.backgroundImage=`url("${M.bg}")`; }
   paintScan(); build();
@@ -622,6 +625,8 @@ function paintScan(){
     [M.opening?1:0,   'Opening banner',    'media/slides/opening.png'],
     [M.flags?1:0,     'Flags artwork',     'media/slides/flags.png'],
     [M.raffle?1:0,    'Raffle draw banner','media/slides/raffle.jpg'],
+    [M.ad1?1:0,       'Sponsor screen 1',  'media/slides/ad-1.jpg'],
+    [M.ad2?1:0,       'Sponsor screen 2',  'media/slides/ad-2.jpg'],
     [M.extras.length, 'Extra slides',      'media/slides/extra/extra-1.png …'],
     [M.spon.length,   'Sponsor logos',     'media/sponsors/sponsor-1.png …'],
     [M.logo?1:0,      'Logo',              'media/brand/logo.png'],
@@ -726,6 +731,8 @@ let seq=[
   {id:'music2', label:'Second screen',  note:'logo and your own line, on the colour field', dur:18, on:true},
   {id:'music3', label:'Music only',     note:'background loop alone — no logo, no words', dur:20, on:true},
   {id:'video',  label:'Video',          note:'full screen, from the list on the setup page', dur:30, on:true},
+  {id:'ad1',    label:'Sponsor screen 1',note:'mynztrip — the sponsor’s own card',       dur:12, on:true},
+  {id:'ad2',    label:'Sponsor screen 2',note:'the flight offer for the fair',            dur:20, on:true},
   {id:'prog',   label:'Programme',      note:'tonight’s running order',             dur:24, on:true},
   {id:'music7', label:'Laser show',     note:'music only — a tunnel of lit tiles, full screen',  dur:20, on:true},
   {id:'music9', label:'Liquid',         note:'music only — mirrored colour flowing over the screen', dur:18, on:true},
@@ -751,6 +758,8 @@ function missingFor(id){
     case 'notice': return !$('tNote').value.trim();
     case 'video':  return !videoList().length;
     case 'raffle': return !M.raffle;
+    case 'ad1':    return !M.ad1;
+    case 'ad2':    return !M.ad2;
     // with the moving backgrounds off these would be empty screens
     case 'music3': case 'music4': case 'music5': case 'music6':
     case 'music7': case 'music8': case 'music9':
@@ -1077,6 +1086,9 @@ function run(step){
   }
   else if(s.id==='video'){ playVideo(); }
   else if(s.id==='raffle'){ slide(M.raffle); }
+  /* the sponsor's two screens, straight after the video */
+  else if(s.id==='ad1'){ slide(M.ad1); }
+  else if(s.id==='ad2'){ slide(M.ad2); }
   else if(s.id==='extras'){
     const per=Math.max(4000,(s.dur*1000)/M.extras.length);
     slide(M.extras[0]);

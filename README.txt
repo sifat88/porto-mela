@@ -80,6 +80,14 @@ Video            a film, full screen. The addresses go in the "Videos"
                  box on the setup page, one per line, and each visit to
                  this scene plays the next one in the list. You can also
                  press the button there and pick a file off the laptop.
+Sponsor screen 1 media/slides/ad-1.jpg, full screen — the sponsor's own
+                 card. It comes straight after the film, so the sponsor
+                 gets the film and both cards together, once every time
+                 the running order comes round.
+Sponsor screen 2 media/slides/ad-2.jpg, the second sponsor card, right
+                 after the first. It carries small print — fares, phone
+                 numbers, baggage — so it is given 20 seconds rather
+                 than 12, long enough to read from across the room.
 Programme        the timetable, lines sliding in one by one
 Extra slides     anything in media/slides/extra
 Sponsors         logos jumping on the beat (skipped if the folder is empty)
@@ -271,6 +279,32 @@ in the "Videos" box, one per line. Each time the Video scene comes round
 it plays the next one on the list.
 
 -------------------------------------------------------------------
+THE SPONSOR'S SCREENS
+-------------------------------------------------------------------
+The sponsor has two full screens of their own, and they run one after
+the other straight after the film:
+
+  Sponsor screen 1   media/slides/ad-1.jpg
+  Sponsor screen 2   media/slides/ad-2.jpg
+
+That puts the film and both cards together in one block, so the sponsor
+is on the wall for a full minute every time the running order comes
+round. Screen 2 has the small print on it — fares, phone numbers,
+baggage — so it is given 20 seconds against screen 1's 12.
+
+To change either one, overwrite the file with the same name and press
+"Rescan folder". jpg, jpeg, png and webp all work. If a file is not
+there the show simply skips that screen — it never leaves the wall
+blank.
+
+A card the same shape as the screen fills it edge to edge. A square or
+portrait card is shown whole down the middle with the festival pattern
+either side, so nothing gets cut off the edges.
+
+To move them, give them more time, or switch one off, use "Running
+order" on the setup page like any other scene.
+
+-------------------------------------------------------------------
 ADDING OR CHANGING PICTURES
 -------------------------------------------------------------------
 Just drop files into the right folder and name them in order.
@@ -288,6 +322,8 @@ Single fixed files:
 
   media/slides/opening.png    the main banner, shown first
   media/slides/flags.png      the two-flags artwork
+  media/slides/ad-1.jpg       the sponsor's first screen, after the film
+  media/slides/ad-2.jpg       the sponsor's second screen
   media/slides/raffle.jpg     the raffle draw banner, shown last
   media/brand/flag-bd.jpg     the Bangladesh flag artwork
   media/brand/flag-pt.jpg     the Portuguese flag artwork

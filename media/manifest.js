@@ -18,5 +18,7 @@ window.MELA_MEDIA = {
   porto:      [],   // e.g. "media/porto/ribeira-sunset.jpg"
   bangladesh: [],
   sponsors:   [],
-  extras:     []    // extra full-screen designed slides
+  extras:     [],   // extra full-screen designed slides
+  ad1:        null, // the sponsor's first screen, if not media/slides/ad-1.jpg
+  ad2:        null  // the sponsor's second screen
 };
