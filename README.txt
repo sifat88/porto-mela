@@ -84,10 +84,13 @@ Programme        the timetable, lines sliding in one by one
 Extra slides     anything in media/slides/extra
 Sponsors         logos jumping on the beat (skipped if the folder is empty)
 Notice           one big announcement — off until you switch it on
-Thank you        media/slides/closing.png, filling the screen. If that
-                 file is not there, the show draws its own card instead —
-                 ধন্যবাদ, Obrigado, on the pattern background — and the
-                 words are yours to change under "Words on screen".
+Raffle draw      media/slides/raffle.jpg, the last scene of the evening.
+                 The poster is taller than it is wide, so on a wide
+                 screen it is shown whole down the middle with a soft
+                 blurred copy of itself filling the sides.
+
+There is no thank-you screen any more — the evening ends on the raffle
+draw.
 
 There are also "Porto only" and "Bangladesh only" scenes, switched
 off. Turn them on if you ever want the two shown apart instead.
@@ -239,8 +242,7 @@ Single fixed files:
 
   media/slides/opening.png    the main banner, shown first
   media/slides/flags.png      the two-flags artwork
-  media/slides/closing.png    the thank-you card, shown last. Delete it
-                              and the show draws its own instead.
+  media/slides/raffle.jpg     the raffle draw banner, shown last
   media/brand/flag-bd.jpg     the Bangladesh flag artwork
   media/brand/flag-pt.jpg     the Portuguese flag artwork
   media/brand/logo.png        small logo in the top-right corner
@@ -261,8 +263,8 @@ CHANGING THE WORDS
 -------------------------------------------------------------------
 Everything on screen is editable on the setup page, under
 "Words on screen" — the welcome, the second screen's headline and the
-line under it, the programme times, the thank-you card, the notice, and
-the line along the bottom. Nothing needs to be edited in code.
+line under it, the programme times, the notice, and the line along the
+bottom. Nothing needs to be edited in code.
 
 -------------------------------------------------------------------
 THE LED WALL AT THE VENUE (5 m WIDE, 3 m HIGH)
@@ -283,11 +285,12 @@ but a few things are worth knowing on the night.
     old TVs and projectors do. If the panels turn out not to fill the
     whole frame, raise it a little.
 
-  * The main banner, the two flags and the thank-you card are 16:9
-    artwork. On a 5:3 wall the show fills the screen with them and loses
-    about 6% off each side — nothing important sits there. If you would
-    rather see the whole card with the pattern around it, remake that
-    file 5:3 (for example 2500 x 1500).
+  * The main banner and the two-flags card are 16:9 artwork. On a 5:3
+    wall the show fills the screen with them and loses about 6% off each
+    side — nothing important sits there. If you would rather see the
+    whole card with the pattern around it, remake that file 5:3 (for
+    example 2500 x 1500). The raffle poster is portrait and is always
+    shown whole, so it needs nothing done to it.
 
   * To see it in the wall's shape before the night, open "Screen & look"
     on the setup page and press "Open a 5 x 3 window". A window opens in

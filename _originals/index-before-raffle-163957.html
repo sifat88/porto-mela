@@ -187,6 +187,15 @@ kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size
 #stage.onbrand #scMus2 .pt{color:var(--tx);text-shadow:var(--shadow)}
 #stage.onbrand #scMus2 .rule2{background:linear-gradient(to right,transparent,var(--bottle),var(--bdred),transparent)}
 
+/* thank-you card, used when media/slides/closing.png is not there */
+#scEnd .bn{font-family:var(--bn);font-weight:800;font-size:11vmin;color:var(--acc);line-height:1.2;
+  -webkit-text-stroke:.35vmin var(--st);paint-order:stroke fill}
+#scEnd .pt{font-weight:900;font-size:4vmin;margin-top:2vmin;color:var(--tx);letter-spacing:.02em;
+  text-shadow:var(--shadow)}
+#scEnd .note{font-size:2.2vmin;margin-top:2.6vmin;opacity:.82;max-width:70vw;line-height:1.6;color:var(--tx)}
+#scEnd .rule{width:34vmin;height:.45vmin;margin:3.4vmin auto 0;border-radius:1vmin;
+  background:linear-gradient(to right,transparent,var(--bottle),var(--bdred),var(--bottle),transparent)}
+
 /* title fallback */
 #scTitle .bn{font-family:var(--bn);font-weight:800;font-size:9vmin;line-height:1.22;color:var(--acc);
   -webkit-text-stroke:.4vmin var(--st);paint-order:stroke fill}
@@ -326,6 +335,12 @@ kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size
         <label>Second screen — logo, this headline, this line under it</label>
         <input class="txt bnfont" id="tMus2Bn" value="আনন্দ · সংস্কৃতি · ঐক্য">
         <input class="txt" id="tMus2Pt" value="Música · Dança · Comida · Porto">
+      </div>
+      <div class="field">
+        <label>Thank you — only used if media/slides/closing.png is missing</label>
+        <input class="txt bnfont" id="tEndBn" value="ধন্যবাদ">
+        <input class="txt" id="tEndPt" value="Obrigado · Thank you">
+        <input class="txt" id="tEndNote" value="আবার দেখা হবে · Até ao próximo ano">
       </div>
       <div class="field">
         <label>Opening title — only used if media/slides/opening.png is missing</label>
@@ -494,6 +509,13 @@ Bancas de comida abertas até às 22h</textarea>
   <div class="scene" id="scFlagBD"></div>
   <div class="scene" id="scFlagPT"></div>
 
+  <div class="scene" id="scEnd">
+    <div class="bn" id="oEndBn"></div>
+    <div class="pt" id="oEndPt"></div>
+    <div class="note" id="oEndNote"></div>
+    <div class="rule"></div>
+  </div>
+
   <div class="scene" id="scTitle">
     <div class="bn" id="oTitleBn"></div>
     <div class="pt" id="oTitlePt"></div>
@@ -578,7 +600,7 @@ const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',
    1. WHAT IS IN THE FOLDER
      media/porto/porto-1.jpg       media/bangladesh/bd-1.jpg
      media/sponsors/sponsor-1.png  media/slides/extra/extra-1.png
-     media/slides/opening.png · flags.png · raffle.jpg
+     media/slides/opening.png · flags.png · closing.png
      media/brand/logo.png · background.png
    ============================================================ */
 const EXT=['jpg','jpeg','png','webp'];
@@ -594,14 +616,14 @@ async function series(dir,prefix){
   }
   return out;
 }
-const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,raffle:null,logo:null,bg:null,
+const M={porto:[],bd:[],spon:[],extras:[],opening:null,flags:null,closing:null,logo:null,bg:null,
          flagBD:null,flagPT:null};
 async function scanFolder(){
   const man=(typeof window!=='undefined' && window.MELA_MEDIA)||{};
-  const [porto,bd,spon,extras,opening,flags,raffle,logo,bg,flagBD,flagPT]=await Promise.all([
+  const [porto,bd,spon,extras,opening,flags,closing,logo,bg,flagBD,flagPT]=await Promise.all([
     series('media/porto','porto'), series('media/bangladesh','bd'),
     series('media/sponsors','sponsor'), series('media/slides/extra','extra'),
-    one('media/slides/opening'), one('media/slides/flags'), one('media/slides/raffle'),
+    one('media/slides/opening'), one('media/slides/flags'), one('media/slides/closing'),
     one('media/brand/logo'), one('media/brand/background'),
     one('media/brand/flag-bd'), one('media/brand/flag-pt')
   ]);
@@ -609,7 +631,7 @@ async function scanFolder(){
   M.porto=merge(porto,man.porto); M.bd=merge(bd,man.bangladesh);
   M.spon=merge(spon,man.sponsors); M.extras=merge(extras,man.extras);
   M.opening=opening||man.opening||null; M.flags=flags||man.flags||null;
-  M.raffle=raffle||man.raffle||null; M.logo=logo||man.logo||null; M.bg=bg||man.background||null;
+  M.closing=closing||man.closing||null; M.logo=logo||man.logo||null; M.bg=bg||man.background||null;
   M.flagBD=flagBD||man.flagBD||null; M.flagPT=flagPT||man.flagPT||null;
   if(M.bg){ $('slideBg').style.backgroundImage=`url("${M.bg}")`;
             $('brandBg').style.backgroundImage=`url("${M.bg}")`; }
@@ -621,7 +643,7 @@ function paintScan(){
     [M.bd.length,     'Bangladesh photos', 'media/bangladesh/bd-1.jpg …'],
     [M.opening?1:0,   'Opening banner',    'media/slides/opening.png'],
     [M.flags?1:0,     'Flags artwork',     'media/slides/flags.png'],
-    [M.raffle?1:0,    'Raffle draw banner','media/slides/raffle.jpg'],
+    [M.closing?1:0,   'Thank-you slide',   'media/slides/closing.png'],
     [M.extras.length, 'Extra slides',      'media/slides/extra/extra-1.png …'],
     [M.spon.length,   'Sponsor logos',     'media/sponsors/sponsor-1.png …'],
     [M.logo?1:0,      'Logo',              'media/brand/logo.png'],
@@ -738,7 +760,7 @@ let seq=[
   {id:'notice', label:'Notice',         note:'one announcement, big and clear',     dur:12, on:false},
   {id:'music8', label:'Fireworks',      note:'music only — shells going up on the beat',   dur:20, on:true},
   {id:'music6', label:'Neon grid',      note:'music only — a floor running to the horizon', dur:18, on:true},
-  {id:'raffle', label:'Raffle draw',     note:'the raffle draw banner, full screen',  dur:20, on:true},
+  {id:'closing',label:'Thank you',      note:'closing slide, or the coded card',    dur:12, on:true},
 ];
 function missingFor(id){
   switch(id){
@@ -747,10 +769,10 @@ function missingFor(id){
     case 'bd':     return !BD().length;
     case 'spon':   return !SPON().length;
     case 'extras': return !M.extras.length;
+    case 'closing':return false;   // there is a coded card if the file is gone
     case 'prog':   return !progLines().length;
     case 'notice': return !$('tNote').value.trim();
     case 'video':  return !videoList().length;
-    case 'raffle': return !M.raffle;
     // with the moving backgrounds off these would be empty screens
     case 'music3': case 'music4': case 'music5': case 'music6':
     case 'music7': case 'music8': case 'music9':
@@ -878,6 +900,11 @@ function enterText(id){
     });
     stagger([...ul.children],'pr',.45,.1);
   }
+  if(id==='end'){
+    type($('oEndBn'),$('tEndBn').value,300,110);
+    words($('oEndPt'),$('tEndPt').value,1.0,.07);
+    words($('oEndNote'),$('tEndNote').value,1.5,.045);
+  }
   if(id==='notice') type($('oNote'),$('tNote').value,300,42);
 }
 
@@ -957,7 +984,7 @@ const BGSC={music:'scMusic',music2:'scMus2',music3:'scMus3',
             music4:'scMus4',music5:'scMus5',music6:'scMus6',music7:'scMus7',
             music8:'scMus8',music9:'scMus9',
             flagbd:'scFlagBD',flagpt:'scFlagPT'};
-const ALL=['scSlide','scMusic','scMus2','scMus3','scMus4','scMus5','scMus6','scMus7','scMus8','scMus9','scFlagBD','scFlagPT',
+const ALL=['scSlide','scEnd','scMusic','scMus2','scMus3','scMus4','scMus5','scMus6','scMus7','scMus8','scMus9','scFlagBD','scFlagPT',
            'scTitle','scWel','scFlags','scProg','scNote','scSpon'];
 let idx=-1, timers=[], paused=false, curDur=0, cursor={porto:0,bd:0,photos:0};
 function clearT(){ timers.forEach(clearTimeout); timers=[]; }
@@ -1075,8 +1102,8 @@ function run(step){
     });
     M.flags ? slide(M.flags) : textScene('scFlags','flags');
   }
+  else if(s.id==='closing'){ M.closing ? slide(M.closing) : textScene('scEnd','end'); }
   else if(s.id==='video'){ playVideo(); }
-  else if(s.id==='raffle'){ slide(M.raffle); }
   else if(s.id==='extras'){
     const per=Math.max(4000,(s.dur*1000)/M.extras.length);
     slide(M.extras[0]);
@@ -2184,6 +2211,7 @@ function draw(){
   $('flagBd').style.transform=`scale(${1+bass*.09}) rotate(${bass*1.4}deg)`;
   $('flagPt').style.transform=`scale(${1+bass*.09}) rotate(${-bass*1.4}deg)`;
   $('scTitle').style.transform=`scale(${1+bass*.035})`;
+  $('scEnd').style.transform=`scale(${1+bass*.03})`;
   $('slideImg').style.transform=`scale(${1+bass*.018})`;
   const tt=(performance.now()-t0)/1000;
   $('mark').style.transform=`translate(${(Math.sin(tt/37)*1.1).toFixed(2)}vmin,${(Math.sin(tt/53)*.5).toFixed(2)}vmin)`;
