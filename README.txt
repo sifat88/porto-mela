@@ -225,6 +225,52 @@ Where to keep the files:
 If the venue's internet is at all doubtful, use the files on the laptop.
 
 -------------------------------------------------------------------
+THE VIDEO FILES — WHERE THEY ARE, AND HOW BIG
+-------------------------------------------------------------------
+Everything here is a direct link: paste it into a browser and the file
+downloads, or paste it straight into the "Videos" box on the setup page
+and the show plays it.
+
+1. Sponsor film — mynztrip
+   62 MB · 1080 x 1920 (portrait) · 37 seconds
+   https://res.cloudinary.com/dt4zyyppp/video/upload/v1787411605/mynztrip-sponsor-video.mp4
+   Already in the Videos box. Being phone-shaped, it plays whole down
+   the middle of the wall with the festival pattern either side.
+
+2. Abstract VJ tunnel loop (2020)
+   46 MB · 1920 x 1080 · 1 min 21 s
+   https://res.cloudinary.com/dt4zyyppp/video/upload/v1787413572/4K_Abstract_VJ_Tunnel_Motion_Background_2020_Free_Video_Background_Loops_-_Free_Video_Background_loops_1080p_h264_1.mp4
+
+3. Abstract tunnel, neon light
+   45 MB · 1920 x 1080 · 1 min 21 s
+   https://res.cloudinary.com/dt4zyyppp/video/upload/v1787413550/4K_Abstract_Tunnel_VJ_Motion_Background_Neon_Light_Tunnel_Free_VJ_Loops_Free_Video_Background_-_Free_Video_Background_loops_1080p_h264.mp4
+
+4. Red and white rhythm tunnel (VidaVFX)
+   2 MB · 1920 x 1080 · 7 seconds
+   https://res.cloudinary.com/dt4zyyppp/video/upload/v1787413504/Red_White_Strobe_Neon_Rhythm_Tunnel_Background_VJ_Loops_in_4k_-_VidaVFX_1080p_h264.mp4
+   Careful with this one. It is a strobe loop, and seven seconds means
+   it comes round again and again. Fast flashing is not safe for
+   everybody in a crowd — the coded screens in this show deliberately
+   avoid it. If you use it, give it a short slot and leave the room
+   lights up.
+
+5. The stage film — 1800 x 1080, made for this wall
+   667 MB · 1800 x 1080 (exactly 5:3) · 5 min 34 s
+   https://drive.google.com/file/d/1r7k7RwUhsU5gwdkDdy99lGt0Ttu2HdXN/view
+   Download it from that page; a browser cannot play it straight from
+   Google Drive, and it is far too big for GitHub or Netlify. Keep it
+   on the laptop at media/video/wall-1800x1080.mp4 — where it already
+   is on this machine — and write that path in the Videos box. Being
+   5:3, it fills the wall exactly, edge to edge.
+
+Numbers 2, 3 and 4 are 16:9, so on the 5:3 wall the show fills the
+screen and loses a little off the top and bottom.
+
+To use any of them, open the setup page and put the address or the path
+in the "Videos" box, one per line. Each time the Video scene comes round
+it plays the next one on the list.
+
+-------------------------------------------------------------------
 ADDING OR CHANGING PICTURES
 -------------------------------------------------------------------
 Just drop files into the right folder and name them in order.
