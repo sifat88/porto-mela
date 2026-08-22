@@ -140,12 +140,6 @@ kbd{background:rgba(255,244,220,.14);border-radius:4px;padding:1px 6px;font-size
 .chromeoff #lockTop{opacity:0}
 .scene.on{opacity:1}
 
-/* full-screen video — same rules as a designed slide */
-#vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:6;
-  background:transparent;   /* so the pattern shows beside a portrait clip */
-  opacity:0;transition:opacity .6s;pointer-events:none}
-#vid.on{opacity:1}
-
 /* designed full-screen slide — fills the screen edge to edge */
 #scSlide{padding:0;z-index:6}
 #slideBg{position:absolute;inset:0;background-size:cover;background-position:center;
@@ -438,18 +432,6 @@ Bancas de comida abertas até às 22h</textarea>
   </details>
 
   <div class="field">
-    <label>Videos — one address or file path per line, played in turn</label>
-    <textarea class="txt" id="tVideos" rows="3"
-      placeholder="https://res.cloudinary.com/…/clip.mp4&#10;media/video/opening-loop.mp4">https://res.cloudinary.com/dt4zyyppp/video/upload/v1787411605/mynztrip-sponsor-video.mp4</textarea>
-    <label class="filebtn" for="fVid" id="vidBtn" style="margin-top:9px"><b>Or choose a video on this laptop</b> <i>MP4 · MOV · WEBM</i></label>
-    <input type="file" id="fVid" accept="video/*" multiple>
-    <div class="choices" style="margin-top:9px">
-      <button class="choice" id="vidMute" aria-pressed="true">No sound<small>Safe with the room microphone</small></button>
-      <button class="choice" id="vidSound" aria-pressed="false">With sound<small>Plays through the laptop</small></button>
-    </div>
-  </div>
-
-  <div class="field">
     <label>Music source</label>
     <div class="choices">
       <button class="choice" id="srcMic" aria-pressed="true">Room microphone<small>DJ, PA, phone, live band</small></button>
@@ -469,7 +451,6 @@ Bancas de comida abertas até às 22h</textarea>
 <div id="stage" class="hidden">
   <div id="brandBg"></div>
   <canvas id="tunnel"></canvas>
-  <video id="vid" playsinline muted preload="auto"></video>
   <div id="layers"></div>
   <div id="shade"></div>
   <div id="vig"></div>
@@ -662,7 +643,6 @@ function paintScan(){
 /* ---------- manual extras ---------- */
 const up={porto:[],bd:[],spon:[],logo:null};
 let track=null,src='mic',shuffle=false,fx=true,tunMode='neon';
-let vidSound=false, upVideos=[], vidIdx=0;
 const PORTO=()=>M.porto.concat(up.porto), BD=()=>M.bd.concat(up.bd), SPON=()=>M.spon.concat(up.spon);
 const LOGO=()=>up.logo||M.logo;
 function preload(urls){ urls.forEach(u=>{ const i=new Image(); i.src=u; }); }
@@ -684,16 +664,6 @@ $('rescan').onclick=async()=>{ $('rescan').disabled=true; $('rescan').textConten
   await scanFolder(); $('rescan').disabled=false; $('rescan').textContent='Rescan folder'; };
 
 ['srcMic','srcFile','srcNone'].forEach(id=>$(id).onclick=()=>pick(id.slice(3).toLowerCase()));
-/* every video the show knows about: the ones typed in, then any picked
-   off this laptop */
-function videoList(){
-  return $('tVideos').value.split('\n').map(v=>v.trim()).filter(Boolean).concat(upVideos);
-}
-$('tVideos').addEventListener('input',build);
-$('fVid').onchange=e=>{ upVideos=U(e.target.files); build();
-  $('vidBtn').innerHTML='<b>'+e.target.files.length+' video'+(e.target.files.length>1?'s':'')+' ready</b> <i>from this laptop</i>'; };
-pair('vidMute','vidSound',v=>{ vidSound=!v; $('vidMute').setAttribute('aria-pressed',v); $('vidSound').setAttribute('aria-pressed',!v); });
-
 function pick(s){ src=s;
   $('srcMic').setAttribute('aria-pressed',s==='mic');
   $('srcFile').setAttribute('aria-pressed',s==='file');
@@ -747,7 +717,6 @@ let seq=[
   {id:'music',  label:'Music screen',   note:'logo in the middle, laser tunnel, Bengali title', dur:24, on:true},
   {id:'music2', label:'Second screen',  note:'logo and your own line, on the colour field', dur:18, on:true},
   {id:'music3', label:'Music only',     note:'background loop alone — no logo, no words', dur:20, on:true},
-  {id:'video',  label:'Video',          note:'full screen, from the list on the setup page', dur:30, on:true},
   {id:'prog',   label:'Programme',      note:'tonight’s running order',             dur:24, on:true},
   {id:'music7', label:'Laser show',     note:'music only — a tunnel of lit tiles, full screen',  dur:20, on:true},
   {id:'music9', label:'Liquid',         note:'music only — mirrored colour flowing over the screen', dur:18, on:true},
@@ -772,7 +741,6 @@ function missingFor(id){
     case 'closing':return false;   // there is a coded card if the file is gone
     case 'prog':   return !progLines().length;
     case 'notice': return !$('tNote').value.trim();
-    case 'video':  return !videoList().length;
     // with the moving backgrounds off these would be empty screens
     case 'music3': case 'music4': case 'music5': case 'music6':
     case 'music7': case 'music8': case 'music9':
@@ -988,8 +956,7 @@ const ALL=['scSlide','scEnd','scMusic','scMus2','scMus3','scMus4','scMus5','scMu
            'scTitle','scWel','scFlags','scProg','scNote','scSpon'];
 let idx=-1, timers=[], paused=false, curDur=0, cursor={porto:0,bd:0,photos:0};
 function clearT(){ timers.forEach(clearTimeout); timers=[]; }
-function allOff(){ ALL.forEach(s=>$(s).classList.remove('on'));
-  const v=$('vid'); v.classList.remove('on'); v.onended=null; try{ v.pause(); }catch(e){} }
+function allOff(){ ALL.forEach(s=>$(s).classList.remove('on')); }
 function playable(){ return seq.filter(s=>s.on && !missingFor(s.id)); }
 function shuffled(a){ const b=a.slice();
   for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];} return b; }
@@ -1036,39 +1003,6 @@ function fitSlide(){
 }
 $('slideImg').addEventListener('load',fitSlide);
 addEventListener('resize',fitSlide);
-/* A video fills the screen the way a designed slide does. If it is a very
-   different shape from the screen we show the whole frame rather than
-   cropping the sides off it. */
-function fitVideo(){
-  const v=$('vid');
-  if(!v.videoWidth||!v.videoHeight) return;
-  const art=v.videoWidth/v.videoHeight, screen=innerWidth/innerHeight;
-  const whole=Math.abs(screen-art)/art>0.12;
-  v.style.objectFit = whole ? 'contain' : 'cover';
-  // a portrait clip on a wide screen leaves a lot of black either side —
-  // put the festival pattern behind it rather than a black void
-  if(M.bg) $('brandBg').classList.toggle('on', whole && curId==='video');
-}
-$('vid').addEventListener('loadedmetadata',fitVideo);
-addEventListener('resize',fitVideo);
-function playVideo(){
-  clearImages(); look('slide');
-  const list=videoList(); if(!list.length) return;
-  const v=$('vid'), url=list[vidIdx%list.length]; vidIdx++;
-  v.muted=!vidSound; v.loop=false;
-  if(v.src!==url){ v.src=url; }
-  try{ v.currentTime=0; }catch(e){}
-  fitVideo();
-  const go=v.play();
-  if(go && go.catch) go.catch(()=>{ v.muted=true; v.play().catch(()=>{}); });
-  timers.push(setTimeout(()=>$('vid').classList.add('on'),200));
-  // if the clip is shorter than the time set for the scene, move on when
-  // it finishes rather than sitting on a frozen last frame
-  v.onended=()=>{ if(curId==='video' && !paused) run(1); };
-  // a clip that will not load must not leave the wall black for 30 seconds
-  v.onerror=()=>{ if(curId==='video' && !paused) run(1); };
-}
-
 function slide(url){
   clearImages(); $('slideImg').src=url;
   look('slide'); fitSlide();
@@ -1103,7 +1037,6 @@ function run(step){
     M.flags ? slide(M.flags) : textScene('scFlags','flags');
   }
   else if(s.id==='closing'){ M.closing ? slide(M.closing) : textScene('scEnd','end'); }
-  else if(s.id==='video'){ playVideo(); }
   else if(s.id==='extras'){
     const per=Math.max(4000,(s.dur*1000)/M.extras.length);
     slide(M.extras[0]);
@@ -2244,7 +2177,6 @@ function toSetup(){
   $('go').disabled=false; $('go').textContent='Start show';
   document.body.style.cursor='default';
   if(audioEl) audioEl.pause();
-  try{ $('vid').pause(); $('vid').classList.remove('on'); }catch(e){}
   if(ac && ac.state==='running') ac.suspend();
   if(document.fullscreenElement) document.exitFullscreen().catch(()=>{});
 }

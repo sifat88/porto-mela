@@ -76,6 +76,10 @@ Fireworks        music only — shells going up on the beat and breaking
                  rings and long willows; a loud kick sends up a big one.
 Neon grid        music only — a floor running away to the horizon, a
                  banded sun sitting on it
+Video            a film, full screen. The addresses go in the "Videos"
+                 box on the setup page, one per line, and each visit to
+                 this scene plays the next one in the list. You can also
+                 press the button there and pick a file off the laptop.
 Programme        the timetable, lines sliding in one by one
 Extra slides     anything in media/slides/extra
 Sponsors         logos jumping on the beat (skipped if the folder is empty)
@@ -183,6 +187,39 @@ its tint from whichever preset is up.
 The music screen and the second screen are not affected: they keep the
 festival's own colours so the logo and the lettering always sit right.
 Those two follow "Moving backgrounds" as before.
+
+-------------------------------------------------------------------
+VIDEO
+-------------------------------------------------------------------
+Put an address or a file path in the "Videos" box on the setup page,
+one per line. Each time the Video scene comes round it plays the next
+one, so a list of three clips gives you three different videos through
+the evening. If a clip is shorter than the seconds set for the scene the
+show moves on as soon as it ends, and if one will not load it is skipped
+rather than leaving the wall black.
+
+Sound is off by default — with the room microphone listening, a video
+playing through the laptop speakers would feed back into the bars. Turn
+it on with "With sound" if the laptop is plugged into the PA.
+
+A film the same shape as the screen fills it edge to edge. A phone-shaped
+(portrait) clip is shown whole, with the festival pattern either side
+rather than black.
+
+Where to keep the files:
+
+  On the laptop   the surest way at a venue — no network needed. Keep
+                  them in media/video/ and write, for example,
+                  media/video/wall-1800x1080.mp4 in the box. That folder
+                  is deliberately kept out of git; video files are far
+                  too big for it.
+
+  On the web      any direct address works — the Cloudinary one is
+                  already in the box. Netlify will not hold files this
+                  size either, so hosting them somewhere like Cloudinary
+                  is the right call.
+
+If the venue's internet is at all doubtful, use the files on the laptop.
 
 -------------------------------------------------------------------
 ADDING OR CHANGING PICTURES

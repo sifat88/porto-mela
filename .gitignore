@@ -3,3 +3,7 @@
 
 # the big sponsor video — not used by the show, too large for a plain git repo
 mynztrip-sponsor-video.mp4
+
+# videos live outside git — too large. Keep them in media/video/ locally,
+# or host them (Cloudinary etc.) and put the address in the Videos box.
+media/video/
